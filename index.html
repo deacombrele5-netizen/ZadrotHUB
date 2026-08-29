@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZadrotHUB</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #090a0f;
+            --bg-card: #0e101a;
+            --border-glow: #8b5cf6;
+            --accent: #8b5cf6;
+            --accent-secondary: #39ff14;
+            --text-primary: #eaeef5;
+            --text-dim: #8a8fa8;
+            --shadow-glow: rgba(139, 92, 246, 0.25);
+            --badge-color: #39ff14;
+            --backdrop-blur: 0px;
+            --container-bg: var(--bg-card);
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+            transition: background 0.3s ease;
+        }
+
+        .app-container {
+            max-width: 1400px;
+            width: 100%;
+            background: var(--container-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: 36px;
+            padding: 24px 30px 32px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 30px var(--shadow-glow);
+            backdrop-filter: blur(var(--backdrop-blur));
+            transition: border-color 0.3s, box-shadow 0.3s, background 0.3s, backdrop-filter 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-container::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background-image: 
+                linear-gradient(rgba(139,92,246,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(139,92,246,0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 0;
+        }
+
+        .app-container.grid-backdrop::before {
+            opacity: 1;
+        }
+
+        .app-container.pixel-backdrop {
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxyZWN0IHdpZHRoPSI4IiBoZWlnaHQ9IjgiIGZpbGw9IiMwZTEwMWEiLz48cGF0aCBkPSJNMCAwaDh2OEgweiIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik00IDBoMXYxSDR6TTAgNGgxdjFIMHoiIGZpbGw9IiMxYzFmMzAiIG9wYWNpdHk9IjAuMSIvPjwvc3ZnPg==');
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.15);
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .nav-tab {
+            background: transparent;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            color: #b0b0c0;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            font-size: 0.8rem;
+            padding: 8px 18px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            background: rgba(139, 92, 246, 0.02);
+            text-transform: uppercase;
+            text-shadow: 0 0 5px transparent;
+            pointer-events: auto;
+            user-select: none;
+        }
+
+        .nav-tab:hover {
+            border-color: var(--accent);
+            color: #d4caff;
+            background: rgba(139, 92, 246, 0.07);
+            box-shadow: 0 0 18px var(--shadow-glow);
+            text-shadow: 0 0 8px var(--accent);
+        }
+
+        .nav-tab.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+            box-shadow: 0 0 30px var(--shadow-glow);
+            text-shadow: 0 0 12px rgba(255,255,255,0.3);
+        }
+
+        .profile-badge {
+            background: rgba(139, 92, 246, 0.12);
+            border: 1px solid var(--badge-color);
+            color: var(--badge-color);
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: 0.8rem;
+            padding: 6px 20px;
+            border-radius: 40px;
+            letter-spacing: 1.5px;
+            text-shadow: 0 0 12px rgba(57, 255, 20, 0.4);
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.08);
+            white-space: nowrap;
+            display: inline-block;
+            transition: border-color 0.3s, color 0.3s, box-shadow 0.3s;
+            position: relative;
+            z-index: 2;
+        }
+
+        .badge-hidden { display: none; }
+
+        .screen {
+            display: none;
+            animation: fadeIn 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .screen.active { display: block; }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        h2, h3 {
+            font-family: 'Orbitron', monospace;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #d0c0ff;
+            text-shadow: 0 0 12px var(--shadow-glow);
+            margin-bottom: 20px;
+            transition: color 0.2s, text-shadow 0.2s;
+        }
+
+        .neon-input {
+            background: #12161f;
+            border: 1px solid #2a2e3f;
+            border-radius: 40px;
+            padding: 14px 22px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            color: #eaeef5;
+            width: 100%;
+            max-width: 340px;
+            transition: 0.3s ease;
+            outline: none;
+        }
+
+        .neon-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 25px var(--shadow-glow);
+        }
+
+        .btn-neon {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: #c8b8ff;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            padding: 12px 30px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            background: rgba(139, 92, 246, 0.02);
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 5px transparent;
+            pointer-events: auto;
+            user-select: none;
+        }
+
+        .btn-neon:hover {
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 0 40px var(--shadow-glow);
+            text-shadow: 0 0 10px rgba(255,255,255,0.2);
+        }
+
+        .btn-green {
+            border-color: var(--accent-secondary);
+            color: #b0ffa0;
+        }
+
+        .btn-green:hover {
+            background: var(--accent-secondary);
+            color: #090a0f;
+            box-shadow: 0 0 40px rgba(57, 255, 20, 0.25);
+        }
+
+        .btn-danger {
+            border-color: #ff4060;
+            color: #ff8090;
+        }
+
+        .btn-danger:hover {
+            background: #ff4060;
+            color: #fff;
+            box-shadow: 0 0 40px rgba(255, 64, 96, 0.25);
+        }
+
+        .profile-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-width: 400px;
+        }
+
+        .profile-welcome {
+            background: rgba(139, 92, 246, 0.04);
+            border-left: 4px solid var(--accent);
+            padding: 20px 28px;
+            border-radius: 16px;
+            box-shadow: 0 0 20px rgba(139,92,246,0.05);
+        }
+
+        .profile-welcome h3 { margin-bottom: 8px; font-size: 1.6rem; }
+
+        .weather-card {
+            background: #0d101a;
+            border: 1px solid #1f2538;
+            border-radius: 28px;
+            padding: 28px 36px;
+            max-width: 460px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        }
+
+        .click-zone {
+            background: #12161f;
+            border: 2px solid var(--accent-secondary);
+            border-radius: 40px;
+            padding: 44px 36px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            max-width: 420px;
+            margin: 10px 0;
+            box-shadow: 0 0 40px rgba(57, 255, 20, 0.04);
+            user-select: none;
+        }
+
+        .click-zone:active {
+            transform: scale(0.96);
+            background: #1a1f2e;
+            box-shadow: 0 0 60px rgba(57, 255, 20, 0.1);
+        }
+
+        .click-zone h3 {
+            font-size: 2.6rem;
+            color: var(--accent-secondary);
+            text-shadow: 0 0 40px rgba(57, 255, 20, 0.2);
+            pointer-events: none;
+        }
+
+        .stats-grid {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 16px 0;
+        }
+
+        .stat-item {
+            background: #0d101a;
+            border-radius: 40px;
+            padding: 8px 26px;
+            border: 1px solid #2a2e42;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .stopwatch-display {
+            font-family: 'Orbitron', monospace;
+            font-size: 3.8rem;
+            letter-spacing: 6px;
+            background: #0b0d14;
+            padding: 16px 32px;
+            border-radius: 60px;
+            border: 1px solid #2f354a;
+            display: inline-block;
+            color: #b8d0ff;
+            text-shadow: 0 0 30px var(--shadow-glow);
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.5);
+        }
+
+        .timer-inputs {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .timer-inputs input {
+            width: 100px;
+            background: #0d101a;
+            border: 1px solid #2f354a;
+            border-radius: 40px;
+            padding: 12px 16px;
+            color: #fff;
+            font-size: 1.4rem;
+            text-align: center;
+            font-family: 'Orbitron', monospace;
+        }
+
+        .flex-row {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .mt-20 { margin-top: 20px; }
+        .mb-12 { margin-bottom: 12px; }
+
+        .theme-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-bottom: 30px;
+        }
+
+        .theme-btn {
+            background: #0d101a;
+            border: 1px solid #2f354a;
+            border-radius: 40px;
+            padding: 10px 26px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #c0c8e0;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+        }
+
+        .theme-btn:hover {
+            border-color: var(--accent);
+            background: #181e2b;
+            box-shadow: 0 0 20px var(--shadow-glow);
+            color: #fff;
+        }
+
+        .settings-group {
+            background: #0b0d14;
+            border-radius: 28px;
+            padding: 24px 30px;
+            border: 1px solid #1f2538;
+            margin-bottom: 24px;
+        }
+
+        .settings-group h4 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            color: #b0b8d0;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+
+        .checkbox-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 8px 0;
+            font-family: 'Inter', sans-serif;
+            color: #b8c0d8;
+        }
+
+        .checkbox-row input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--accent);
+            cursor: pointer;
+        }
+
+        .backdrop-selector {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .backdrop-btn {
+            background: #0d101a;
+            border: 1px solid #2a2e42;
+            border-radius: 30px;
+            padding: 8px 20px;
+            color: #b0b8d0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .backdrop-btn:hover {
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        .backdrop-btn.active-backdrop {
+            border-color: var(--accent);
+            background: rgba(139,92,246,0.1);
+            color: #fff;
+        }
+
+        .tools-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .tools-grid > div {
+            flex: 1 1 300px;
+        }
+
+        @media (max-width: 768px) {
+            .app-container { padding: 16px; }
+            .top-bar { flex-direction: column; align-items: stretch; }
+            .stopwatch-display { font-size: 2.6rem; padding: 12px 20px; }
+        }
+    </style>
+</head>
+<body>
+<div class="app-container" id="appContainer">
+    <div class="top-bar">
+        <div class="nav-tabs">
+            <button class="nav-tab active" data-screen="profile">ПРОФИЛЬ</button>
+            <button class="nav-tab" data-screen="clicker">КЛИК-ТЕСТ</button>
+            <button class="nav-tab" data-screen="weather">ПОГОДА</button>
+            <button class="nav-tab" data-screen="timetools">СЕКУНДОМЕР & ТАЙМЕР</button>
+            <button class="nav-tab" data-screen="settings">НАСТРОЙКИ</button>
+        </div>
+        <div class="profile-badge badge-hidden" id="nickBadge">ZADROT</div>
+    </div>
+
+    <!-- ПРОФИЛЬ -->
+    <div id="screen-profile" class="screen active">
+        <h2>⚡ ПРОФИЛЬ</h2>
+        <div id="profileContainer">
+            <div id="profileFormWrapper">
+                <div class="profile-form">
+                    <input class="neon-input" id="nickInput" placeholder="Никнейм" value="">
+                    <input class="neon-input" id="cityInput" placeholder="Город" value="">
+                    <div class="flex-row">
+                        <button class="btn-neon" id="createProfileBtn" type="button">Создать профиль</button>
+                        <button class="btn-neon btn-danger" id="resetProfileBtn" type="button">Сбросить профиль</button>
+                    </div>
+                </div>
+            </div>
+            <div id="profileWelcomeWrapper" style="display:none;">
+                <div class="profile-welcome">
+                    <h3 id="welcomeMsg">ДОБРО ПОЖАЛОВАТЬ В ZADROTHUB, NICK!</h3>
+                    <p style="color:#b0b8d0; font-size:1.2rem;"><span style="color:var(--accent);">🏙️</span> <span id="cityDisplay">Город</span></p>
+                    <p style="color:#6a7a9a; font-size:0.9rem; margin-top:6px;">✅ профиль активен</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- КЛИК-ТЕСТ -->
+    <div id="screen-clicker" class="screen">
+        <h2>🖱️ КЛИК-ТЕСТ</h2>
+        <div class="flex-row mb-12">
+            <button class="btn-neon" data-duration="1" type="button">1 сек</button>
+            <button class="btn-neon" data-duration="5" type="button">5 сек</button>
+            <button class="btn-neon" data-duration="10" type="button">10 сек</button>
+            <button class="btn-neon" data-duration="60" type="button">60 сек</button>
+        </div>
+        <div class="click-zone" id="clickZone">
+            <h3>ЖМИ СЮДА!</h3>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-item">Клики: <span id="clickCount">0</span></div>
+            <div class="stat-item">Время: <span id="elapsedTime">0.0</span>с</div>
+            <div class="stat-item">CPS: <span id="cpsDisplay">0.00</span></div>
+            <div class="stat-item">Ранг: <span id="rankDisplay">—</span></div>
+        </div>
+        <div id="clickTimerDisplay" style="font-family:'Orbitron'; color:var(--accent); font-size:1.2rem;">⏱️ 0.0s</div>
+    </div>
+
+    <!-- ПОГОДА -->
+    <div id="screen-weather" class="screen">
+        <h2>🌦️ ПОГОДА ЗА ОКНОМ</h2>
+        <div class="weather-card" id="weatherCard">
+            <div style="font-size:2.6rem; margin-bottom:8px;" id="weatherEmoji">☁️</div>
+            <div style="font-size:1.8rem; font-weight:600;" id="weatherTemp">-- °C</div>
+            <div style="color:#8a9abb; margin-top:4px;" id="weatherCity">город не задан</div>
+            <button class="btn-neon btn-green mt-20" id="refreshWeatherBtn" type="button">Обновить</button>
+        </div>
+    </div>
+
+    <!-- СЕКУНДОМЕР & ТАЙМЕР -->
+    <div id="screen-timetools" class="screen">
+        <h2>⏱️ СЕКУНДОМЕР & ТАЙМЕР</h2>
+        <div class="tools-grid">
+            <div>
+                <h3 style="font-size:1.2rem;">⏱️ Секундомер</h3>
+                <div class="stopwatch-display" id="stopwatchDisplay">00:00:00.00</div>
+                <div class="flex-row mt-20">
+                    <button class="btn-neon" id="swStartPause" type="button">СТАРТ</button>
+                    <button class="btn-neon btn-danger" id="swReset" type="button">СБРОС</button>
+                </div>
+            </div>
+            <div>
+                <h3 style="font-size:1.2rem;">⏳ Таймер</h3>
+                <div class="timer-inputs">
+                    <input type="number" id="timerMinutes" min="0" value="0" step="1"> мин
+                    <input type="number" id="timerSeconds" min="0" max="59" value="10" step="1"> сек
+                </div>
+                <div class="stopwatch-display" style="font-size:2.8rem; margin:16px 0;" id="timerDisplay">00:00</div>
+                <div class="flex-row">
+                    <button class="btn-neon" id="timerStartPause" type="button">СТАРТ</button>
+                    <button class="btn-neon btn-danger" id="timerReset" type="button">СБРОС</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- НАСТРОЙКИ -->
+    <div id="screen-settings" class="screen">
+        <h2>🎨 КАСТОМИЗАЦИЯ ТЕМЫ</h2>
+        <div class="settings-group">
+            <h4>Цветовые темы (10 пресетов)</h4>
+            <div class="theme-grid" id="themeGrid">
+                <button class="theme-btn" data-theme="cyber" type="button">Киберпанк</button>
+                <button class="theme-btn" data-theme="razer" type="button">Токсичный Razer</button>
+                <button class="theme-btn" data-theme="asus" type="button">Пламя ASUS</button>
+                <button class="theme-btn" data-theme="ice" type="button">Лед и Неон</button>
+                <button class="theme-btn" data-theme="matrix" type="button">Матрица</button>
+                <button class="theme-btn" data-theme="quartz" type="button">Кварц</button>
+                <button class="theme-btn" data-theme="volcano" type="button">Вулкан</button>
+                <button class="theme-btn" data-theme="night" type="button">Темная Ночь</button>
+                <button class="theme-btn" data-theme="gold" type="button">Золото Задрота</button>
+                <button class="theme-btn" data-theme="space" type="button">Космос</button>
+            </div>
+        </div>
+
+        <div class="settings-group">
+            <h4>Стиль фона</h4>
+            <div class="backdrop-selector">
+                <button class="backdrop-btn active-backdrop" data-backdrop="dark" type="button">Глубокий черный</button>
+                <button class="backdrop-btn" data-backdrop="grid" type="button">Игровая Сетка</button>
+                <button class="backdrop-btn" data-backdrop="pixel" type="button">Ретро Пиксельная Текстура</button>
+            </div>
+        </div>
+
+        <div class="settings-group">
+            <h4>Визуальные эффекты</h4>
+            <div class="checkbox-row">
+                <input type="checkbox" id="blurToggle" checked>
+                <label for="blurToggle">Включить размытие (Blur эффекты)</label>
+            </div>
+            <div class="checkbox-row">
+                <input type="checkbox" id="glowToggle" checked>
+                <label for="glowToggle">Неоновое свечение (Neon Glow)</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function(){
+        "use strict";
+
+        // Получение элементов DOM
+        var profileScreen = document.getElementById('screen-profile');
+        var clickerScreen = document.getElementById('screen-clicker');
+        var weatherScreen = document.getElementById('screen-weather');
+        var timetoolsScreen = document.getElementById('screen-timetools');
+        var settingsScreen = document.getElementById('screen-settings');
+        var navTabs = document.querySelectorAll('.nav-tab');
+        var nickBadge = document.getElementById('nickBadge');
+
+        // Профиль
+        var nickInput = document.getElementById('nickInput');
+        var cityInput = document.getElementById('cityInput');
+        var createProfileBtn = document.getElementById('createProfileBtn');
+        var resetProfileBtn = document.getElementById('resetProfileBtn');
+        var profileFormWrapper = document.getElementById('profileFormWrapper');
+        var profileWelcomeWrapper = document.getElementById('profileWelcomeWrapper');
+        var welcomeMessage = document.getElementById('welcomeMsg');
+        var cityDisplaySpan = document.getElementById('cityDisplay');
+
+        // Клик-тест
+        var clickZone = document.getElementById('clickZone');
+        var clickCountSpan = document.getElementById('clickCount');
+        var elapsedTimeSpan = document.getElementById('elapsedTime');
+        var cpsDisplaySpan = document.getElementById('cpsDisplay');
+        var rankDisplaySpan = document.getElementById('rankDisplay');
+        var clickTimerDisplaySpan = document.getElementById('clickTimerDisplay');
+        var durationButtons = document.querySelectorAll('[data-duration]');
+
+        // Погода
+        var weatherEmojiSpan = document.getElementById('weatherEmoji');
+        var weatherTempSpan = document.getElementById('weatherTemp');
+        var weatherCitySpan = document.getElementById('weatherCity');
+        var refreshWeatherButton = document.getElementById('refreshWeatherBtn');
+
+        // Секундомер
+        var stopwatchDisplay = document.getElementById('stopwatchDisplay');
+        var swStartPauseBtn = document.getElementById('swStartPause');
+        var swResetBtn = document.getElementById('swReset');
+
+        // Таймер
+        var timerMinutesInput = document.getElementById('timerMinutes');
+        var timerSecondsInput = document.getElementById('timerSeconds');
+        var timerDisplaySpan = document.getElementById('timerDisplay');
+        var timerStartPauseBtn = document.getElementById('timerStartPause');
+        var timerResetBtn = document.getElementById('timerReset');
+
+        // Настройки
+        var themeButtons = document.querySelectorAll('.theme-btn');
+        var backdropButtons = document.querySelectorAll('.backdrop-btn');
+        var blurCheckbox = document.getElementById('blurToggle');
+        var glowCheckbox = document.getElementById('glowToggle');
+        var appContainerDiv = document.getElementById('appContainer');
+
+        // ----- СОСТОЯНИЯ -----
+        var profileData = { nick: '', city: '' };
+        var clickCounter = 0;
+        var clickActive = false;
+        var clickTimerInterval = null;
+        var clickStartTimestamp = 0;
+
+        // Секундомер
+        var stopwatchRunning = false;
+        var stopwatchTime = 0;
+        var stopwatchInterval = null;
+        var stopwatchStartTime = 0;
+
+        // Таймер
+        var timerRunning = false;
+        var timerRemainingSeconds = 0;
+        var timerInterval = null;
+
+        // ----- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ -----
+        function formatTime(ms) {
+            var minutes = Math.floor(ms / 60000);
+            var seconds = Math.floor((ms % 60000) / 1000);
+            var centiseconds = Math.floor((ms % 1000) / 10);
+            return String(minutes).padStart(2,'0') + ':' + String(seconds).padStart(2,'0') + ':' + String(centiseconds).padStart(2,'0');
+        }
+
+        function formatTimerDisplay(sec) {
+            var minutes = Math.floor(sec / 60);
+            var seconds = Math.floor(sec % 60);
+            return String(minutes).padStart(2,'0') + ':' + String(seconds).padStart(2,'0');
+        }
+
+        function getCPSRank(cps) {
+            if (cps < 3) return 'Нуб 🐌';
+            if (cps < 5) return 'Слабак ❌';
+            if (cps < 7) return 'Новичок ⚔️';
+            if (cps < 9) return 'Игрок 🛡️';
+            if (cps < 11) return 'Любитель 🔥';
+            if (cps < 13) return 'Опытный ⚡';
+            if (cps < 15) return 'Профи 🎯';
+            if (cps < 18) return 'Мастер 🏆';
+            if (cps < 20) return 'Киберспортсмен 👾';
+            return 'БОГ КЛИКА / ЧИТЕР 🤖';
+        }
+
+        // ----- ПРОФИЛЬ -----
+        function loadProfileFromStorage() {
+            var storedData = localStorage.getItem('zadrot_profile');
+            if (storedData) {
+                try {
+                    var parsed = JSON.parse(storedData);
+                    profileData.nick = parsed.nick || '';
+                    profileData.city = parsed.city || '';
+                } catch(e) {
+                    profileData = { nick: '', city: '' };
+                }
+            } else {
+                profileData = { nick: '', city: '' };
+            }
+            updateProfileUI();
+        }
+
+        function updateProfileUI() {
+            if (profileData.nick && profileData.nick.trim() !== '') {
+                profileFormWrapper.style.display = 'none';
+                profileWelcomeWrapper.style.display = 'block';
+                welcomeMessage.textContent = 'ДОБРО ПОЖАЛОВАТЬ В ZADROTHUB, ' + profileData.nick.toUpperCase() + '!';
+                cityDisplaySpan.textContent = profileData.city || 'не указан';
+                nickBadge.textContent = profileData.nick.toUpperCase();
+                nickBadge.classList.remove('badge-hidden');
+                fetchWeatherData();
+            } else {
+                profileFormWrapper.style.display = 'block';
+                profileWelcomeWrapper.style.display = 'none';
+                nickBadge.classList.add('badge-hidden');
+                nickInput.value = '';
+                cityInput.value = '';
+            }
+        }
+
+        function saveProfileToStorage(nick, city) {
+            profileData.nick = nick.trim();
+            profileData.city = city.trim();
+            localStorage.setItem('zadrot_profile', JSON.stringify(profileData));
+            updateProfileUI();
+        }
+
+        function resetProfileData() {
+            localStorage.removeItem('zadrot_profile');
+            profileData = { nick: '', city: '' };
+            updateProfileUI();
+        }
+
+        // ----- ПОГОДА -----
+        async function fetchWeatherData() {
+            var cityName = profileData.city || 'Москва';
+            weatherCitySpan.textContent = '📍 ' + cityName;
+            try {
+                var geoResponse = await fetch('https://geocoding-api.open-meteo.com/v1/search?name=' + encodeURIComponent(cityName) + '&count=1&language=ru&format=json');
+                var geoData = await geoResponse.json();
+                if (!geoData.results || geoData.results.length === 0) {
+                    weatherTempSpan.textContent = '-- °C';
+                    weatherEmojiSpan.textContent = '❓';
+                    return;
+                }
+                var latitude = geoData.results[0].latitude;
+                var longitude = geoData.results[0].longitude;
+                var weatherResponse = await fetch('https://api.open-meteo.com/v1/forecast?latitude=' + latitude + '&longitude=' + longitude + '&current_weather=true&timezone=auto');
+                var weatherData = await weatherResponse.json();
+                if (weatherData.current_weather) {
+                    var temperature = weatherData.current_weather.temperature;
+                    var weatherCode = weatherData.current_weather.weathercode;
+                    weatherTempSpan.textContent = temperature + ' °C';
+                    var emoji = '☀️';
+                    if (weatherCode >= 0 && weatherCode <= 3) emoji = '☀️';
+                    else if (weatherCode <= 20) emoji = '⛅';
+                    else if (weatherCode <= 30) emoji = '☁️';
+                    else if (weatherCode <= 40) emoji = '🌫️';
+                    else if (weatherCode <= 50) emoji = '🌧️';
+                    else if (weatherCode <= 60) emoji = '🌧️';
+                    else if (weatherCode <= 70) emoji = '❄️';
+                    else if (weatherCode <= 80) emoji = '🌧️';
+                    else if (weatherCode <= 99) emoji = '⛈️';
+                    weatherEmojiSpan.textContent = emoji;
+                } else {
+                    weatherTempSpan.textContent = '-- °C';
+                    weatherEmojiSpan.textContent = '❓';
+                }
+            } catch(error) {
+                weatherTempSpan.textContent = '—';
+                weatherEmojiSpan.textContent = '⚠️';
+            }
+        }
+
+        // ----- КЛИК-ТЕСТ -----
+        function startClickTest(duration) {
+            if (clickTimerInterval) clearInterval(clickTimerInterval);
+            clickCounter = 0;
+            clickCountSpan.textContent = '0';
+            cpsDisplaySpan.textContent = '0.00';
+            rankDisplaySpan.textContent = '—';
+            elapsedTimeSpan.textContent = '0.0';
+            clickActive = true;
+            clickStartTimestamp = performance.now();
+            clickTimerDisplaySpan.textContent = '⏱️ ' + duration + '.0s';
+            clickZone.style.borderColor = '#39ff14';
+
+            var remainingTime = duration;
+            clickTimerInterval = setInterval(function() {
+                remainingTime -= 0.1;
+                if (remainingTime <= 0) {
+                    clearInterval(clickTimerInterval);
+                    clickTimerInterval = null;
+                    clickActive = false;
+                    clickTimerDisplaySpan.textContent = '⏱️ 0.0s';
+                    var elapsedSeconds = (performance.now() - clickStartTimestamp) / 1000;
+                    var cps = elapsedSeconds > 0 ? clickCounter / elapsedSeconds : 0;
+                    cpsDisplaySpan.textContent = cps.toFixed(2);
+                    rankDisplaySpan.textContent = getCPSRank(cps);
+                    elapsedTimeSpan.textContent = elapsedSeconds.toFixed(1);
+                    clickZone.style.borderColor = 'var(--accent-secondary)';
+                } else {
+                    clickTimerDisplaySpan.textContent = '⏱️ ' + remainingTime.toFixed(1) + 's';
+                    var elapsedSeconds2 = (performance.now() - clickStartTimestamp) / 1000;
+                    if (elapsedSeconds2 > 0) {
+                        var cps2 = clickCounter / elapsedSeconds2;
+                        cpsDisplaySpan.textContent = cps2.toFixed(2);
+                        rankDisplaySpan.textContent = getCPSRank(cps2);
+                        elapsedTimeSpan.textContent = elapsedSeconds2.toFixed(1);
+                    }
+                }
+            }, 100);
+        }
+
+        // ----- СЕКУНДОМЕР -----
+        function updateStopwatchDisplay() {
+            stopwatchDisplay.textContent = formatTime(stopwatchTime);
+        }
+
+        function stopwatchTick() {
+            stopwatchTime = performance.now() - stopwatchStartTime;
+            updateStopwatchDisplay();
+        }
+
+        function startStopwatch() {
+            if (stopwatchRunning) return;
+            stopwatchRunning = true;
+            swStartPauseBtn.textContent = 'ПАУЗА';
+            stopwatchStartTime = performance.now() - stopwatchTime;
+            stopwatchInterval = setInterval(stopwatchTick, 20);
+        }
+
+        function pauseStopwatch() {
+            if (!stopwatchRunning) return;
+            stopwatchRunning = false;
+            swStartPauseBtn.textContent = 'СТАРТ';
+            if (stopwatchInterval) { clearInterval(stopwatchInterval); stopwatchInterval = null; }
+        }
+
+        function resetStopwatch() {
+            pauseStopwatch();
+            stopwatchTime = 0;
+            updateStopwatchDisplay();
+            swStartPauseBtn.textContent = 'СТАРТ';
+        }
+
+        // ----- ТАЙМЕР -----
+        function timerTick() {
+            if (timerRemainingSeconds <= 0) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                timerRunning = false;
+                timerStartPauseBtn.textContent = 'СТАРТ';
+                timerDisplaySpan.textContent = '00:00';
+                alert('⏰ Время вышло!');
+                playBeepSound();
+                return;
+            }
+            timerRemainingSeconds--;
+            timerDisplaySpan.textContent = formatTimerDisplay(timerRemainingSeconds);
+        }
+
+        function playBeepSound() {
+            try {
+                var audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                var oscillator = audioContext.createOscillator();
+                var gainNode = audioContext.createGain();
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                oscillator.frequency.value = 880;
+                oscillator.type = 'sine';
+                gainNode.gain.value = 0.3;
+                oscillator.start();
+                oscillator.stop(audioContext.currentTime + 0.3);
+            } catch(e) {}
+        }
+
+        function startTimer() {
+            if (timerRunning) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                timerRunning = false;
+                timerStartPauseBtn.textContent = 'СТАРТ';
+                return;
+            }
+            if (timerRemainingSeconds <= 0) {
+                var mins = parseInt(timerMinutesInput.value) || 0;
+                var secs = parseInt(timerSecondsInput.value) || 0;
+                timerRemainingSeconds = mins * 60 + secs;
+                if (timerRemainingSeconds <= 0) { timerRemainingSeconds = 10; timerSecondsInput.value = 10; }
+                timerDisplaySpan.textContent = formatTimerDisplay(timerRemainingSeconds);
+            }
+            timerRunning = true;
+            timerStartPauseBtn.textContent = 'ПАУЗА';
+            timerInterval = setInterval(timerTick, 1000);
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            timerRunning = false;
+            timerStartPauseBtn.textContent = 'СТАРТ';
+            var mins = parseInt(timerMinutesInput.value) || 0;
+            var secs = parseInt(timerSecondsInput.value) || 0;
+            timerRemainingSeconds = mins * 60 + secs;
+            if (timerRemainingSeconds <= 0) { timerRemainingSeconds = 10; timerSecondsInput.value = 10; }
+            timerDisplaySpan.textContent = formatTimerDisplay(timerRemainingSeconds);
+        }
+
+        // ----- НАСТРОЙКИ: ТЕМЫ -----
+        function applyTheme(theme) {
+            var root = document.documentElement;
+            switch(theme) {
+                case 'cyber':
+                    root.style.setProperty('--bg-primary', '#090a0f');
+                    root.style.setProperty('--bg-card', '#0e101a');
+                    root.style.setProperty('--accent', '#8b5cf6');
+                    root.style.setProperty('--accent-secondary', '#39ff14');
+                    root.style.setProperty('--border-glow', '#8b5cf6');
+                    root.style.setProperty('--shadow-glow', 'rgba(139, 92, 246, 0.25)');
+                    root.style.setProperty('--badge-color', '#39ff14');
+                    break;
+                case 'razer':
+                    root.style.setProperty('--bg-primary', '#090a0f');
+                    root.style.setProperty('--bg-card', '#0b0e14');
+                    root.style.setProperty('--accent', '#00ff00');
+                    root.style.setProperty('--accent-secondary', '#00ff00');
+                    root.style.setProperty('--border-glow', '#00ff00');
+                    root.style.setProperty('--shadow-glow', 'rgba(0, 255, 0, 0.2)');
+                    root.style.setProperty('--badge-color', '#00ff00');
+                    break;
+                case 'asus':
+                    root.style.setProperty('--bg-primary', '#0b0b0b');
+                    root.style.setProperty('--bg-card', '#121212');
+                    root.style.setProperty('--accent', '#ff0033');
+                    root.style.setProperty('--accent-secondary', '#ff0033');
+                    root.style.setProperty('--border-glow', '#ff0033');
+                    root.style.setProperty('--shadow-glow', 'rgba(255, 0, 51, 0.25)');
+                    root.style.setProperty('--badge-color', '#ff0033');
+                    break;
+                case 'ice':
+                    root.style.setProperty('--bg-primary', '#0a0e1a');
+                    root.style.setProperty('--bg-card', '#0d1222');
+                    root.style.setProperty('--accent', '#00ffcc');
+                    root.style.setProperty('--accent-secondary', '#00ffcc');
+                    root.style.setProperty('--border-glow', '#00ffcc');
+                    root.style.setProperty('--shadow-glow', 'rgba(0, 255, 204, 0.2)');
+                    root.style.setProperty('--badge-color', '#00ffcc');
+                    break;
+                case 'matrix':
+                    root.style.setProperty('--bg-primary', '#050a05');
+                    root.style.setProperty('--bg-card', '#0a120a');
+                    root.style.setProperty('--accent', '#00ff41');
+                    root.style.setProperty('--accent-secondary', '#00ff41');
+                    root.style.setProperty('--border-glow', '#00ff41');
+                    root.style.setProperty('--shadow-glow', 'rgba(0, 255, 65, 0.2)');
+                    root.style.setProperty('--badge-color', '#00ff41');
+                    break;
+                case 'quartz':
+                    root.style.setProperty('--bg-primary', '#0e0a12');
+                    root.style.setProperty('--bg-card', '#16101e');
+                    root.style.setProperty('--accent', '#ff3ea5');
+                    root.style.setProperty('--accent-secondary', '#ff3ea5');
+                    root.style.setProperty('--border-glow', '#ff3ea5');
+                    root.style.setProperty('--shadow-glow', 'rgba(255, 62, 165, 0.25)');
+                    root.style.setProperty('--badge-color', '#ff3ea5');
+                    break;
+                case 'volcano':
+                    root.style.setProperty('--bg-primary', '#0f0704');
+                    root.style.setProperty('--bg-card', '#1a0d08');
+                    root.style.setProperty('--accent', '#ff6a00');
+                    root.style.setProperty('--accent-secondary', '#ff6a00');
+                    root.style.setProperty('--border-glow', '#ff6a00');
+                    root.style.setProperty('--shadow-glow', 'rgba(255, 106, 0, 0.25)');
+                    root.style.setProperty('--badge-color', '#ff6a00');
+                    break;
+                case 'night':
+                    root.style.setProperty('--bg-primary', '#05050f');
+                    root.style.setProperty('--bg-card', '#0a0a1a');
+                    root.style.setProperty('--accent', '#7b3fe0');
+                    root.style.setProperty('--accent-secondary', '#7b3fe0');
+                    root.style.setProperty('--border-glow', '#7b3fe0');
+                    root.style.setProperty('--shadow-glow', 'rgba(123, 63, 224, 0.25)');
+                    root.style.setProperty('--badge-color', '#7b3fe0');
+                    break;
+                case 'gold':
+                    root.style.setProperty('--bg-primary', '#0d0b06');
+                    root.style.setProperty('--bg-card', '#16120a');
+                    root.style.setProperty('--accent', '#ffd700');
+                    root.style.setProperty('--accent-secondary', '#ffd700');
+                    root.style.setProperty('--border-glow', '#ffd700');
+                    root.style.setProperty('--shadow-glow', 'rgba(255, 215, 0, 0.25)');
+                    root.style.setProperty('--badge-color', '#ffd700');
+                    break;
+                case 'space':
+                    root.style.setProperty('--bg-primary', '#06080f');
+                    root.style.setProperty('--bg-card', '#0a0d17');
+                    root.style.setProperty('--accent', '#e0e8ff');
+                    root.style.setProperty('--accent-secondary', '#e0e8ff');
+                    root.style.setProperty('--border-glow', '#8a9ad0');
+                    root.style.setProperty('--shadow-glow', 'rgba(224, 232, 255, 0.15)');
+                    root.style.setProperty('--badge-color', '#e0e8ff');
+                    break;
+                default: break;
+            }
+            var container = document.querySelector('.app-container');
+            container.style.borderColor = 'var(--border-glow)';
+            container.style.boxShadow = '0 20px 40px rgba(0,0,0,0.8), 0 0 30px var(--shadow-glow)';
+        }
+
+        // ----- НАВИГАЦИЯ ПО ВКЛАДКАМ -----
+        function switchScreen(screenId) {
+            var allScreens = [profileScreen, clickerScreen, weatherScreen, timetoolsScreen, settingsScreen];
+            for (var i = 0; i < allScreens.length; i++) {
+                allScreens[i].classList.remove('active');
+            }
+            var targetScreen = null;
+            if (screenId === 'profile') targetScreen = profileScreen;
+            else if (screenId === 'clicker') targetScreen = clickerScreen;
+            else if (screenId === 'weather') targetScreen = weatherScreen;
+            else if (screenId === 'timetools') targetScreen = timetoolsScreen;
+            else if (screenId === 'settings') targetScreen = settingsScreen;
+            if (targetScreen) targetScreen.classList.add('active');
+
+            for (var j = 0; j < navTabs.length; j++) {
+                navTabs[j].classList.remove('active');
+                if (navTabs[j].dataset.screen === screenId) {
+                    navTabs[j].classList.add('active');
+                }
+            }
+        }
+
+        // ----- ПОДПИСКА НА СОБЫТИЯ -----
+        // Вкладки
+        for (var k = 0; k < navTabs.length; k++) {
+            navTabs[k].addEventListener('click', function(event) {
+                var screen = this.dataset.screen;
+                if (screen) switchScreen(screen);
+            });
+        }
+
+        // Профиль: создать
+        createProfileBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            var nick = nickInput.value.trim();
+            var city = cityInput.value.trim();
+            if (!nick) { alert('Введите никнейм'); return; }
+            saveProfileToStorage(nick, city);
+        });
+
+        // Профиль: сбросить
+        resetProfileBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            resetProfileData();
+        });
+
+        // Клик-тест: выбор длительности
+        for (var d = 0; d < durationButtons.length; d++) {
+            durationButtons[d].addEventListener('click', function(event) {
+                var duration = parseInt(this.dataset.duration);
+                if (duration > 0) {
+                    if (clickTimerInterval) clearInterval(clickTimerInterval);
+                    clickActive = false;
+                    startClickTest(duration);
+                }
+            });
+        }
+
+        // Клик-тест: зона клика
+        clickZone.addEventListener('click', function() {
+            if (!clickActive) return;
+            clickCounter++;
+            clickCountSpan.textContent = clickCounter;
+        });
+
+        // Погода: обновить
+        refreshWeatherButton.addEventListener('click', function() {
+            fetchWeatherData();
+        });
+
+        // Секундомер: старт/пауза
+        swStartPauseBtn.addEventListener('click', function() {
+            if (stopwatchRunning) {
+                pauseStopwatch();
+            } else {
+                startStopwatch();
+            }
+        });
+
+        // Секундомер: сброс
+        swResetBtn.addEventListener('click', function() {
+            resetStopwatch();
+        });
+
+        // Таймер: старт/пауза
+        timerStartPauseBtn.addEventListener('click', function() {
+            startTimer();
+        });
+
+        // Таймер: сброс
+        timerResetBtn.addEventListener('click', function() {
+            resetTimer();
+        });
+
+        // Настройки: темы
+        for (var t = 0; t < themeButtons.length; t++) {
+            themeButtons[t].addEventListener('click', function() {
+                var theme = this.dataset.theme;
+                if (theme) applyTheme(theme);
+            });
+        }
+
+        // Настройки: фон
+        for (var b = 0; b < backdropButtons.length; b++) {
+            backdropButtons[b].addEventListener('click', function() {
+                for (var bb = 0; bb < backdropButtons.length; bb++) {
+                    backdropButtons[bb].classList.remove('active-backdrop');
+                }
+                this.classList.add('active-backdrop');
+                var backdrop = this.dataset.backdrop;
+                appContainerDiv.classList.remove('grid-backdrop', 'pixel-backdrop');
+                if (backdrop === 'grid') appContainerDiv.classList.add('grid-backdrop');
+                else if (backdrop === 'pixel') appContainerDiv.classList.add('pixel-backdrop');
+            });
+        }
+
+        // Настройки: blur
+        blurCheckbox.addEventListener('change', function() {
+            var blurValue = this.checked ? '4px' : '0px';
+            document.documentElement.style.setProperty('--backdrop-blur', blurValue);
+        });
+
+        // Настройки: glow
+        glowCheckbox.addEventListener('change', function() {
+            var intensity = this.checked ? '1' : '0';
+            document.documentElement.style.setProperty('--neon-intensity', intensity);
+            var container = document.querySelector('.app-container');
+            if (this.checked) {
+                container.style.boxShadow = '0 20px 40px rgba(0,0,0,0.8), 0 0 30px var(--shadow-glow)';
+            } else {
+                container.style.boxShadow = '0 20px 40px rgba(0,0,0,0.8)';
+            }
+        });
+
+        // ----- ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ -----
+        window.addEventListener('DOMContentLoaded', function() {
+            loadProfileFromStorage();
+            // По умолчанию включен Cyberpunk
+            applyTheme('cyber');
+            // Сброс таймера для отображения
+            resetTimer();
+            // Сброс секундомера
+            resetStopwatch();
+            // Запуск теста кликов по умолчанию на 5 секунд
+            startClickTest(5);
+        });
+
+    })();
+</script>
+</body>
+</html>
