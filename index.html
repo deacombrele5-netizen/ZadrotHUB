@@ -243,6 +243,19 @@
             text-shadow: 0 0 12px var(--shadow-glow);
             margin-top: 4px;
         }
+        .weather-details {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+            color: #b0b8d0;
+            font-size: 0.9rem;
+        }
+        .weather-detail-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
         .forecast-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 15px; margin-top: 20px; }
         .forecast-day {
             background: #12161f;
@@ -616,67 +629,75 @@
         .notification.danger { border-left: 4px solid #ff4060; }
 
         @media (max-width: 768px) {
-            body { padding: 8px; align-items: flex-start; }
-            .app-container { padding: 16px 12px 20px; border-radius: 24px; }
-            .top-bar { flex-direction: column; align-items: stretch; gap: 8px; }
-            .nav-tabs { overflow-x: auto; padding-bottom: 4px; }
-            .nav-tab { font-size: 0.55rem; padding: 5px 8px; }
-            .capsule-group { justify-content: flex-end; }
-            .capsule { font-size: 0.6rem; padding: 4px 10px; height: 28px; }
-            h2 { font-size: 1.2rem; letter-spacing: 1px; }
-            h3 { font-size: 1rem; }
-            .neon-input, select.neon-input, input.neon-input { padding: 12px 18px; font-size: 0.9rem; max-width: 100%; border-radius: 30px; }
-            .btn-neon { padding: 10px 18px; font-size: 0.8rem; }
-            .profile-form { gap: 12px; }
-            .profile-welcome { padding: 16px 20px; }
+            body { padding: 4px; align-items: flex-start; }
+            .app-container { padding: 12px 8px 16px; border-radius: 20px; }
+            .top-bar { flex-direction: column; align-items: stretch; gap: 6px; padding-bottom: 10px; margin-bottom: 16px; }
+            .nav-tabs { overflow-x: auto; padding-bottom: 2px; gap: 2px; }
+            .nav-tab { font-size: 0.6rem; padding: 5px 9px; }
+            .capsule-group { justify-content: center; gap: 4px; }
+            .capsule { font-size: 0.65rem; padding: 3px 10px; height: 28px; }
+            h2 { font-size: 1.2rem; letter-spacing: 1px; margin-bottom: 12px; }
+            h3 { font-size: 1rem; margin-bottom: 12px; }
+            .neon-input, select.neon-input, input.neon-input { padding: 10px 14px; font-size: 0.9rem; max-width: 100%; border-radius: 25px; }
+            .btn-neon { padding: 8px 14px; font-size: 0.8rem; }
+            .profile-form { gap: 10px; }
+            .profile-welcome { padding: 12px 14px; }
             .profile-welcome h3 { font-size: 1.1rem; }
-            .weather-card, .weather-forecast { padding: 20px 18px; border-radius: 20px; }
-            .weather-city { font-size: 0.95rem; }
-            .forecast-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-            .forecast-day { padding: 10px; }
-            .forecast-day .day-name { font-size: 0.7rem; }
-            .forecast-day .weather-icon { font-size: 1.5rem; }
-            .forecast-day .temp { font-size: 1rem; }
-            .temp-chart { height: 100px; gap: 5px; }
-            .click-zone { padding: 30px 20px; border-radius: 30px; max-width: 100%; }
-            .click-zone h3 { font-size: 2rem; }
-            .restart-btn { padding: 10px 20px; font-size: 0.9rem; }
-            .stats-grid { gap: 8px; }
-            .stat-item { padding: 6px 16px; font-size: 0.8rem; border-radius: 30px; }
-            .stopwatch-display { font-size: 2.5rem; letter-spacing: 3px; padding: 12px 20px; }
-            .timer-inputs input { width: 60px; font-size: 1rem; padding: 8px; }
-            .col2-grid { grid-template-columns: 1fr; gap: 16px; }
-            .col2-grid .col { padding: 16px 14px; }
-            .calc-time-grid { grid-template-columns: 1fr; gap: 20px; }
-            .calc-grid { max-width: 100%; gap: 6px; }
-            .calc-grid button { padding: 14px 0; font-size: 1rem; border-radius: 20px; }
-            .calc-display { font-size: 1.4rem; padding: 14px 16px; min-height: 50px; }
-            .clock-circle { width: 200px; height: 200px; font-size: 2rem; }
-            .notepad-wrap { flex-direction: column; gap: 16px; }
-            .notepad-wrap .notepad-col { min-width: 100%; }
-            .note-list { max-height: 300px; min-width: 100%; }
-            .note-item .delete-btn { width: 30px; height: 30px; font-size: 1.2rem; }
-            .settings-group { padding: 16px 14px; }
-            .settings-group h4 { font-size: 0.85rem; }
-            .theme-grid { gap: 8px; }
-            .theme-btn { padding: 8px 16px; font-size: 0.75rem; }
-            .tab-order-item span { min-width: 70px; font-size: 0.8rem; }
-            .tab-order-item button { padding: 2px 10px; font-size: 0.7rem; }
-            .flex-row { gap: 8px; }
-            .mt-20 { margin-top: 12px; }
-            .mb-12 { margin-bottom: 8px; }
-            .notification-container { top: 10px; right: 10px; gap: 8px; }
-            .notification { padding: 12px 16px; font-size: 0.85rem; max-width: 250px; }
+            .weather-card, .weather-forecast { padding: 14px 12px; border-radius: 16px; margin-bottom: 12px; }
+            .weather-city { font-size: 0.9rem; }
+            .weather-details { gap: 12px; font-size: 0.8rem; }
+            .forecast-grid { grid-template-columns: repeat(4, 1fr); gap: 4px; margin-top: 10px; }
+            .forecast-day { padding: 6px; border-radius: 12px; }
+            .forecast-day .day-name { font-size: 0.7rem; margin-bottom: 4px; }
+            .forecast-day .weather-icon { font-size: 1.2rem; margin: 4px 0; }
+            .forecast-day .temp { font-size: 0.9rem; margin: 2px 0; }
+            .forecast-day .temp-range { font-size: 0.7rem; }
+            .forecast-day .precipitation { font-size: 0.65rem; }
+            .temp-chart { height: 80px; gap: 4px; margin: 10px 0; padding: 10px 0; }
+            .temp-bar .temp-label { font-size: 0.65rem; top: -18px; }
+            .click-zone { padding: 20px 14px; border-radius: 20px; max-width: 100%; margin: 6px 0; }
+            .click-zone h3 { font-size: 1.8rem; }
+            .restart-btn { padding: 8px 16px; font-size: 0.85rem; }
+            .stats-grid { gap: 4px; margin: 10px 0; }
+            .stat-item { padding: 4px 10px; font-size: 0.75rem; border-radius: 20px; }
+            .stopwatch-display { font-size: 2rem; letter-spacing: 2px; padding: 8px 12px; border-radius: 30px; }
+            .timer-inputs { gap: 6px; }
+            .timer-inputs input { width: 50px; font-size: 0.9rem; padding: 6px; }
+            .col2-grid { grid-template-columns: 1fr; gap: 10px; }
+            .col2-grid .col { padding: 12px 10px; border-radius: 16px; }
+            .calc-time-grid { grid-template-columns: 1fr; gap: 12px; }
+            .calc-grid { max-width: 100%; gap: 4px; }
+            .calc-grid button { padding: 10px 0; font-size: 0.9rem; border-radius: 14px; }
+            .calc-display { font-size: 1.2rem; padding: 10px 12px; min-height: 40px; border-radius: 20px; }
+            .clock-circle { width: 140px; height: 140px; font-size: 1.5rem; border-width: 2px; }
+            .notepad-wrap { flex-direction: column; gap: 10px; }
+            .notepad-wrap .notepad-col { min-width: 100%; gap: 8px; }
+            .notepad-wrap textarea { min-height: 120px; border-radius: 16px; padding: 12px; }
+            .note-list { max-height: 200px; min-width: 100%; border-radius: 16px; padding: 10px; }
+            .note-item { padding: 6px 0; gap: 6px; }
+            .note-item .delete-btn { width: 24px; height: 24px; font-size: 0.9rem; }
+            .settings-group { padding: 12px 10px; border-radius: 16px; margin-bottom: 12px; }
+            .settings-group h4 { font-size: 0.8rem; margin-bottom: 10px; }
+            .theme-grid { gap: 6px; margin-bottom: 16px; }
+            .theme-btn { padding: 6px 12px; font-size: 0.7rem; border-radius: 20px; }
+            .tab-order-item { padding: 4px 0; gap: 6px; }
+            .tab-order-item span { min-width: 60px; font-size: 0.75rem; }
+            .tab-order-item button { padding: 1px 8px; font-size: 0.65rem; }
+            .flex-row { gap: 6px; }
+            .mt-20 { margin-top: 10px; }
+            .mb-12 { margin-bottom: 6px; }
+            .notification-container { top: 8px; right: 8px; gap: 6px; }
+            .notification { padding: 10px 12px; font-size: 0.8rem; max-width: 220px; border-radius: 12px; }
         }
 
         @media (max-width: 480px) {
-            .app-container { padding: 12px 8px 16px; }
-            .nav-tab { font-size: 0.5rem; padding: 4px 6px; letter-spacing: 0.2px; }
-            .capsule { font-size: 0.55rem; padding: 3px 8px; height: 24px; }
-            .stopwatch-display { font-size: 1.8rem; letter-spacing: 2px; padding: 10px 14px; }
-            .forecast-grid { grid-template-columns: 1fr 1fr; }
-            .calc-grid button { padding: 12px 0; }
-            .clock-circle { width: 150px; height: 150px; font-size: 1.5rem; }
+            .forecast-grid { grid-template-columns: repeat(2, 1fr); }
+            .nav-tab { font-size: 0.55rem; padding: 4px 6px; }
+            .capsule { font-size: 0.6rem; padding: 2px 6px; height: 24px; }
+            .stopwatch-display { font-size: 1.6rem; letter-spacing: 1px; padding: 6px 10px; }
+            .click-zone h3 { font-size: 1.5rem; }
+            .calc-grid button { padding: 8px 0; font-size: 0.8rem; }
+            .clock-circle { width: 120px; height: 120px; font-size: 1.2rem; }
         }
     </style>
 </head>
@@ -746,6 +767,11 @@
             <div style="font-size:1.8rem; font-weight:600;" id="weatherTemp">-- °C</div>
             <div class="weather-city" id="weatherCity" data-i18n="city_not_set">город не задан</div>
             <div style="color:#8a9abb; margin-top:4px;" id="weatherDesc">--</div>
+            <div class="weather-details">
+                <div class="weather-detail-item">💧 <span id="weatherHumidity">--%</span></div>
+                <div class="weather-detail-item">🌧️ <span id="weatherPrecip">-- мм</span></div>
+                <div class="weather-detail-item">💨 <span id="weatherWind">-- км/ч</span></div>
+            </div>
         </div>
         <div class="weather-forecast" id="forecastContainer" style="display:none;">
             <h3 data-i18n="weekly_forecast">Прогноз на неделю</h3>
@@ -981,6 +1007,8 @@ let lastWeatherFetchTime = 0;
 let notificationTimeout = null;
 let isForecastHovered = false;
 let clickTestEnded = false;
+let weatherGeoCache = null;
+let lastWeatherSources = { openMeteo: null, weatherApi: null, gismeteo: null };
 
 function getLocalizedCity(city) {
     if (!city) return '';
@@ -1528,13 +1556,104 @@ function getWeatherEmoji(code) {
     return map[code] || '☁️';
 }
 
+function aggregateWeatherData(sources) {
+    const temps = [];
+    const hum = [];
+    const precip = [];
+    const wind = [];
+    const codes = [];
+    if (sources.openMeteo) {
+        temps.push(sources.openMeteo.temp);
+        hum.push(sources.openMeteo.humidity);
+        precip.push(sources.openMeteo.precip);
+        wind.push(sources.openMeteo.wind);
+        codes.push(sources.openMeteo.code);
+    }
+    if (sources.weatherApi) {
+        temps.push(sources.weatherApi.temp);
+        hum.push(sources.weatherApi.humidity);
+        precip.push(sources.weatherApi.precip);
+        wind.push(sources.weatherApi.wind);
+        codes.push(sources.weatherApi.code);
+    }
+    if (sources.gismeteo) {
+        temps.push(sources.gismeteo.temp);
+        hum.push(sources.gismeteo.humidity);
+        precip.push(sources.gismeteo.precip);
+        wind.push(sources.gismeteo.wind);
+        codes.push(sources.gismeteo.code);
+    }
+    const avg = arr => arr.length ? arr.reduce((a,b) => a+b, 0) / arr.length : null;
+    const mostCommon = arr => {
+        if (!arr.length) return null;
+        const freq = {};
+        arr.forEach(v => freq[v] = (freq[v] || 0) + 1);
+        return Object.keys(freq).sort((a,b) => freq[b] - freq[a])[0];
+    };
+    return {
+        temp: avg(temps),
+        humidity: avg(hum),
+        precip: avg(precip),
+        wind: avg(wind),
+        code: mostCommon(codes) || (codes[0] || 0)
+    };
+}
+
+async function getOpenMeteoWeather(lat, lon) {
+    const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,precipitation,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto`);
+    if (!res.ok) return null;
+    const data = await res.json();
+    return {
+        temp: data.current.temperature_2m,
+        humidity: data.current.relative_humidity_2m,
+        precip: data.current.precipitation,
+        wind: data.current.wind_speed_10m,
+        code: data.current.weather_code,
+        daily: data.daily
+    };
+}
+
+async function getWeatherApiWeather(city) {
+    try {
+        const res = await fetch(`https://api.weatherapi.com/v1/current.json?key=demo&q=${encodeURIComponent(city)}&aqi=no`);
+        if (!res.ok) return null;
+        const data = await res.json();
+        return {
+            temp: data.current.temp_c,
+            humidity: data.current.humidity,
+            precip: data.current.precip_mm || 0,
+            wind: data.current.wind_kph,
+            code: data.current.condition?.code || 0
+        };
+    } catch { return null; }
+}
+
+async function getGismeteoWeather(city) {
+    try {
+        const res = await fetch(`https://api.gismeteo.net/v2/weather/current/?city=${encodeURIComponent(city)}`, {
+            headers: { 'X-Gismeteo-Token': 'demo' }
+        });
+        if (!res.ok) return null;
+        const data = await res.json();
+        return {
+            temp: data.response?.temperature?.air?.C || null,
+            humidity: data.response?.humidity?.percent || null,
+            precip: data.response?.precipitation?.amount || 0,
+            wind: data.response?.wind?.speed?.m_s || 0,
+            code: data.response?.cloudiness?.type || 0
+        };
+    } catch { return null; }
+}
+
 function updateWeatherDisplay() {
-    if (!weatherData?.current) return;
-    const cur = weatherData.current;
-    document.getElementById('weatherEmoji').textContent = getWeatherEmoji(cur.weather_code);
-    document.getElementById('weatherTemp').textContent = `${cur.temperature_2m}°C`;
+    if (!weatherData) return;
+    document.getElementById('weatherEmoji').textContent = getWeatherEmoji(weatherData.code);
+    document.getElementById('weatherTemp').textContent = `${Math.round(weatherData.temp)}°C`;
     document.getElementById('weatherCity').textContent = getLocalizedCity(currentCity);
-    document.getElementById('weatherDesc').textContent = translations[currentLanguage][getWeatherDesc(cur.weather_code)] || getWeatherDesc(cur.weather_code);
+    document.getElementById('weatherDesc').textContent = translations[currentLanguage][getWeatherDesc(weatherData.code)] || getWeatherDesc(weatherData.code);
+    document.getElementById('weatherHumidity').textContent = `${Math.round(weatherData.humidity || 0)}%`;
+    document.getElementById('weatherPrecip').textContent = `${weatherData.precip || 0} мм`;
+    document.getElementById('weatherWind').textContent = `${Math.round(weatherData.wind || 0)} км/ч`;
 }
 
 function updateForecastDisplay() {
@@ -1570,17 +1689,32 @@ function updateForecastDisplay() {
 async function fetchWeatherData() {
     if (!currentCity) return;
     const now = Date.now();
-    if (now - lastWeatherFetchTime < 900) return;
+    if (now - lastWeatherFetchTime < 25000) return;
     lastWeatherFetchTime = now;
     try {
-        const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(currentCity)}&count=1&language=${currentLanguage}`);
-        const geoData = await geoRes.json();
-        if (geoData.results?.length) {
-            const { latitude, longitude } = geoData.results[0];
-            const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto`);
-            weatherData = await weatherRes.json();
-            updateWeatherDisplay(); updateForecastDisplay();
+        if (!weatherGeoCache || weatherGeoCache.city !== currentCity) {
+            const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(currentCity)}&count=1&language=${currentLanguage}`);
+            const geoData = await geoRes.json();
+            if (geoData.results?.length) {
+                weatherGeoCache = { city: currentCity, lat: geoData.results[0].latitude, lon: geoData.results[0].longitude };
+            } else {
+                return;
+            }
         }
+        const { lat, lon } = weatherGeoCache;
+        const [openMeteo, weatherApi, gismeteo] = await Promise.all([
+            getOpenMeteoWeather(lat, lon),
+            getWeatherApiWeather(currentCity),
+            getGismeteoWeather(currentCity)
+        ]);
+        lastWeatherSources = { openMeteo, weatherApi, gismeteo };
+        const aggregated = aggregateWeatherData({ openMeteo, weatherApi, gismeteo });
+        weatherData = {
+            ...aggregated,
+            daily: openMeteo?.daily || null
+        };
+        updateWeatherDisplay();
+        updateForecastDisplay();
     } catch(e) { console.error(e); }
 }
 
@@ -1619,7 +1753,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateClock();
     setInterval(updateClock, 1000);
     fetchWeatherData();
-    weatherUpdateInterval = setInterval(fetchWeatherData, 1000);
+    weatherUpdateInterval = setInterval(fetchWeatherData, 30000);
 
     const forecastContainer = document.getElementById('forecastContainer');
     if (forecastContainer) {
