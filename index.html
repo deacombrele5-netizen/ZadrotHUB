@@ -770,9 +770,21 @@
                 padding: 25px 0 15px;
                 border-bottom: 2px solid #2a2e3f;
                 position: relative;
+                overflow: hidden;
+            }
+            /* Исправление: столбцы не выходят за границы и не налезают на заголовок */
+            .temp-chart {
+                align-items: flex-end;
+                padding-top: 30px;
+                min-height: 120px;
+                max-height: 140px;
+            }
+            .temp-bar {
+                min-height: 12px;
+                max-height: 90px;
             }
             .temp-bar .temp-label { 
-                font-size: 0.7rem; 
+                font-size: 0.65rem; 
                 top: -20px;
             }
             .click-zone { 
@@ -1005,6 +1017,16 @@
             .temp-chart {
                 height: 80px;
                 padding: 25px 0 10px;
+                min-height: 100px;
+                max-height: 110px;
+            }
+            .temp-bar {
+                min-height: 10px;
+                max-height: 70px;
+            }
+            .temp-bar .temp-label {
+                font-size: 0.55rem;
+                top: -18px;
             }
         }
     </style>
@@ -2000,7 +2022,8 @@ function updateForecastDisplay() {
         const code = daily.weather_code[i];
         const bar = document.createElement('div');
         bar.className = 'temp-bar';
-        bar.style.height = ((daily.temperature_2m_max[i] - minT) / range * 100 + 20) + 'px';
+        const barHeight = Math.min(Math.max(((daily.temperature_2m_max[i] - minT) / range * 100 + 20), 20), 100);
+        bar.style.height = barHeight + 'px';
         bar.innerHTML = `<span class="temp-label">${daily.temperature_2m_max[i]}°C</span>`;
         chart.appendChild(bar);
         const card = document.createElement('div');
