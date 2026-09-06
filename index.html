@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="ZadrotHUB — ультимативный геймерский хаб с клик-тестом, калькулятором, погодой и блокнотом.">
     <title>ZadrotHUB</title>
-    <link rel="icon" type="image/png" href="favicon.png"> 
+    <link rel="icon" type="image/png" href="favicon.png">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -628,76 +628,375 @@
         .notification.info { border-left: 4px solid var(--accent); }
         .notification.danger { border-left: 4px solid #ff4060; }
 
+        /* Мобильная оптимизация */
         @media (max-width: 768px) {
-            body { padding: 4px; align-items: flex-start; }
-            .app-container { padding: 12px 8px 16px; border-radius: 20px; }
-            .top-bar { flex-direction: column; align-items: stretch; gap: 6px; padding-bottom: 10px; margin-bottom: 16px; }
-            .nav-tabs { overflow-x: auto; padding-bottom: 2px; gap: 2px; }
-            .nav-tab { font-size: 0.6rem; padding: 5px 9px; }
-            .capsule-group { justify-content: center; gap: 4px; }
-            .capsule { font-size: 0.65rem; padding: 3px 10px; height: 28px; }
-            h2 { font-size: 1.2rem; letter-spacing: 1px; margin-bottom: 12px; }
-            h3 { font-size: 1rem; margin-bottom: 12px; }
-            .neon-input, select.neon-input, input.neon-input { padding: 10px 14px; font-size: 0.9rem; max-width: 100%; border-radius: 25px; }
-            .btn-neon { padding: 8px 14px; font-size: 0.8rem; }
-            .profile-form { gap: 10px; }
-            .profile-welcome { padding: 12px 14px; }
-            .profile-welcome h3 { font-size: 1.1rem; }
-            .weather-card, .weather-forecast { padding: 14px 12px; border-radius: 16px; margin-bottom: 12px; }
-            .weather-city { font-size: 0.9rem; }
-            .weather-details { gap: 12px; font-size: 0.8rem; }
-            .forecast-grid { grid-template-columns: repeat(4, 1fr); gap: 4px; margin-top: 10px; }
-            .forecast-day { padding: 6px; border-radius: 12px; }
-            .forecast-day .day-name { font-size: 0.7rem; margin-bottom: 4px; }
-            .forecast-day .weather-icon { font-size: 1.2rem; margin: 4px 0; }
-            .forecast-day .temp { font-size: 0.9rem; margin: 2px 0; }
-            .forecast-day .temp-range { font-size: 0.7rem; }
-            .forecast-day .precipitation { font-size: 0.65rem; }
-            .temp-chart { height: 80px; gap: 4px; margin: 10px 0; padding: 10px 0; }
-            .temp-bar .temp-label { font-size: 0.65rem; top: -18px; }
-            .click-zone { padding: 20px 14px; border-radius: 20px; max-width: 100%; margin: 6px 0; }
-            .click-zone h3 { font-size: 1.8rem; }
-            .restart-btn { padding: 8px 16px; font-size: 0.85rem; }
-            .stats-grid { gap: 4px; margin: 10px 0; }
-            .stat-item { padding: 4px 10px; font-size: 0.75rem; border-radius: 20px; }
-            .stopwatch-display { font-size: 2rem; letter-spacing: 2px; padding: 8px 12px; border-radius: 30px; }
-            .timer-inputs { gap: 6px; }
-            .timer-inputs input { width: 50px; font-size: 0.9rem; padding: 6px; }
-            .col2-grid { grid-template-columns: 1fr; gap: 10px; }
-            .col2-grid .col { padding: 12px 10px; border-radius: 16px; }
-            .calc-time-grid { grid-template-columns: 1fr; gap: 12px; }
-            .calc-grid { max-width: 100%; gap: 4px; }
-            .calc-grid button { padding: 10px 0; font-size: 0.9rem; border-radius: 14px; }
-            .calc-display { font-size: 1.2rem; padding: 10px 12px; min-height: 40px; border-radius: 20px; }
-            .clock-circle { width: 140px; height: 140px; font-size: 1.5rem; border-width: 2px; }
-            .notepad-wrap { flex-direction: column; gap: 10px; }
-            .notepad-wrap .notepad-col { min-width: 100%; gap: 8px; }
-            .notepad-wrap textarea { min-height: 120px; border-radius: 16px; padding: 12px; }
-            .note-list { max-height: 200px; min-width: 100%; border-radius: 16px; padding: 10px; }
-            .note-item { padding: 6px 0; gap: 6px; }
-            .note-item .delete-btn { width: 24px; height: 24px; font-size: 0.9rem; }
-            .settings-group { padding: 12px 10px; border-radius: 16px; margin-bottom: 12px; }
-            .settings-group h4 { font-size: 0.8rem; margin-bottom: 10px; }
-            .theme-grid { gap: 6px; margin-bottom: 16px; }
-            .theme-btn { padding: 6px 12px; font-size: 0.7rem; border-radius: 20px; }
-            .tab-order-item { padding: 4px 0; gap: 6px; }
-            .tab-order-item span { min-width: 60px; font-size: 0.75rem; }
-            .tab-order-item button { padding: 1px 8px; font-size: 0.65rem; }
-            .flex-row { gap: 6px; }
-            .mt-20 { margin-top: 10px; }
-            .mb-12 { margin-bottom: 6px; }
-            .notification-container { top: 8px; right: 8px; gap: 6px; }
-            .notification { padding: 10px 12px; font-size: 0.8rem; max-width: 220px; border-radius: 12px; }
+            body { 
+                padding: 0; 
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh;
+                display: flex;
+            }
+            .app-container { 
+                padding: 16px 12px 20px; 
+                border-radius: 20px;
+                max-width: 100%;
+                width: 100%;
+                margin: 0;
+            }
+            .top-bar { 
+                flex-direction: column; 
+                align-items: center; 
+                gap: 8px; 
+                padding-bottom: 12px; 
+                margin-bottom: 16px;
+                width: 100%;
+            }
+            .nav-tabs { 
+                overflow-x: auto; 
+                padding-bottom: 4px; 
+                gap: 3px;
+                width: 100%;
+                justify-content: flex-start;
+                -webkit-overflow-scrolling: touch;
+            }
+            .nav-tab { 
+                font-size: 0.6rem; 
+                padding: 6px 10px;
+                white-space: nowrap;
+            }
+            .capsule-group { 
+                justify-content: center; 
+                gap: 6px;
+                width: 100%;
+                flex-wrap: wrap;
+            }
+            .capsule { 
+                font-size: 0.65rem; 
+                padding: 4px 10px; 
+                height: 28px;
+            }
+            h2 { 
+                font-size: 1.3rem; 
+                letter-spacing: 1px; 
+                margin-bottom: 16px;
+                text-align: center;
+            }
+            h3 { 
+                font-size: 1.1rem; 
+                margin-bottom: 12px;
+                text-align: center;
+            }
+            .neon-input, select.neon-input, input.neon-input { 
+                padding: 12px 16px; 
+                font-size: 0.9rem; 
+                max-width: 100%; 
+                border-radius: 25px;
+                width: 100%;
+            }
+            .btn-neon { 
+                padding: 10px 16px; 
+                font-size: 0.85rem;
+                width: auto;
+            }
+            .profile-form { 
+                gap: 12px;
+                max-width: 100%;
+                width: 100%;
+            }
+            .profile-welcome { 
+                padding: 16px;
+                text-align: center;
+            }
+            .profile-welcome h3 { 
+                font-size: 1.1rem;
+                text-align: center;
+            }
+            .weather-card, .weather-forecast { 
+                padding: 16px;
+                border-radius: 16px; 
+                margin-bottom: 16px;
+                text-align: center;
+            }
+            .weather-city { 
+                font-size: 1rem;
+                text-align: center;
+            }
+            .weather-details { 
+                gap: 10px; 
+                font-size: 0.8rem;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            .weather-detail-item {
+                flex: 1;
+                min-width: 80px;
+                justify-content: center;
+            }
+            .forecast-grid { 
+                grid-template-columns: repeat(3, 1fr); 
+                gap: 6px; 
+                margin-top: 12px;
+            }
+            .forecast-day { 
+                padding: 8px; 
+                border-radius: 12px;
+            }
+            .forecast-day .day-name { 
+                font-size: 0.7rem; 
+                margin-bottom: 4px;
+            }
+            .forecast-day .weather-icon { 
+                font-size: 1.5rem; 
+                margin: 5px 0;
+            }
+            .forecast-day .temp { 
+                font-size: 1rem; 
+                margin: 2px 0;
+            }
+            .forecast-day .temp-range { 
+                font-size: 0.75rem;
+            }
+            .forecast-day .precipitation { 
+                font-size: 0.7rem;
+            }
+            .temp-chart { 
+                height: 100px; 
+                gap: 6px; 
+                margin: 12px 0; 
+                padding: 12px 0;
+            }
+            .temp-bar .temp-label { 
+                font-size: 0.7rem; 
+                top: -20px;
+            }
+            .click-zone { 
+                padding: 24px 16px; 
+                border-radius: 20px; 
+                max-width: 100%; 
+                margin: 8px auto;
+                width: 100%;
+            }
+            .click-zone h3 { 
+                font-size: 1.8rem;
+            }
+            .restart-btn { 
+                padding: 10px 20px; 
+                font-size: 0.9rem;
+                display: block;
+                margin: 10px auto;
+            }
+            .stats-grid { 
+                gap: 6px; 
+                margin: 12px 0;
+                justify-content: center;
+            }
+            .stat-item { 
+                padding: 6px 12px; 
+                font-size: 0.8rem; 
+                border-radius: 20px;
+                text-align: center;
+                flex: 1;
+                min-width: 80px;
+            }
+            .stopwatch-display { 
+                font-size: 2rem; 
+                letter-spacing: 2px; 
+                padding: 12px 16px; 
+                border-radius: 30px;
+                text-align: center;
+                width: 100%;
+            }
+            .timer-inputs { 
+                gap: 6px;
+                justify-content: center;
+            }
+            .timer-inputs input { 
+                width: 60px; 
+                font-size: 1rem; 
+                padding: 8px;
+            }
+            .col2-grid { 
+                grid-template-columns: 1fr; 
+                gap: 12px;
+            }
+            .col2-grid .col { 
+                padding: 16px; 
+                border-radius: 16px;
+            }
+            .calc-time-grid { 
+                grid-template-columns: 1fr; 
+                gap: 16px;
+            }
+            .calc-grid { 
+                max-width: 100%; 
+                gap: 6px;
+                margin: 0 auto;
+            }
+            .calc-grid button { 
+                padding: 10px 0; 
+                font-size: 1rem; 
+                border-radius: 16px;
+            }
+            .calc-display { 
+                font-size: 1.4rem; 
+                padding: 12px 16px; 
+                min-height: 50px; 
+                border-radius: 25px;
+            }
+            .clock-circle { 
+                width: 180px; 
+                height: 180px; 
+                font-size: 1.8rem; 
+                border-width: 3px;
+                margin: 10px auto;
+            }
+            .notepad-wrap { 
+                flex-direction: column; 
+                gap: 12px;
+            }
+            .notepad-wrap .notepad-col { 
+                min-width: 100%; 
+                gap: 10px;
+            }
+            .notepad-wrap textarea { 
+                min-height: 150px; 
+                border-radius: 16px; 
+                padding: 14px;
+                font-size: 0.9rem;
+            }
+            .note-list { 
+                max-height: 250px; 
+                min-width: 100%; 
+                border-radius: 16px; 
+                padding: 12px;
+            }
+            .note-item { 
+                padding: 8px 0; 
+                gap: 8px;
+                font-size: 0.9rem;
+            }
+            .note-item .delete-btn { 
+                width: 28px; 
+                height: 28px; 
+                font-size: 1rem;
+            }
+            .settings-group { 
+                padding: 16px; 
+                border-radius: 16px; 
+                margin-bottom: 16px;
+            }
+            .settings-group h4 { 
+                font-size: 0.9rem; 
+                margin-bottom: 12px;
+                text-align: center;
+            }
+            .theme-grid { 
+                gap: 8px; 
+                margin-bottom: 20px;
+                justify-content: center;
+            }
+            .theme-btn { 
+                padding: 8px 14px; 
+                font-size: 0.75rem; 
+                border-radius: 20px;
+            }
+            .tab-order-item { 
+                padding: 6px 0; 
+                gap: 8px;
+                font-size: 0.85rem;
+            }
+            .tab-order-item span { 
+                min-width: 80px; 
+                font-size: 0.8rem;
+            }
+            .tab-order-item button { 
+                padding: 4px 10px; 
+                font-size: 0.7rem;
+            }
+            .flex-row { 
+                gap: 8px;
+                justify-content: center;
+            }
+            .mt-20 { margin-top: 12px; }
+            .mb-12 { margin-bottom: 8px; }
+            .notification-container { 
+                top: 8px; 
+                right: 8px;
+                left: 8px;
+                gap: 6px;
+                align-items: center;
+            }
+            .notification { 
+                padding: 12px 16px; 
+                font-size: 0.85rem; 
+                max-width: 100%;
+                width: 100%;
+                border-radius: 12px;
+                text-align: center;
+            }
+            .tools-grid { 
+                gap: 20px;
+            }
+            .tools-grid > div { 
+                flex: 1 1 100%;
+            }
+            #clickTimerDisplay {
+                font-size: 1rem;
+                text-align: center;
+                margin: 8px 0;
+            }
         }
 
         @media (max-width: 480px) {
-            .forecast-grid { grid-template-columns: repeat(2, 1fr); }
-            .nav-tab { font-size: 0.55rem; padding: 4px 6px; }
-            .capsule { font-size: 0.6rem; padding: 2px 6px; height: 24px; }
-            .stopwatch-display { font-size: 1.6rem; letter-spacing: 1px; padding: 6px 10px; }
-            .click-zone h3 { font-size: 1.5rem; }
-            .calc-grid button { padding: 8px 0; font-size: 0.8rem; }
-            .clock-circle { width: 120px; height: 120px; font-size: 1.2rem; }
+            .forecast-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+            }
+            .nav-tab { 
+                font-size: 0.55rem; 
+                padding: 5px 8px;
+            }
+            .capsule { 
+                font-size: 0.6rem; 
+                padding: 3px 8px; 
+                height: 24px;
+            }
+            .stopwatch-display { 
+                font-size: 1.6rem; 
+                letter-spacing: 1px; 
+                padding: 10px 12px;
+            }
+            .click-zone h3 { 
+                font-size: 1.5rem;
+            }
+            .calc-grid button { 
+                padding: 8px 0; 
+                font-size: 0.9rem;
+            }
+            .clock-circle { 
+                width: 150px; 
+                height: 150px; 
+                font-size: 1.5rem;
+            }
+            h2 {
+                font-size: 1.1rem;
+                letter-spacing: 0.5px;
+            }
+            h3 {
+                font-size: 1rem;
+            }
+            .weather-card, .weather-forecast {
+                padding: 12px;
+            }
+            .stat-item {
+                padding: 5px 8px;
+                font-size: 0.7rem;
+                min-width: 70px;
+            }
+            .btn-neon {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
@@ -757,7 +1056,7 @@
             <div class="stat-item">CPS: <span id="cpsDisplay">0.00</span></div>
             <div class="stat-item"><span data-i18n="rank">Ранг</span>: <span id="rankDisplay">—</span></div>
         </div>
-        <div id="clickTimerDisplay" style="font-family:'Orbitron'; color:var(--accent); font-size:1.2rem;">⏱️ 0.0s</div>
+        <div id="clickTimerDisplay" style="font-family:'Orbitron'; color:var(--accent); font-size:1.2rem; text-align: center;">⏱️ 0.0s</div>
     </div>
 
     <div id="screen-weather" class="screen">
@@ -804,7 +1103,7 @@
                     <button class="btn-neon btn-danger" id="timerReset" type="button" data-i18n="reset">СБРОС</button>
                 </div>
                 <div class="flex-row mt-20">
-                    <label for="volumeSlider" class="volume-label">Громкость сигнала</label>
+                    <label for="volumeSlider" class="volume-label" data-i18n="volume_label">Громкость сигнала</label>
                     <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.3" style="background:#12161f; accent-color:var(--accent);">
                 </div>
             </div>
@@ -914,8 +1213,8 @@ const translations = {
         '1_word': '1 слово', '2_words': '2 слова', enter_note: 'Введите заметку...', save_note: '💾 Сохранить запись',
         clear_all: '🗑️ Очистить всё', theme_customization: 'КАСТОМИЗАЦИЯ ТЕМЫ', profile_editing: 'РЕДАКТИРОВАНИЕ ПРОФИЛЯ',
         tab_order: 'МЕНЮ УПРАВЛЕНИЯ (ПОРЯДОК ВКЛАДОК)', update_profile: 'Обновить профиль', no_notes: 'Нет сохранённых заметок',
-        rank_noob: 'Нуб', rank_weak: 'Слабак', rank_novice: 'Новичок', rank_player: 'Игрок', rank_amateur: 'Любитель',
-        rank_experienced: 'Опытный', rank_pro: 'Профи', rank_master: 'Мастер', rank_esports: 'Киберспортсмен', rank_god: 'БОГ КЛИКА',
+        rank_noob: 'Нуб 🐌', rank_weak: 'Слабак ❌', rank_novice: 'Новичок ⚔️', rank_player: 'Игрок 🛡️', rank_amateur: 'Любитель 🔥',
+        rank_experienced: 'Опытный ⚡', rank_pro: 'Профи 🎯', rank_master: 'Мастер 🏆', rank_esports: 'Киберспортсмен 👾', rank_god: 'БОГ КЛИКА 🤖',
         clear: 'Ясно', sunny: 'Солнечно', partly_cloudy: 'Малооблачно', cloudy: 'Облачно', overcast: 'Пасмурно',
         variable_cloudiness: 'Переменная облачность', fog: 'Туман', drizzle: 'Морось', rain: 'Дождь', heavy_rain: 'Сильный дождь',
         shower: 'Ливень', thunderstorm: 'Гроза', hail: 'Град', snow: 'Снег', snowfall: 'Снегопад', blizzard: 'Метель',
@@ -926,7 +1225,8 @@ const translations = {
         theme_golden_glow: 'Золотое сияние', theme_starlight: 'Звёздный свет', theme_dark_knight: 'Тёмный рыцарь',
         volume_label: 'Громкость сигнала', notif_profile_created: '✅ Профиль создан!', notif_profile_updated: '✅ Профиль обновлён!',
         notif_profile_reset: '✅ Профиль сброшен!', notif_note_saved: '✅ Заметка сохранена!', notif_note_deleted: '✅ Заметка удалена!',
-        notif_notes_cleared: '🗑️ Все заметки удалены!', notif_copied: '📋 Скопировано!', restart: 'НАЧАТЬ ЗАНОВО'
+        notif_notes_cleared: '🗑️ Все заметки удалены!', notif_copied: '📋 Скопировано!', restart: 'НАЧАТЬ ЗАНОВО',
+        humidity: 'Влажность', wind_speed: 'Ветер', precipitation_mm: 'мм', wind_speed_kmh: 'км/ч'
     },
     en: {
         profile: 'PROFILE', click_test: 'CLICK TEST', weather: 'WEATHER', stopwatch_timer: 'STOPWATCH & TIMER',
@@ -941,8 +1241,8 @@ const translations = {
         '1_word': '1 word', '2_words': '2 words', enter_note: 'Enter note...', save_note: '💾 Save Note',
         clear_all: '🗑️ Clear All', theme_customization: 'THEME CUSTOMIZATION', profile_editing: 'PROFILE EDITING',
         tab_order: 'TAB ORDER', update_profile: 'Update Profile', no_notes: 'No saved notes',
-        rank_noob: 'Noob', rank_weak: 'Weak', rank_novice: 'Novice', rank_player: 'Player', rank_amateur: 'Amateur',
-        rank_experienced: 'Experienced', rank_pro: 'Pro', rank_master: 'Master', rank_esports: 'Esports', rank_god: 'GOD OF CLICKS',
+        rank_noob: 'Noob 🐌', rank_weak: 'Weak ❌', rank_novice: 'Novice ⚔️', rank_player: 'Player 🛡️', rank_amateur: 'Amateur 🔥',
+        rank_experienced: 'Experienced ⚡', rank_pro: 'Pro 🎯', rank_master: 'Master 🏆', rank_esports: 'Esports 👾', rank_god: 'GOD OF CLICKS 🤖',
         clear: 'Clear', sunny: 'Sunny', partly_cloudy: 'Partly cloudy', cloudy: 'Cloudy', overcast: 'Overcast',
         variable_cloudiness: 'Variable cloudiness', fog: 'Fog', drizzle: 'Drizzle', rain: 'Rain', heavy_rain: 'Heavy rain',
         shower: 'Shower', thunderstorm: 'Thunderstorm', hail: 'Hail', snow: 'Snow', snowfall: 'Snowfall', blizzard: 'Blizzard',
@@ -953,7 +1253,8 @@ const translations = {
         theme_golden_glow: 'Golden Glow', theme_starlight: 'Starlight', theme_dark_knight: 'Dark Knight',
         volume_label: 'Signal Volume', notif_profile_created: '✅ Profile created!', notif_profile_updated: '✅ Profile updated!',
         notif_profile_reset: '✅ Profile reset!', notif_note_saved: '✅ Note saved!', notif_note_deleted: '✅ Note deleted!',
-        notif_notes_cleared: '🗑️ All notes cleared!', notif_copied: '📋 Copied!', restart: 'RESTART'
+        notif_notes_cleared: '🗑️ All notes cleared!', notif_copied: '📋 Copied!', restart: 'RESTART',
+        humidity: 'Humidity', wind_speed: 'Wind', precipitation_mm: 'mm', wind_speed_kmh: 'km/h'
     }
 };
 
@@ -988,7 +1289,7 @@ const themes = {
     dark_knight: { '--accent': '#404040', '--accent-secondary': '#808080', '--border-glow': '#404040', '--shadow-glow': 'rgba(64,64,64,0.25)' }
 };
 
-let currentLanguage = localStorage.getItem('zadrothub_lang') || 'en';
+let currentLanguage = localStorage.getItem('zadrothub_lang') || 'ru';
 let currentScreen = 'profile';
 let currentCountry = localStorage.getItem('zadrothub_country') || '';
 let currentCity = localStorage.getItem('zadrothub_city') || '';
@@ -1069,6 +1370,7 @@ function applyLanguage() {
     if (volumeLabel) volumeLabel.textContent = translations[currentLanguage].volume_label;
     const restartBtn = document.getElementById('restartBtn');
     if (restartBtn) restartBtn.textContent = translations[currentLanguage].restart;
+    if (isClickTestRunning) updateRank();
 }
 
 function initNavigation() {
@@ -1225,9 +1527,10 @@ function endClickTest() {
     clearInterval(clickTimer);
     isClickTestRunning = false;
     clickTestEnded = true;
-    const cps = clickCount / clickDuration;
+    const elapsed = (Date.now() - clickStartTime) / 1000;
+    const cps = elapsed > 0 ? clickCount / elapsed : 0;
     document.getElementById('cpsDisplay').textContent = cps.toFixed(2);
-    updateRank(clickCount);
+    updateRank();
     document.getElementById('restartBtn').classList.add('show');
     document.getElementById('clickZone').classList.add('disabled');
 }
@@ -1246,12 +1549,24 @@ function resetClickTest() {
     document.getElementById('clickZone').classList.remove('disabled');
 }
 
-function updateRank(count = clickCount) {
-    const ranks = ['rank_noob', 'rank_weak', 'rank_novice', 'rank_player', 'rank_amateur', 'rank_experienced', 'rank_pro', 'rank_master', 'rank_esports', 'rank_god'];
-    const thresholds = [10, 30, 50, 70, 100, 150, 200, 300, 500];
-    let index = 0;
-    for (let i = 0; i < thresholds.length; i++) { if (count >= thresholds[i]) index = i + 1; }
-    document.getElementById('rankDisplay').textContent = translations[currentLanguage][ranks[index]];
+function updateRank() {
+    let cps = 0;
+    if (clickCount > 0) {
+        const elapsed = clickTestEnded ? clickDuration : (Date.now() - clickStartTime) / 1000;
+        cps = elapsed > 0 ? clickCount / elapsed : 0;
+    }
+    let rankKey = 'rank_noob';
+    if (cps >= 20) rankKey = 'rank_god';
+    else if (cps >= 17) rankKey = 'rank_esports';
+    else if (cps >= 14) rankKey = 'rank_master';
+    else if (cps >= 12) rankKey = 'rank_pro';
+    else if (cps >= 10) rankKey = 'rank_experienced';
+    else if (cps >= 8) rankKey = 'rank_amateur';
+    else if (cps >= 6) rankKey = 'rank_player';
+    else if (cps >= 5) rankKey = 'rank_novice';
+    else if (cps >= 3) rankKey = 'rank_weak';
+    document.getElementById('rankDisplay').textContent = translations[currentLanguage][rankKey] || rankKey;
+    document.getElementById('cpsDisplay').textContent = cps.toFixed(2);
 }
 
 function initStopwatch() {
@@ -1652,8 +1967,8 @@ function updateWeatherDisplay() {
     document.getElementById('weatherCity').textContent = getLocalizedCity(currentCity);
     document.getElementById('weatherDesc').textContent = translations[currentLanguage][getWeatherDesc(weatherData.code)] || getWeatherDesc(weatherData.code);
     document.getElementById('weatherHumidity').textContent = `${Math.round(weatherData.humidity || 0)}%`;
-    document.getElementById('weatherPrecip').textContent = `${weatherData.precip || 0} мм`;
-    document.getElementById('weatherWind').textContent = `${Math.round(weatherData.wind || 0)} км/ч`;
+    document.getElementById('weatherPrecip').textContent = `${weatherData.precip || 0} ${translations[currentLanguage].precipitation_mm || 'мм'}`;
+    document.getElementById('weatherWind').textContent = `${Math.round(weatherData.wind || 0)} ${translations[currentLanguage].wind_speed_kmh || 'км/ч'}`;
 }
 
 function updateForecastDisplay() {
