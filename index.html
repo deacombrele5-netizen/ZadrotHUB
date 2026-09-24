@@ -1,28 +1,18 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "ZadrotHUB",
-  "alternateName": "Ультимативный геймерский хаб",
-  "url": "https://deacombrele5-netizen.github.io/ZadrotHUB/"
-}
-</script>
     <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y8PHBQXQF8"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-Y8PHBQXQF8');
 </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="ZadrotHUB — ультимативный геймерский хаб с клик-тестом, калькулятором, погодой и блокнотом.">
     <title>ZadrotHUB</title>
+    <meta name="description" content="ZadrotHUB — клик-тест, гонки, блочный пазл, скетчпад, калькулятор, погода, блокнот.">
     <link rel="icon" type="image/png" href="favicon.png">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
@@ -34,12 +24,7 @@
             --accent: #8b5cf6;
             --accent-secondary: #39ff14;
             --text-primary: #eaeef5;
-            --text-dim: #8a8fa8;
             --shadow-glow: rgba(139, 92, 246, 0.25);
-            --badge-color: #39ff14;
-            --backdrop-blur: 0px;
-            --container-bg: var(--bg-card);
-            --neon-intensity: 1;
             --notification-bg: #1a1f2e;
             --notification-border: #8b5cf6;
         }
@@ -53,100 +38,92 @@
             align-items: center;
             padding: 20px;
             margin: 0;
-            transition: background 0.3s ease;
             overflow-x: hidden;
         }
         .app-container {
             max-width: 1400px;
             width: 100%;
-            background: var(--container-bg);
+            background: var(--bg-card);
             border: 1px solid var(--border-glow);
             border-radius: 36px;
             padding: 24px 30px 32px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 30px var(--shadow-glow);
-            backdrop-filter: blur(var(--backdrop-blur));
-            transition: border-color 0.3s, box-shadow 0.3s, background 0.3s, backdrop-filter 0.3s;
             position: relative;
-            overflow: visible;
         }
-        .app-container::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            background-image: linear-gradient(rgba(139,92,246,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(139,92,246,0.03) 1px, transparent 1px);
-            background-size: 30px 30px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 0;
-        }
-        .app-container.grid-backdrop::before { opacity: 1; }
         .top-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid rgba(139,92,246,0.15);
             padding-bottom: 16px;
-            margin-bottom: 24px;
-            flex-wrap: nowrap;
+            margin-bottom: 12px;
             gap: 12px;
-            position: relative;
-            z-index: 1;
+            flex-wrap: wrap;
         }
-        .nav-tabs {
-            display: flex;
-            gap: 4px;
-            flex-wrap: nowrap;
-            flex: 1 1 auto;
-            min-width: 0;
-            overflow-x: auto;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-            -webkit-overflow-scrolling: touch;
-        }
+        .nav-tabs { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; }
         .nav-tabs::-webkit-scrollbar { display: none; }
         .nav-tab {
             background: transparent;
-            border: 1px solid rgba(139,92,246,0.2);
+            border: 1px solid rgba(139,92,246,0.22);
             color: #b0b0c0;
             font-family: 'Orbitron', sans-serif;
-            font-weight: 600;
-            font-size: 0.62rem;
-            padding: 6px 10px;
+            font-weight: 700;
+            font-size: 0.68rem;
+            padding: 8px 14px;
             border-radius: 40px;
             cursor: pointer;
             transition: all 0.3s ease;
-            letter-spacing: 0.3px;
-            background: rgba(139,92,246,0.02);
             text-transform: uppercase;
-            text-shadow: 0 0 5px transparent;
-            pointer-events: auto;
-            user-select: none;
             white-space: nowrap;
             flex-shrink: 0;
-            touch-action: manipulation;
+            min-height: 36px;
+            display: inline-flex;
+            align-items: center;
         }
-        .nav-tab:hover {
-            border-color: var(--accent);
-            color: #d4caff;
-            background: rgba(139,92,246,0.07);
-            box-shadow: 0 0 18px var(--shadow-glow);
-            text-shadow: 0 0 8px var(--accent);
-        }
+        .nav-tab:hover { border-color: var(--accent); color: #d4caff; }
         .nav-tab.active {
             background: var(--accent);
             border-color: var(--accent);
             color: #fff;
             box-shadow: 0 0 30px var(--shadow-glow);
-            text-shadow: 0 0 12px rgba(255,255,255,0.3);
         }
-        .capsule-group {
+        .sub-tabs {
             display: flex;
-            gap: 8px;
-            align-items: center;
-            flex-shrink: 0;
+            gap: 5px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(139,92,246,0.12);
         }
+        .sub-tabs::-webkit-scrollbar { display: none; }
+        .sub-tab {
+            background: transparent;
+            border: 1px solid rgba(139,92,246,0.18);
+            color: #9098b0;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            font-size: 0.58rem;
+            padding: 7px 12px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            white-space: nowrap;
+            flex-shrink: 0;
+            min-height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .sub-tab:hover { border-color: var(--accent); color: #d4caff; }
+        .sub-tab.active {
+            background: rgba(139,92,246,0.15);
+            border-color: var(--accent);
+            color: #fff;
+            box-shadow: 0 0 15px var(--shadow-glow);
+        }
+        .capsule-group { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
         .capsule {
             background: rgba(14, 16, 26, 0.8);
             border: 1px solid var(--border-glow);
@@ -157,21 +134,15 @@
             font-size: 0.7rem;
             color: var(--accent);
             box-shadow: 0 0 20px var(--shadow-glow);
-            text-shadow: 0 0 12px var(--accent);
             white-space: nowrap;
-            letter-spacing: 0.3px;
             height: 34px;
             display: inline-flex;
             align-items: center;
         }
-        .capsule-nick {
-            border-color: var(--accent-secondary);
-            color: var(--accent-secondary);
-            text-shadow: 0 0 12px var(--accent-secondary);
-        }
-        .screen { display: none; animation: fadeIn 0.3s ease; position: relative; z-index: 1; }
+        .capsule-nick { border-color: var(--accent-secondary); color: var(--accent-secondary); }
+        .screen { display: none; animation: fadeIn 0.3s ease; }
         .screen.active { display: block; }
-        @keyframes fadeIn { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         h2, h3 {
             font-family: 'Orbitron', monospace;
             text-transform: uppercase;
@@ -179,7 +150,6 @@
             color: #d0c0ff;
             text-shadow: 0 0 12px var(--shadow-glow);
             margin-bottom: 20px;
-            transition: color 0.2s, text-shadow 0.2s;
         }
         .neon-input, select.neon-input, input.neon-input {
             background: #12161f !important;
@@ -191,50 +161,29 @@
             color: #eaeef5 !important;
             width: 100%;
             max-width: 340px;
-            transition: 0.3s ease;
             outline: none;
             -webkit-appearance: none;
             appearance: none;
         }
-        .neon-input:focus, select.neon-input:focus, input.neon-input:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 25px var(--shadow-glow);
-        }
-        select.neon-input {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238b5cf6' stroke-width='2' fill='none'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 20px center;
-            background-size: 12px 8px;
-            padding-right: 48px;
-        }
+        .neon-input:focus { border-color: var(--accent); box-shadow: 0 0 25px var(--shadow-glow); }
+        select.neon-input { background-image: none; padding-right: 22px; cursor: pointer; }
         .btn-neon {
             background: transparent;
             border: 1px solid var(--accent);
             color: #c8b8ff;
-            font-family: 'Inter', sans-serif;
             font-weight: 600;
             padding: 10px 24px;
             border-radius: 40px;
             cursor: pointer;
-            transition: all 0.3s ease;
             font-size: 0.85rem;
-            background: rgba(139,92,246,0.02);
-            letter-spacing: 0.5px;
-            text-shadow: 0 0 5px transparent;
-            pointer-events: auto;
-            user-select: none;
+            min-height: 40px;
             touch-action: manipulation;
         }
-        .btn-neon:hover {
-            background: var(--accent);
-            color: #fff;
-            box-shadow: 0 0 40px var(--shadow-glow);
-            text-shadow: 0 0 10px rgba(255,255,255,0.2);
-        }
+        .btn-neon:hover { background: var(--accent); color: #fff; box-shadow: 0 0 40px var(--shadow-glow); }
         .btn-green { border-color: var(--accent-secondary); color: #b0ffa0; }
-        .btn-green:hover { background: var(--accent-secondary); color: #090a0f; box-shadow: 0 0 40px rgba(57,255,20,0.25); }
+        .btn-green:hover { background: var(--accent-secondary); color: #090a0f; }
         .btn-danger { border-color: #ff4060; color: #ff8090; }
-        .btn-danger:hover { background: #ff4060; color: #fff; box-shadow: 0 0 40px rgba(255,64,96,0.25); }
+        .btn-danger:hover { background: #ff4060; color: #fff; }
         .profile-form { display: flex; flex-direction: column; gap: 18px; max-width: 420px; }
         .profile-form .neon-input { max-width: 100%; }
         .profile-welcome {
@@ -242,7 +191,6 @@
             border-left: 4px solid var(--accent);
             padding: 20px 28px;
             border-radius: 16px;
-            box-shadow: 0 0 20px rgba(139,92,246,0.05);
         }
         .profile-welcome h3 { margin-bottom: 8px; font-size: 1.4rem; }
         .weather-card, .weather-forecast {
@@ -251,30 +199,15 @@
             border-radius: 28px;
             padding: 28px 36px;
             margin-bottom: 20px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.3);
-            overflow: hidden;
         }
         .weather-city {
             font-family: 'Orbitron', monospace;
             font-size: 1.1rem;
-            letter-spacing: 1px;
             color: var(--accent);
-            text-shadow: 0 0 12px var(--shadow-glow);
             margin-top: 4px;
         }
-        .weather-details {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 12px;
-            color: #b0b8d0;
-            font-size: 0.9rem;
-        }
-        .weather-detail-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
+        .weather-details { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 12px; color: #b0b8d0; font-size: 0.9rem; }
+        .weather-detail-item { display: flex; align-items: center; gap: 6px; }
         .forecast-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 15px; margin-top: 20px; }
         .forecast-day {
             background: #12161f;
@@ -282,13 +215,6 @@
             border-radius: 20px;
             padding: 15px;
             text-align: center;
-            transition: border-color 0.25s ease, box-shadow 0.25s ease;
-            pointer-events: auto;
-            user-select: none;
-        }
-        .forecast-day:hover {
-            border-color: var(--accent);
-            box-shadow: 0 0 20px var(--shadow-glow);
         }
         .forecast-day .day-name { font-weight: bold; color: #d0c0ff; margin-bottom: 10px; font-size: 0.85rem; }
         .forecast-day .weather-icon { font-size: 2rem; margin: 10px 0; }
@@ -303,7 +229,6 @@
             margin: 20px 0;
             padding: 25px 0 20px;
             border-bottom: 2px solid #2a2e3f;
-            position: relative;
         }
         .temp-bar {
             flex: 1;
@@ -311,13 +236,6 @@
             border-radius: 10px 10px 0 0;
             position: relative;
             min-height: 20px;
-            pointer-events: auto;
-            cursor: pointer;
-            transition: background 0.2s ease, box-shadow 0.2s ease;
-        }
-        .temp-bar:hover {
-            background: linear-gradient(to top, #ff4060, #ff8090);
-            box-shadow: 0 0 15px rgba(255,64,96,0.3);
         }
         .temp-bar .temp-label {
             position: absolute;
@@ -327,7 +245,6 @@
             font-size: 0.75rem;
             color: #fff;
             white-space: nowrap;
-            pointer-events: none;
         }
         .click-zone {
             background: #12161f;
@@ -336,67 +253,34 @@
             padding: 44px 36px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.1s ease;
             max-width: 420px;
             margin: 10px 0;
-            box-shadow: 0 0 40px rgba(57,255,20,0.04);
             user-select: none;
             touch-action: manipulation;
         }
-        .click-zone:active { transform: scale(0.96); background: #1a1f2e; box-shadow: 0 0 60px rgba(57,255,20,0.1); }
-        .click-zone.disabled {
-            pointer-events: none;
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        .click-zone h3 {
-            font-size: 2.6rem;
-            color: var(--accent-secondary);
-            text-shadow: 0 0 40px rgba(57,255,20,0.2);
-            pointer-events: none;
-        }
+        .click-zone:active { transform: scale(0.96); background: #1a1f2e; }
+        .click-zone.disabled { pointer-events: none; opacity: 0.5; }
+        .click-zone h3 { font-size: 2.6rem; color: var(--accent-secondary); }
         .restart-btn {
             display: none;
             margin: 10px auto;
             background: transparent;
             border: 2px solid var(--accent);
             color: #c8b8ff;
-            font-family: 'Inter', sans-serif;
             font-weight: 700;
             padding: 12px 30px;
             border-radius: 40px;
             cursor: pointer;
-            transition: all 0.3s ease;
             font-size: 1rem;
-            letter-spacing: 0.5px;
-            text-shadow: 0 0 5px transparent;
-            pointer-events: auto;
-            user-select: none;
-            touch-action: manipulation;
-            animation: pulse 1.5s infinite;
+            min-height: 48px;
         }
-        .restart-btn.show {
-            display: block;
-        }
-        .restart-btn:hover {
-            background: var(--accent);
-            color: #fff;
-            box-shadow: 0 0 40px var(--shadow-glow);
-            text-shadow: 0 0 10px rgba(255,255,255,0.2);
-            animation: none;
-        }
-        @keyframes pulse {
-            0% { box-shadow: 0 0 10px var(--shadow-glow); }
-            50% { box-shadow: 0 0 30px var(--accent); }
-            100% { box-shadow: 0 0 10px var(--shadow-glow); }
-        }
+        .restart-btn.show { display: block; }
         .stats-grid { display: flex; gap: 20px; flex-wrap: wrap; margin: 16px 0; }
         .stat-item {
             background: #0d101a;
             border-radius: 40px;
             padding: 8px 26px;
             border: 1px solid #2a2e42;
-            font-family: 'Inter', sans-serif;
         }
         .stopwatch-display {
             font-family: 'Orbitron', monospace;
@@ -408,8 +292,7 @@
             border: 1px solid #2f354a;
             display: inline-block;
             color: #b8d0ff;
-            text-shadow: 0 0 30px var(--shadow-glow);
-            box-shadow: inset 0 0 30px rgba(0,0,0,0.5);
+            text-align: center;
         }
         .timer-inputs { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
         .timer-inputs input {
@@ -426,8 +309,7 @@
         .flex-row { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
         .mt-20 { margin-top: 20px; }
         .mb-12 { margin-bottom: 12px; }
-        .w-full { width: 100%; }
-        .theme-grid { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 30px; }
+        .theme-grid { display: flex; flex-wrap: wrap; gap: 14px; }
         .theme-btn {
             background: #0d101a;
             border: 1px solid #2f354a;
@@ -435,13 +317,11 @@
             padding: 10px 26px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
             color: #c0c8e0;
-            font-family: 'Inter', sans-serif;
             font-size: 0.85rem;
-            touch-action: manipulation;
+            min-height: 40px;
         }
-        .theme-btn:hover { border-color: var(--accent); background: #181e2b; box-shadow: 0 0 20px var(--shadow-glow); color: #fff; }
+        .theme-btn:hover { border-color: var(--accent); color: #fff; }
         .settings-group {
             background: #0b0d14;
             border-radius: 28px;
@@ -457,11 +337,9 @@
             margin-bottom: 16px;
             text-transform: uppercase;
         }
-        .checkbox-row { display: flex; align-items: center; gap: 14px; margin: 8px 0; font-family: 'Inter', sans-serif; color: #b8c0d8; }
-        .checkbox-row input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent); cursor: pointer; }
         .tools-grid { display: flex; flex-wrap: wrap; gap: 40px; }
         .tools-grid > div { flex: 1 1 300px; }
-        .col2-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 10px; }
+        .col2-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
         .col2-grid .col {
             background: #0b0d14;
             border: 1px solid #1f2538;
@@ -475,31 +353,29 @@
             border-radius: 30px;
             padding: 10px 16px;
             color: #eaeef5;
-            font-family: 'Inter', sans-serif;
             width: 100%;
             margin-bottom: 10px;
         }
-        .col2-grid .col button { margin-top: 6px; }
         .big-result {
             font-family: 'Orbitron', monospace;
             font-size: 2.4rem;
             color: var(--accent-secondary);
-            text-shadow: 0 0 30px rgba(57,255,20,0.2);
             padding: 12px 0;
+            text-align: center;
         }
-        .calc-time-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
         .calc-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; max-width: 400px; }
         .calc-grid button {
             background: #0d101a;
             border: 1px solid #2f354a;
             border-radius: 30px;
-            padding: 12px 0;
+            padding: 10px 0;
             color: #c8d0ff;
-            font-size: 1.1rem;
+            font-size: 1rem;
             cursor: pointer;
-            transition: 0.2s;
-            font-family: 'Inter', sans-serif;
-            touch-action: manipulation;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .calc-grid button:hover { border-color: var(--accent); background: #181e2b; }
         .calc-display {
@@ -513,11 +389,16 @@
             text-align: right;
             color: #eaeef5;
             min-height: 70px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+            cursor: text;
+            outline: none;
         }
-        .timezone-selector { margin-bottom: 20px; }
+        .calc-display:focus { border-color: var(--accent); box-shadow: 0 0 25px var(--shadow-glow); }
         .clock-circle {
-            width: 340px;
-            height: 340px;
+            width: 300px;
+            height: 300px;
             border-radius: 50%;
             border: 4px solid var(--accent);
             background: #0b0d14;
@@ -525,18 +406,13 @@
             align-items: center;
             justify-content: center;
             font-family: 'Orbitron', monospace;
-            font-size: 3.0rem;
+            font-size: 2.6rem;
             color: var(--accent);
-            text-shadow: 0 0 40px var(--accent);
-            box-shadow: 0 0 80px var(--shadow-glow);
-            margin: 10px auto;
-            transition: all 0.3s;
-            padding: 0 10px;
+            margin: 0 auto;
             text-align: center;
-            line-height: 1.2;
             white-space: nowrap;
         }
-        .notepad-wrap { display: flex; gap: 30px; flex-wrap: wrap; align-items: stretch; }
+        .notepad-wrap { display: flex; gap: 30px; flex-wrap: wrap; }
         .notepad-wrap .notepad-col { flex: 2; min-width: 300px; display: flex; flex-direction: column; gap: 12px; }
         .notepad-wrap textarea {
             width: 100%;
@@ -545,7 +421,6 @@
             border-radius: 28px;
             padding: 20px;
             color: #eaeef5;
-            font-family: 'Inter', sans-serif;
             font-size: 1rem;
             min-height: 200px;
             resize: vertical;
@@ -558,499 +433,148 @@
             background: #0b0d14;
             border: 1px solid #2f354a;
             border-radius: 28px;
-            padding: 16px 20px;
+            padding: 16px 12px 16px 20px;
             max-height: 400px;
             overflow-y: auto;
-            overflow-x: hidden;
         }
-        .note-list::-webkit-scrollbar, .notepad-wrap textarea::-webkit-scrollbar { width: 6px; }
-        .note-list::-webkit-scrollbar-track, .notepad-wrap textarea::-webkit-scrollbar-track { background: #12161f; border-radius: 10px; }
-        .note-list::-webkit-scrollbar-thumb, .notepad-wrap textarea::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; border: 1px solid var(--border-glow); box-shadow: 0 0 12px var(--shadow-glow); }
         .note-item {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
+            align-items: flex-start;
+            padding: 8px 8px 8px 0;
             border-bottom: 1px solid #1f2538;
             color: #b8c8e0;
             gap: 12px;
         }
-        .note-item span { flex: 1; word-break: break-all; overflow-wrap: break-word; }
+        .note-item span { flex: 1; word-break: break-word; white-space: pre-wrap; }
         .note-item .delete-btn {
             background: rgba(255,64,96,0.1);
             border: 1px solid rgba(255,64,96,0.3);
             color: #ff6070;
             cursor: pointer;
             font-weight: bold;
-            font-size: 1rem;
-            padding: 0;
-            flex-shrink: 0;
-            transition: 0.2s;
             border-radius: 50%;
             width: 26px;
             height: 26px;
             display: flex;
             align-items: center;
             justify-content: center;
-            line-height: 1;
+            flex-shrink: 0;
+            padding: 0;
         }
-        .note-item .delete-btn:hover { color: #ff2040; background: rgba(255,64,96,0.25); transform: scale(1.15); border-color: #ff4060; box-shadow: 0 0 20px rgba(255,64,96,0.3); }
         .empty-notes { text-align: center; color: #6a7a9a; padding: 40px 20px; font-style: italic; }
-        .tab-order-item { display: flex; align-items: center; gap: 12px; padding: 6px 0; border-bottom: 1px solid #1f2538; }
-        .tab-order-item span { min-width: 100px; color: #c8d0ff; font-weight: 500; }
-        .tab-order-item button { background: transparent; border: 1px solid #3a4050; border-radius: 30px; color: #b0b8d0; padding: 2px 12px; cursor: pointer; font-size: 0.8rem; }
+        .tab-order-item { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid #1f2538; flex-wrap: wrap; }
+        .tab-order-item span { flex: 1 1 200px; min-width: 0; color: #c8d0ff; font-weight: 500; word-break: break-word; font-size: 0.85rem; }
+        .tab-order-item button { background: transparent; border: 1px solid #3a4050; border-radius: 30px; color: #b0b8d0; padding: 4px 12px; cursor: pointer; font-size: 0.8rem; flex-shrink: 0; }
         .tab-order-item button:hover { border-color: var(--accent); color: #fff; }
-        .swap-btn { margin-bottom: 20px; }
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: #12161f; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; border: 1px solid var(--border-glow); box-shadow: 0 0 12px var(--shadow-glow); }
-        ::-webkit-scrollbar-thumb:hover { background: var(--accent-secondary); }
-        * { scrollbar-width: thin; scrollbar-color: var(--accent) #12161f; }
 
-        .notification-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 10000;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            pointer-events: none;
+        /* ИГРЫ */
+        .game-wrap { background: #0b0d14; border: 1px solid #1f2538; border-radius: 28px; padding: 20px; }
+        .game-canvas {
+            display: block; width: 100%; max-width: 640px; margin: 0 auto;
+            background: #05060a; border-radius: 20px; border: 1px solid #2f354a;
+            touch-action: none;
         }
+        .race-controls { display: flex; gap: 16px; margin-top: 14px; max-width: 640px; margin-left: auto; margin-right: auto; }
+        .race-btn {
+            flex: 1; background: rgba(139,92,246,0.08); border: 2px solid var(--accent);
+            color: #c8b8ff; font-size: 2rem; font-weight: 700; border-radius: 20px;
+            padding: 20px 0; cursor: pointer; min-height: 70px;
+            touch-action: manipulation;
+        }
+        .race-btn:active { background: var(--accent); color: #fff; }
+        .car-select {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+            margin-bottom: 16px; max-width: 640px; margin-left: auto; margin-right: auto;
+        }
+        .car-card {
+            background: #12161f; border: 2px solid #2f354a; border-radius: 20px;
+            padding: 14px 8px; text-align: center; cursor: pointer;
+        }
+        .car-card.selected { border-color: var(--accent-secondary); }
+        .car-card .car-name { font-family: 'Orbitron', monospace; font-size: 0.72rem; font-weight: 700; }
+        .game-score { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 14px; max-width: 640px; margin-left: auto; margin-right: auto; }
+        .game-score .stat-item { font-family: 'Orbitron', monospace; }
+
+        /* ПАЗЛ */
+        .blast-grid { display: grid; gap: 4px; justify-content: center; padding: 12px; background: #0b0d14; border-radius: 20px; border: 1px solid #1f2538; touch-action: none; margin: 0 auto; max-width: 400px; }
+        .blast-cell { width: 34px; height: 34px; border-radius: 8px; background: #12161f; transition: background 0.15s, box-shadow 0.1s; }
+        .blast-tray { display: flex; gap: 16px; justify-content: center; margin: 16px 0; flex-wrap: wrap; min-height: 120px; align-items: center; }
+        .blast-piece { display: grid; gap: 3px; padding: 8px; background: #12161f; border: 2px solid #2f354a; border-radius: 14px; cursor: grab; touch-action: none; user-select: none; }
+        .blast-piece .blast-cell { width: 22px; height: 22px; }
+
+        /* СКЕТЧ */
+        .sketch-tools { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; align-items: center; }
+        .sketch-tools .tool-btn { background: #0d101a; border: 1px solid #2f354a; color: #c8d0ff; padding: 10px 14px; border-radius: 30px; cursor: pointer; font-size: 0.8rem; min-height: 40px; }
+        .sketch-tools .tool-btn.active { border-color: var(--accent-secondary); background: rgba(57,255,20,0.1); color: #b0ffa0; }
+        .color-swatches { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+        .color-swatch { width: 32px; height: 32px; border-radius: 50%; cursor: pointer; border: 2px solid #2f354a; }
+        .color-swatch.active { border-color: #fff; }
+        .sketch-canvas { display: block; width: 100%; max-width: 800px; margin: 0 auto; background: #05060a; border-radius: 20px; border: 1px solid #2f354a; touch-action: none; cursor: crosshair; }
+        .custom-color-wrap { position: relative; width: 38px; height: 38px; border-radius: 50%; border: 2px solid #2f354a; overflow: hidden; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; background: conic-gradient(#ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000); }
+        .custom-color-wrap input[type="color"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+
+        ::-webkit-scrollbar-button { display: none !important; width: 0 !important; height: 0 !important; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; border-radius: 10px; margin: 4px 0; }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+        * { scrollbar-width: thin; scrollbar-color: var(--accent) transparent; }
+
+        .notification-container { position: fixed; top: 20px; right: 20px; z-index: 10000; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
         .notification {
             background: var(--notification-bg);
             border: 1px solid var(--notification-border);
             border-radius: 16px;
             padding: 16px 22px;
             color: #fff;
-            font-family: 'Inter', sans-serif;
-            font-weight: 500;
             font-size: 0.95rem;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.5), 0 0 25px var(--shadow-glow);
-            backdrop-filter: blur(10px);
             transform: translateX(120%);
             opacity: 0;
-            transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease;
+            transition: transform 0.45s, opacity 0.45s;
             pointer-events: auto;
             max-width: 320px;
-            word-wrap: break-word;
         }
-        .notification.show {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        .notification.hide {
-            transform: translateX(120%);
-            opacity: 0;
-            transition: transform 0.35s ease, opacity 0.35s ease;
-        }
+        .notification.show { transform: translateX(0); opacity: 1; }
+        .notification.hide { transform: translateX(120%); opacity: 0; }
         .notification.success { border-left: 4px solid var(--accent-secondary); }
         .notification.info { border-left: 4px solid var(--accent); }
         .notification.danger { border-left: 4px solid #ff4060; }
 
-        /* Мобильная оптимизация */
         @media (max-width: 768px) {
-            body { 
-                padding: 0; 
-                align-items: center;
-                justify-content: center;
-                min-height: 100vh;
-                display: flex;
-            }
-            .app-container { 
-                padding: 16px 12px 20px; 
-                border-radius: 20px;
-                max-width: 100%;
-                width: 100%;
-                margin: 0;
-            }
-            .top-bar { 
-                flex-direction: column; 
-                align-items: center; 
-                gap: 8px; 
-                padding-bottom: 12px; 
-                margin-bottom: 16px;
-                width: 100%;
-            }
-            .nav-tabs { 
-                overflow-x: auto; 
-                padding-bottom: 4px; 
-                gap: 3px;
-                width: 100%;
-                justify-content: flex-start;
-                -webkit-overflow-scrolling: touch;
-            }
-            .nav-tab { 
-                font-size: 0.6rem; 
-                padding: 6px 10px;
-                white-space: nowrap;
-            }
-            .capsule-group { 
-                justify-content: center; 
-                gap: 6px;
-                width: 100%;
-                flex-wrap: wrap;
-            }
-            .capsule { 
-                font-size: 0.65rem; 
-                padding: 4px 10px; 
-                height: 28px;
-            }
-            h2 { 
-                font-size: 1.3rem; 
-                letter-spacing: 1px; 
-                margin-bottom: 16px;
-                text-align: center;
-            }
-            h3 { 
-                font-size: 1.1rem; 
-                margin-bottom: 12px;
-                text-align: center;
-            }
-            .neon-input, select.neon-input, input.neon-input { 
-                padding: 12px 16px; 
-                font-size: 0.9rem; 
-                max-width: 100%; 
-                border-radius: 25px;
-                width: 100%;
-            }
-            .btn-neon { 
-                padding: 10px 16px; 
-                font-size: 0.85rem;
-                width: auto;
-            }
-            .profile-form { 
-                gap: 12px;
-                max-width: 100%;
-                width: 100%;
-            }
-            .profile-welcome { 
-                padding: 16px;
-                text-align: center;
-            }
-            .profile-welcome h3 { 
-                font-size: 1.1rem;
-                text-align: center;
-            }
-            .weather-card, .weather-forecast { 
-                padding: 16px;
-                border-radius: 16px; 
-                margin-bottom: 16px;
-                text-align: center;
-                overflow: hidden;
-            }
-            .weather-city { 
-                font-size: 1rem;
-                text-align: center;
-            }
-            .weather-details { 
-                gap: 10px; 
-                font-size: 0.8rem;
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-            .weather-detail-item {
-                flex: 1;
-                min-width: 80px;
-                justify-content: center;
-            }
-            .forecast-grid { 
-                grid-template-columns: repeat(3, 1fr); 
-                gap: 6px; 
-                margin-top: 12px;
-            }
-            .forecast-day { 
-                padding: 8px; 
-                border-radius: 12px;
-            }
-            .forecast-day .day-name { 
-                font-size: 0.7rem; 
-                margin-bottom: 4px;
-            }
-            .forecast-day .weather-icon { 
-                font-size: 1.5rem; 
-                margin: 5px 0;
-            }
-            .forecast-day .temp { 
-                font-size: 1rem; 
-                margin: 2px 0;
-            }
-            .forecast-day .temp-range { 
-                font-size: 0.75rem;
-            }
-            .forecast-day .precipitation { 
-                font-size: 0.7rem;
-            }
-            .temp-chart { 
-                height: 100px; 
-                gap: 6px; 
-                margin: 12px 0;
-                padding: 25px 0 15px;
-                border-bottom: 2px solid #2a2e3f;
-                position: relative;
-                overflow: hidden;
-            }
-            /* Исправление: столбцы не выходят за границы и не налезают на заголовок */
-            .temp-chart {
-                align-items: flex-end;
-                padding-top: 30px;
-                min-height: 120px;
-                max-height: 140px;
-            }
-            .temp-bar {
-                min-height: 12px;
-                max-height: 90px;
-            }
-            .temp-bar .temp-label { 
-                font-size: 0.65rem; 
-                top: -20px;
-            }
-            .click-zone { 
-                padding: 24px 16px; 
-                border-radius: 20px; 
-                max-width: 100%; 
-                margin: 8px auto;
-                width: 100%;
-            }
-            .click-zone h3 { 
-                font-size: 1.8rem;
-            }
-            .restart-btn { 
-                padding: 10px 20px; 
-                font-size: 0.9rem;
-                display: block;
-                margin: 10px auto;
-            }
-            .stats-grid { 
-                gap: 6px; 
-                margin: 12px 0;
-                justify-content: center;
-            }
-            .stat-item { 
-                padding: 6px 12px; 
-                font-size: 0.8rem; 
-                border-radius: 20px;
-                text-align: center;
-                flex: 1;
-                min-width: 80px;
-            }
-            .stopwatch-display { 
-                font-size: 2rem; 
-                letter-spacing: 2px; 
-                padding: 12px 16px; 
-                border-radius: 30px;
-                text-align: center;
-                width: 100%;
-            }
-            .timer-inputs { 
-                gap: 6px;
-                justify-content: center;
-            }
-            .timer-inputs input { 
-                width: 60px; 
-                font-size: 1rem; 
-                padding: 8px;
-            }
-            .col2-grid { 
-                grid-template-columns: 1fr; 
-                gap: 12px;
-            }
-            .col2-grid .col { 
-                padding: 16px; 
-                border-radius: 16px;
-            }
-            .calc-time-grid { 
-                grid-template-columns: 1fr; 
-                gap: 16px;
-            }
-            .calc-grid { 
-                max-width: 100%; 
-                gap: 6px;
-                margin: 0 auto;
-            }
-            .calc-grid button { 
-                padding: 10px 0; 
-                font-size: 1rem; 
-                border-radius: 16px;
-            }
-            .calc-display { 
-                font-size: 1.4rem; 
-                padding: 12px 16px; 
-                min-height: 50px; 
-                border-radius: 25px;
-            }
-            .clock-circle { 
-                width: 180px; 
-                height: 180px; 
-                font-size: 1.8rem; 
-                border-width: 3px;
-                margin: 10px auto;
-            }
-            .notepad-wrap { 
-                flex-direction: column; 
-                gap: 12px;
-            }
-            .notepad-wrap .notepad-col { 
-                min-width: 100%; 
-                gap: 10px;
-            }
-            .notepad-wrap textarea { 
-                min-height: 150px; 
-                border-radius: 16px; 
-                padding: 14px;
-                font-size: 0.9rem;
-            }
-            .note-list { 
-                max-height: 250px; 
-                min-width: 100%; 
-                border-radius: 16px; 
-                padding: 12px;
-            }
-            .note-item { 
-                padding: 8px 0; 
-                gap: 8px;
-                font-size: 0.9rem;
-            }
-            .note-item .delete-btn { 
-                width: 28px; 
-                height: 28px; 
-                font-size: 1rem;
-            }
-            .settings-group { 
-                padding: 16px; 
-                border-radius: 16px; 
-                margin-bottom: 16px;
-            }
-            .settings-group h4 { 
-                font-size: 0.9rem; 
-                margin-bottom: 12px;
-                text-align: center;
-            }
-            .theme-grid { 
-                gap: 8px; 
-                margin-bottom: 20px;
-                justify-content: center;
-            }
-            .theme-btn { 
-                padding: 8px 14px; 
-                font-size: 0.75rem; 
-                border-radius: 20px;
-            }
-            .tab-order-item { 
-                padding: 6px 0; 
-                gap: 8px;
-                font-size: 0.85rem;
-            }
-            .tab-order-item span { 
-                min-width: 80px; 
-                font-size: 0.8rem;
-            }
-            .tab-order-item button { 
-                padding: 4px 10px; 
-                font-size: 0.7rem;
-            }
-            .flex-row { 
-                gap: 8px;
-                justify-content: center;
-            }
-            .mt-20 { margin-top: 12px; }
-            .mb-12 { margin-bottom: 8px; }
-            .notification-container { 
-                top: 8px; 
-                right: 8px;
-                left: 8px;
-                gap: 6px;
-                align-items: center;
-            }
-            .notification { 
-                padding: 12px 16px; 
-                font-size: 0.85rem; 
-                max-width: 100%;
-                width: 100%;
-                border-radius: 12px;
-                text-align: center;
-            }
-            .tools-grid { 
-                gap: 20px;
-            }
-            .tools-grid > div { 
-                flex: 1 1 100%;
-            }
-            #clickTimerDisplay {
-                font-size: 1rem;
-                text-align: center;
-                margin: 8px 0;
-            }
+            body { padding: 0; align-items: flex-start; }
+            .app-container { padding: 14px 12px 22px; border-radius: 22px; max-width: 100%; margin: 8px; }
+            .top-bar { flex-direction: column; align-items: stretch; gap: 10px; }
+            .nav-tab { font-size: 0.62rem; padding: 8px 14px; }
+            .sub-tab { font-size: 0.58rem; padding: 8px 12px; }
+            .capsule-group { justify-content: center; }
+            h2 { font-size: 1.15rem; text-align: center; }
+            h3 { font-size: 1rem; text-align: center; }
+            .neon-input { padding: 12px 18px; font-size: 0.95rem; max-width: 100%; min-height: 46px; }
+            .btn-neon { padding: 12px 18px; font-size: 0.85rem; min-height: 46px; }
+            .col2-grid { grid-template-columns: 1fr; gap: 14px; }
+            .calc-grid { max-width: 100%; gap: 7px; }
+            .calc-grid button { height: 56px; font-size: 1.15rem; border-radius: 18px; padding: 14px 0; }
+            .calc-display { font-size: 1.3rem; min-height: 56px; }
+            .stopwatch-display { font-size: 2rem; letter-spacing: 2px; padding: 14px 18px; width: 100%; }
+            .clock-circle { width: 200px; height: 200px; font-size: 1.8rem; }
+            .tools-grid { gap: 20px; }
+            .tools-grid > div { flex: 1 1 100%; }
+            .forecast-grid { grid-template-columns: repeat(3, 1fr); }
+            .notepad-wrap { flex-direction: column; }
+            .car-select { grid-template-columns: repeat(2, 1fr); }
+            .blast-cell { width: 30px; height: 30px; }
+            .blast-piece .blast-cell { width: 20px; height: 20px; }
         }
-
         @media (max-width: 480px) {
-            .forecast-grid { 
-                grid-template-columns: repeat(2, 1fr); 
-            }
-            .nav-tab { 
-                font-size: 0.55rem; 
-                padding: 5px 8px;
-            }
-            .capsule { 
-                font-size: 0.6rem; 
-                padding: 3px 8px; 
-                height: 24px;
-            }
-            .stopwatch-display { 
-                font-size: 1.6rem; 
-                letter-spacing: 1px; 
-                padding: 10px 12px;
-            }
-            .click-zone h3 { 
-                font-size: 1.5rem;
-            }
-            .calc-grid button { 
-                padding: 8px 0; 
-                font-size: 0.9rem;
-            }
-            .clock-circle { 
-                width: 150px; 
-                height: 150px; 
-                font-size: 1.5rem;
-            }
-            h2 {
-                font-size: 1.1rem;
-                letter-spacing: 0.5px;
-            }
-            h3 {
-                font-size: 1rem;
-            }
-            .weather-card, .weather-forecast {
-                padding: 12px;
-            }
-            .stat-item {
-                padding: 5px 8px;
-                font-size: 0.7rem;
-                min-width: 70px;
-            }
-            .btn-neon {
-                padding: 8px 12px;
-                font-size: 0.8rem;
-            }
-            .temp-chart {
-                height: 80px;
-                padding: 25px 0 10px;
-                min-height: 100px;
-                max-height: 110px;
-            }
-            .temp-bar {
-                min-height: 10px;
-                max-height: 70px;
-            }
-            .temp-bar .temp-label {
-                font-size: 0.55rem;
-                top: -18px;
-            }
+            .forecast-grid { grid-template-columns: repeat(2, 1fr); }
+            .clock-circle { width: 160px; height: 160px; font-size: 1.5rem; }
+            .blast-cell { width: 26px; height: 26px; }
+            .blast-piece .blast-cell { width: 18px; height: 18px; }
         }
     </style>
 </head>
 <body>
-<div class="app-container" id="appContainer">
+<div class="app-container">
     <div class="top-bar">
         <div class="nav-tabs" id="navTabsContainer"></div>
         <div class="capsule-group">
@@ -1058,67 +582,138 @@
             <div class="capsule capsule-clock" id="capsuleClock">UTC+3 00:00:00</div>
         </div>
     </div>
+    <div class="sub-tabs" id="subTabsContainer"></div>
 
+    <!-- ПРОФИЛЬ -->
     <div id="screen-profile" class="screen active">
         <h2 data-i18n="profile">ПРОФИЛЬ</h2>
-        <div id="profileContainer">
-            <div id="profileFormWrapper">
-                <div class="profile-form">
-                    <input class="neon-input" id="nickInput" placeholder="Никнейм" data-i18n-placeholder="nickname">
-                    <select class="neon-input" id="countrySelect"></select>
-                    <select class="neon-input" id="citySelect"></select>
-                    <input type="text" id="bday-input" class="neon-input" placeholder="ДД.ММ.ГГГГ" maxlength="10" autocomplete="off">
-                    <select class="neon-input" id="langSelectProfile">
-                        <option value="ru">Русский</option>
-                        <option value="en">English</option>
+        <div id="profileFormWrapper">
+            <div class="profile-form">
+                <input class="neon-input" id="nickInput" placeholder="Никнейм" data-i18n-placeholder="nickname">
+                <select class="neon-input" id="countrySelect"></select>
+                <select class="neon-input" id="citySelect"></select>
+                <input type="text" id="bday-input" class="neon-input" placeholder="ДД.ММ.ГГГГ" maxlength="10">
+                <select class="neon-input" id="langSelectProfile"></select>
+                <div class="flex-row">
+                    <button class="btn-neon" id="createProfileBtn" type="button" data-i18n="create_profile">Создать профиль</button>
+                    <button class="btn-neon btn-danger" id="resetProfileBtn" type="button" data-i18n="reset_profile">Сбросить профиль</button>
+                </div>
+            </div>
+        </div>
+        <div id="profileWelcomeWrapper" style="display:none;">
+            <div class="profile-welcome">
+                <h3 id="welcomeMsg">ДОБРО ПОЖАЛОВАТЬ</h3>
+                <p style="color:#6a7a9a; font-size:0.9rem; margin-top:6px;" data-i18n="profile_active">профиль активен</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ВРЕМЯ: секундомер + таймер + МИРОВОЕ ВРЕМЯ (часы + часовой пояс) -->
+    <div id="screen-timetools" class="screen">
+        <h2 data-i18n="stopwatch_timer">СЕКУНДОМЕР & ТАЙМЕР</h2>
+        <div class="tools-grid">
+            <div>
+                <h3 style="font-size:1.2rem;" data-i18n="stopwatch">Секундомер</h3>
+                <div class="stopwatch-display" id="stopwatchDisplay">00:00:00.00</div>
+                <div class="flex-row mt-20">
+                    <button class="btn-neon" id="swStartPause">СТАРТ</button>
+                    <button class="btn-neon btn-danger" id="swReset">СБРОС</button>
+                </div>
+            </div>
+            <div>
+                <h3 style="font-size:1.2rem;" data-i18n="timer">Таймер</h3>
+                <div class="timer-inputs">
+                    <input type="number" id="timerHours" min="0" value="0" class="neon-input" style="max-width:80px;"> <span data-i18n="hours">ч</span>
+                    <input type="number" id="timerMinutes" min="0" value="0" class="neon-input" style="max-width:80px;"> <span data-i18n="minutes">мин</span>
+                    <input type="number" id="timerSeconds" min="0" max="59" value="10" class="neon-input" style="max-width:80px;"> <span data-i18n="seconds">сек</span>
+                </div>
+                <div class="stopwatch-display" style="font-size:2.8rem; margin:16px 0;" id="timerDisplay">00:00:00</div>
+                <div class="flex-row">
+                    <button class="btn-neon" id="timerStartPause">СТАРТ</button>
+                    <button class="btn-neon btn-danger" id="timerReset">СБРОС</button>
+                </div>
+                <div class="flex-row mt-20">
+                    <label for="volumeSlider" class="volume-label" data-i18n="volume_label">Громкость сигнала</label>
+                    <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.3" style="accent-color:var(--accent);">
+                </div>
+            </div>
+            <div style="flex: 1 1 100%;">
+                <h3 style="font-size:1.2rem;">Мировое время</h3>
+                <select class="neon-input" id="timezoneSelect" style="margin-bottom: 16px;"></select>
+                <div class="clock-circle" id="clockCircle">00:00:00</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- КАЛЬКУЛЯТОР (только калькулятор, без времени) -->
+    <div id="screen-calc" class="screen">
+        <h2 data-i18n="calculator_time">КАЛЬКУЛЯТОР</h2>
+        <div class="calc-grid" id="calcGrid">
+            <div class="calc-display" id="calcDisplay" tabindex="0">0</div>
+            <button data-op="C">C</button><button data-op="back">⌫</button><button data-op="%">%</button><button data-op="/">/</button><button data-op="sqrt">√</button>
+            <button data-op="7">7</button><button data-op="8">8</button><button data-op="9">9</button><button data-op="*">*</button><button data-op="x2">x²</button>
+            <button data-op="4">4</button><button data-op="5">5</button><button data-op="6">6</button><button data-op="-">-</button><button data-op="xy">x^y</button>
+            <button data-op="1">1</button><button data-op="2">2</button><button data-op="3">3</button><button data-op="+">+</button><button data-op="(">(</button>
+            <button data-op="0">0</button><button data-op=".">.</button><button data-op="=">=</button><button data-op=")">)</button><button data-op="pi">π</button>
+        </div>
+    </div>
+
+    <!-- РАНДОМАЙЗЕР -->
+    <div id="screen-randomizer" class="screen">
+        <h2 data-i18n="randomizer_generator">РАНДОМАЙЗЕР & ГЕНЕРАТОР НИКОВ</h2>
+        <div class="col2-grid">
+            <div class="col">
+                <h3 data-i18n="number_randomizer">РАНДОМАЙЗЕР ЧИСЕЛ</h3>
+                <input type="number" id="randomFrom" placeholder="от" value="0">
+                <input type="number" id="randomTo" placeholder="до" value="100">
+                <button class="btn-neon" id="generateNumberBtn" data-i18n="generate">Сгенерировать</button>
+                <div class="big-result" id="randomResult">--</div>
+            </div>
+            <div class="col">
+                <h3 data-i18n="nickname_generator">ГЕНЕРАТОР НИКНЕЙМОВ</h3>
+                <div class="flex-row mb-12">
+                    <select class="neon-input" id="nickWordCount" style="max-width:110px;">
+                        <option value="1">1 слово</option>
+                        <option value="2">2 слова</option>
                     </select>
-                    <div class="flex-row">
-                        <button class="btn-neon" id="createProfileBtn" type="button" data-i18n="create_profile">Создать профиль</button>
-                        <button class="btn-neon btn-danger" id="resetProfileBtn" type="button" data-i18n="reset_profile">Сбросить профиль</button>
-                    </div>
+                    <select class="neon-input" id="nickLangSelect" style="max-width:130px;">
+                        <option value="en">English</option>
+                        <option value="ru">Русский</option>
+                    </select>
+                    <input type="number" id="nickMinLetters" placeholder="мин" style="max-width:100px;" value="4">
+                    <input type="number" id="nickMaxLetters" placeholder="макс" style="max-width:100px;" value="10">
                 </div>
-            </div>
-            <div id="profileWelcomeWrapper" style="display:none;">
-                <div class="profile-welcome">
-                    <h3 id="welcomeMsg">ДОБРО ПОЖАЛОВАТЬ В ZADROTHUB, NICK!</h3>
-                    <p style="color:#6a7a9a; font-size:0.9rem; margin-top:6px;" id="profileStatus" data-i18n="profile_active">✅ профиль активен</p>
-                </div>
+                <button class="btn-neon" id="generateNickBtn" data-i18n="generate">Сгенерировать</button>
+                <div class="big-result" id="nickResult">--</div>
             </div>
         </div>
     </div>
 
-    <div id="screen-clicker" class="screen">
-        <h2 data-i18n="click_test">КЛИК-ТЕСТ</h2>
-        <div class="flex-row mb-12">
-            <button class="btn-neon duration-btn" data-duration="1" type="button">1с</button>
-            <button class="btn-neon duration-btn" data-duration="5" type="button">5с</button>
-            <button class="btn-neon duration-btn" data-duration="10" type="button">10с</button>
-            <button class="btn-neon duration-btn" data-duration="60" type="button">60с</button>
+    <!-- БЛОКНОТ -->
+    <div id="screen-notepad" class="screen">
+        <h2 data-i18n="notepad">БЛОКНОТ</h2>
+        <div class="notepad-wrap">
+            <div class="notepad-col">
+                <textarea id="noteInput" placeholder="Введите заметку..." data-i18n-placeholder="enter_note"></textarea>
+                <div class="save-btn-wrap"><button class="btn-neon" id="saveNoteBtn">Сохранить запись</button></div>
+                <div class="clear-btn-wrap"><button class="btn-neon btn-danger" id="clearNotesBtn">Очистить всё</button></div>
+            </div>
+            <div class="note-list" id="noteList"></div>
         </div>
-        <div class="click-zone" id="clickZone">
-            <h3 data-i18n="click">КЛИК!</h3>
-        </div>
-        <button class="restart-btn" id="restartBtn" data-i18n="restart">НАЧАТЬ ЗАНОВО</button>
-        <div class="stats-grid">
-            <div class="stat-item"><span data-i18n="clicks">Клики</span>: <span id="clickCount">0</span></div>
-            <div class="stat-item"><span data-i18n="time">Время</span>: <span id="elapsedTime">0.0</span>с</div>
-            <div class="stat-item">CPS: <span id="cpsDisplay">0.00</span></div>
-            <div class="stat-item"><span data-i18n="rank">Ранг</span>: <span id="rankDisplay">—</span></div>
-        </div>
-        <div id="clickTimerDisplay" style="font-family:'Orbitron'; color:var(--accent); font-size:1.2rem; text-align: center;">⏱️ 0.0s</div>
     </div>
 
+    <!-- ПОГОДА -->
     <div id="screen-weather" class="screen">
         <h2 data-i18n="weather">ПОГОДА</h2>
-        <div class="weather-card" id="weatherCard">
+        <div class="weather-card">
             <div style="font-size:2.6rem; margin-bottom:8px;" id="weatherEmoji">☁️</div>
             <div style="font-size:1.8rem; font-weight:600;" id="weatherTemp">-- °C</div>
-            <div class="weather-city" id="weatherCity" data-i18n="city_not_set">город не задан</div>
+            <div class="weather-city" id="weatherCity">--</div>
             <div style="color:#8a9abb; margin-top:4px;" id="weatherDesc">--</div>
             <div class="weather-details">
                 <div class="weather-detail-item">💧 <span id="weatherHumidity">--%</span></div>
-                <div class="weather-detail-item">🌧️ <span id="weatherPrecip">-- мм</span></div>
-                <div class="weather-detail-item">💨 <span id="weatherWind">-- км/ч</span></div>
+                <div class="weather-detail-item">🌧️ <span id="weatherPrecip">--</span></div>
+                <div class="weather-detail-item">💨 <span id="weatherWind">--</span></div>
             </div>
         </div>
         <div class="weather-forecast" id="forecastContainer" style="display:none;">
@@ -1128,96 +723,83 @@
         </div>
     </div>
 
-    <div id="screen-timetools" class="screen">
-        <h2 data-i18n="stopwatch_timer">СЕКУНДОМЕР & ТАЙМЕР</h2>
-        <div class="tools-grid">
-            <div>
-                <h3 style="font-size:1.2rem;" data-i18n="stopwatch">⏱️ Секундомер</h3>
-                <div class="stopwatch-display" id="stopwatchDisplay">00:00:00.00</div>
-                <div class="flex-row mt-20">
-                    <button class="btn-neon" id="swStartPause" type="button" data-i18n="start">СТАРТ</button>
-                    <button class="btn-neon btn-danger" id="swReset" type="button" data-i18n="reset">СБРОС</button>
-                </div>
-            </div>
-            <div>
-                <h3 style="font-size:1.2rem;" data-i18n="timer">⏳ Таймер</h3>
-                <div class="timer-inputs">
-                    <input type="number" id="timerHours" min="0" value="0" step="1" class="neon-input" style="max-width:80px;"> <span data-i18n="hours">ч</span>
-                    <input type="number" id="timerMinutes" min="0" value="0" step="1" class="neon-input" style="max-width:80px;"> <span data-i18n="minutes">мин</span>
-                    <input type="number" id="timerSeconds" min="0" max="59" value="10" step="1" class="neon-input" style="max-width:80px;"> <span data-i18n="seconds">сек</span>
-                </div>
-                <div class="stopwatch-display" style="font-size:2.8rem; margin:16px 0;" id="timerDisplay">00:00:00</div>
-                <div class="flex-row">
-                    <button class="btn-neon" id="timerStartPause" type="button" data-i18n="start">СТАРТ</button>
-                    <button class="btn-neon btn-danger" id="timerReset" type="button" data-i18n="reset">СБРОС</button>
-                </div>
-                <div class="flex-row mt-20">
-                    <label for="volumeSlider" class="volume-label" data-i18n="volume_label">Громкость сигнала</label>
-                    <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.3" style="background:#12161f; accent-color:var(--accent);">
-                </div>
-            </div>
+    <!-- КЛИК-ТЕСТ -->
+    <div id="screen-clicker" class="screen">
+        <h2 data-i18n="click_test">КЛИК-ТЕСТ</h2>
+        <div class="flex-row mb-12">
+            <button class="btn-neon duration-btn" data-duration="1">1с</button>
+            <button class="btn-neon duration-btn" data-duration="5">5с</button>
+            <button class="btn-neon duration-btn" data-duration="10">10с</button>
+            <button class="btn-neon duration-btn" data-duration="60">60с</button>
+        </div>
+        <div class="click-zone" id="clickZone"><h3 data-i18n="click">КЛИК!</h3></div>
+        <button class="restart-btn" id="restartBtn">НАЧАТЬ ЗАНОВО</button>
+        <div class="stats-grid">
+            <div class="stat-item"><span data-i18n="clicks">Клики</span>: <span id="clickCount">0</span></div>
+            <div class="stat-item"><span data-i18n="time">Время</span>: <span id="elapsedTime">0.0</span>с</div>
+            <div class="stat-item">CPS: <span id="cpsDisplay">0.00</span></div>
+            <div class="stat-item"><span data-i18n="rank">Ранг</span>: <span id="rankDisplay">—</span></div>
         </div>
     </div>
 
-    <div id="screen-calc" class="screen">
-        <h2 data-i18n="calculator_time">КАЛЬКУЛЯТОР & ВРЕМЯ</h2>
-        <button class="btn-neon swap-btn" id="swapCalcBtn" data-i18n="swap_blocks">🔄 Поменять блоки местами</button>
-        <div class="calc-time-grid" id="calcTimeGrid">
-            <div>
-                <div class="calc-grid" id="calcGrid">
-                    <div class="calc-display" id="calcDisplay">0</div>
-                    <button data-op="C">C</button><button data-op="back">⌫</button><button data-op="%">%</button><button data-op="/">/</button><button data-op="sqrt">√</button>
-                    <button data-op="7">7</button><button data-op="8">8</button><button data-op="9">9</button><button data-op="*">*</button><button data-op="x2">x²</button>
-                    <button data-op="4">4</button><button data-op="5">5</button><button data-op="6">6</button><button data-op="-">-</button><button data-op="xy">x^y</button>
-                    <button data-op="1">1</button><button data-op="2">2</button><button data-op="3">3</button><button data-op="+">+</button><button data-op="(">(</button>
-                    <button data-op="0">0</button><button data-op=".">.</button><button data-op="=">=</button><button data-op=")">)</button><button data-op="pi">π</button>
-                </div>
-            </div>
-            <div>
-                <select class="neon-input" id="timezoneSelect" style="margin-bottom: 20px;"></select>
-                <div class="clock-circle" id="clockCircle">00:00:00</div>
+    <!-- ГОНКИ -->
+    <div id="screen-race" class="screen">
+        <h2 data-i18n="race">ГОНКИ</h2>
+        <div class="car-select" id="carSelect"></div>
+        <div class="game-score">
+            <div class="stat-item">Счёт: <span id="raceScore">0</span></div>
+            <div class="stat-item">Рекорд: <span id="raceBest">0</span></div>
+        </div>
+        <div class="game-wrap">
+            <canvas id="raceCanvas" class="game-canvas" width="640" height="400"></canvas>
+            <div class="race-controls">
+                <button class="race-btn" id="raceLeft">◀</button>
+                <button class="race-btn" id="raceRight">▶</button>
             </div>
         </div>
+        <button class="btn-neon btn-green mt-20" id="raceStart">НАЧАТЬ ГОНКУ</button>
     </div>
 
-    <div id="screen-randomizer" class="screen">
-        <h2 data-i18n="randomizer_generator">РАНДОМАЙЗЕР & ГЕНЕРАТОР НИКОВ</h2>
-        <div class="col2-grid">
-            <div class="col">
-                <h3 data-i18n="number_randomizer">РАНДОМАЙЗЕР ЧИСЕЛ</h3>
-                <input type="number" id="randomFrom" placeholder="от" data-i18n-placeholder="from">
-                <input type="number" id="randomTo" placeholder="до" data-i18n-placeholder="to">
-                <button class="btn-neon" id="generateNumberBtn" data-i18n="generate">Сгенерировать</button>
-                <div class="big-result" id="randomResult">--</div>
-            </div>
-            <div class="col">
-                <h3 data-i18n="nickname_generator">ГЕНЕРАТОР НИКНЕЙМОВ</h3>
-                <div class="flex-row mb-12">
-                    <select class="neon-input" id="nickWordCount" style="max-width:100px;">
-                        <option value="1" data-i18n="1_word">1 слово</option>
-                        <option value="2" data-i18n="2_words">2 слова</option>
-                    </select>
-                    <input type="number" id="nickMinLetters" placeholder="мин букв" data-i18n-placeholder="min_letters" style="max-width:120px;" value="4">
-                    <input type="number" id="nickMaxLetters" placeholder="макс букв" data-i18n-placeholder="max_letters" style="max-width:120px;" value="10">
-                </div>
-                <button class="btn-neon" id="generateNickBtn" data-i18n="generate">Сгенерировать</button>
-                <div class="big-result" id="nickResult">--</div>
-            </div>
+    <!-- БЛОЧНЫЙ ПАЗЛ -->
+    <div id="screen-blast" class="screen">
+        <h2 data-i18n="blast">БЛОЧНЫЙ ПАЗЛ</h2>
+        <div class="game-score">
+            <div class="stat-item">Очки: <span id="blastScore">0</span></div>
+            <div class="stat-item">Рекорд: <span id="blastBest">0</span></div>
         </div>
+        <div class="blast-grid" id="blastGrid"></div>
+        <div class="blast-tray" id="blastTray"></div>
+        <button class="btn-neon btn-green" id="blastNew">Новая игра</button>
     </div>
 
-    <div id="screen-notepad" class="screen">
-        <h2 data-i18n="notepad">БЛОКНОТ</h2>
-        <div class="notepad-wrap">
-            <div class="notepad-col">
-                <textarea id="noteInput" placeholder="Введите заметку..." data-i18n-placeholder="enter_note"></textarea>
-                <div class="save-btn-wrap"><button class="btn-neon" id="saveNoteBtn" data-i18n="save_note">💾 Сохранить запись</button></div>
-                <div class="clear-btn-wrap"><button class="btn-neon btn-danger" id="clearNotesBtn" data-i18n="clear_all">🗑️ Очистить всё</button></div>
-            </div>
-            <div class="note-list" id="noteList"></div>
+    <!-- СКЕТЧПАД -->
+    <div id="screen-sketch" class="screen">
+        <h2 data-i18n="sketch">СКЕТЧПАД</h2>
+        <div class="sketch-tools">
+            <button class="tool-btn active" data-tool="brush">Кисть</button>
+            <button class="tool-btn" data-tool="neon">Неон</button>
+            <button class="tool-btn" data-tool="eraser">Ластик</button>
+            <button class="tool-btn" data-tool="line">Линия</button>
+            <button class="tool-btn" data-tool="rect">Прямоугольник</button>
+            <button class="tool-btn" data-tool="circle">Круг</button>
+            <button class="tool-btn" data-tool="triangle">Треугольник</button>
+            <button class="tool-btn" data-tool="star">Звезда</button>
+            <button class="tool-btn" data-tool="arrow">Стрелка</button>
+            <button class="tool-btn" data-tool="diamond">Ромб</button>
+            <button class="tool-btn" data-tool="pentagon">Пятиугольник</button>
+            <button class="tool-btn" data-tool="hexagon">Шестиугольник</button>
+            <span style="color:#8a9abb;font-size:0.8rem;">Размер:</span>
+            <input type="range" id="sketchSize" min="1" max="50" value="4" style="accent-color:var(--accent);max-width:120px;">
+            <div class="color-swatches" id="sketchColors"></div>
+            <label class="custom-color-wrap" title="Custom"><input type="color" id="sketchCustomColor" value="#ffffff"></label>
+            <span style="font-size:0.72rem;color:#8a9abb;">Свой цвет</span>
+            <button class="btn-neon btn-danger" id="sketchClear" style="margin-left:auto;">Очистить</button>
+            <button class="btn-neon btn-green" id="sketchSave">Сохранить PNG</button>
         </div>
+        <canvas id="sketchCanvas" class="sketch-canvas" width="800" height="500"></canvas>
     </div>
 
+    <!-- НАСТРОЙКИ -->
     <div id="screen-settings" class="screen">
         <h2 data-i18n="settings">НАСТРОЙКИ</h2>
         <div class="settings-group">
@@ -1227,173 +809,303 @@
         <div class="settings-group">
             <h4 data-i18n="profile_editing">РЕДАКТИРОВАНИЕ ПРОФИЛЯ</h4>
             <div class="profile-form">
-                <input class="neon-input" id="editNickInput" placeholder="Никнейм" data-i18n-placeholder="nickname">
+                <input class="neon-input" id="editNickInput" placeholder="Никнейм">
                 <select class="neon-input" id="editCountrySelect"></select>
                 <select class="neon-input" id="editCitySelect"></select>
-                <input type="text" id="editBdayInput" class="neon-input" placeholder="ДД.ММ.ГГГГ" maxlength="10" autocomplete="off">
-                <select class="neon-input" id="langSelectSettings">
-                    <option value="ru">Русский</option>
-                    <option value="en">English</option>
-                </select>
-                <button class="btn-neon" id="updateProfileBtn" data-i18n="update_profile">Обновить профиль</button>
+                <input type="text" id="editBdayInput" class="neon-input" placeholder="ДД.ММ.ГГГГ" maxlength="10">
+                <select class="neon-input" id="langSelectSettings"></select>
+                <button class="btn-neon" id="updateProfileBtn">Обновить профиль</button>
             </div>
         </div>
         <div class="settings-group">
-            <h4 data-i18n="tab_order">МЕНЮ УПРАВЛЕНИЯ (ПОРЯДОК ВКЛАДОК)</h4>
-            <div id="tabOrderList"></div>
+            <h4>ГЛАВНЫЕ ВКЛАДКИ</h4>
+            <div id="mainTabOrderList"></div>
+        </div>
+        <div class="settings-group">
+            <h4>ВНУТРЕННИЕ ВКЛАДКИ</h4>
+            <div id="subTabOrderList"></div>
         </div>
     </div>
 </div>
 
 <div class="notification-container" id="notificationContainer"></div>
-
 <script>
+/* ================== ДАННЫЕ ================== */
+const countriesData = {
+    ru: { russia:'Россия', usa:'США', china:'Китай', india:'Индия', brazil:'Бразилия', nigeria:'Нигерия', japan:'Япония', mexico:'Мексика', uk:'Великобритания', germany:'Германия' },
+    en: { russia:'Russia', usa:'USA', china:'China', india:'India', brazil:'Brazil', nigeria:'Nigeria', japan:'Japan', mexico:'Mexico', uk:'United Kingdom', germany:'Germany' }
+};
+const citiesData = {
+    russia: { ru: ['Москва','Санкт-Петербург','Новосибирск','Екатеринбург','Казань','Нижний Новгород','Челябинск','Самара','Рязань','Ростов-на-Дону'], en: ['Moscow','Saint Petersburg','Novosibirsk','Yekaterinburg','Kazan','Nizhny Novgorod','Chelyabinsk','Samara','Ryazan','Rostov-on-Don'] },
+    usa: { ru: ['Нью-Йорк','Лос-Анджелес','Чикаго','Хьюстон','Филадельфия','Сан-Франциско','Майами','Вашингтон','Бостон','Даллас'], en: ['New York','Los Angeles','Chicago','Houston','Philadelphia','San Francisco','Miami','Washington','Boston','Dallas'] },
+    china: { ru: ['Пекин','Шанхай','Гуанчжоу','Шэньчжэнь','Чэнду','Ухань','Нанкин','Ханчжоу','Сиань','Тяньцзинь'], en: ['Beijing','Shanghai','Guangzhou','Shenzhen','Chengdu','Wuhan','Nanjing','Hangzhou',"Xi'an",'Tianjin'] },
+    india: { ru: ['Нью-Дели','Мумбаи','Бангалор','Ченнаи','Хайдарабад','Калькутта','Ахмедабад','Пуна','Сурат','Джайпур'], en: ['New Delhi','Mumbai','Bangalore','Chennai','Hyderabad','Kolkata','Ahmedabad','Pune','Surat','Jaipur'] },
+    brazil: { ru: ['Сан-Паулу','Рио-де-Жанейро','Бразилиа','Салвадор','Форталеза','Белу-Оризонти','Манаус','Куритиба','Ресифи','Порту-Алегри'], en: ['São Paulo','Rio de Janeiro','Brasília','Salvador','Fortaleza','Belo Horizonte','Manaus','Curitiba','Recife','Porto Alegre'] },
+    nigeria: { ru: ['Лагос','Кано','Ибадан','Абуджа','Кадуна','Порт-Харкорт','Бенин-Сити','Майдугури','Зария','Абеокута'], en: ['Lagos','Kano','Ibadan','Abuja','Kaduna','Port Harcourt','Benin City','Maiduguri','Zaria','Abeokuta'] },
+    japan: { ru: ['Токио','Осака','Нагоя','Саппоро','Фукуока','Киото','Кобе','Сайтама','Хиросима','Сендай'], en: ['Tokyo','Osaka','Nagoya','Sapporo','Fukuoka','Kyoto','Kobe','Saitama','Hiroshima','Sendai'] },
+    mexico: { ru: ['Мехико','Гвадалахара','Монтеррей','Пуэбла','Толука','Тихуана','Леон','Сьюдад-Хуарес','Торреон','Мерида'], en: ['Mexico City','Guadalajara','Monterrey','Puebla','Toluca','Tijuana','León','Ciudad Juárez','Torreón','Mérida'] },
+    uk: { ru: ['Лондон','Бирмингем','Манчестер','Ливерпуль','Бристоль','Шеффилд','Лидс','Ньюкасл','Ноттингем','Лестер'], en: ['London','Birmingham','Manchester','Liverpool','Bristol','Sheffield','Leeds','Newcastle','Nottingham','Leicester'] },
+    germany: { ru: ['Берлин','Гамбург','Мюнхен','Кёльн','Франкфурт','Штутгарт','Дюссельдорф','Дортмунд','Эссен','Лейпциг'], en: ['Berlin','Hamburg','Munich','Cologne','Frankfurt','Stuttgart','Düsseldorf','Dortmund','Essen','Leipzig'] }
+};
+/* EN-названия городов для геокодера (то, что реально пойдёт в API) */
+const cityToEn = {
+    'Москва':'Moscow','Санкт-Петербург':'Saint Petersburg','Новосибирск':'Novosibirsk','Екатеринбург':'Yekaterinburg','Казань':'Kazan','Нижний Новгород':'Nizhny Novgorod','Челябинск':'Chelyabinsk','Самара':'Samara','Рязань':'Ryazan','Ростов-на-Дону':'Rostov-on-Don',
+    'Нью-Йорк':'New York','Лос-Анджелес':'Los Angeles','Чикаго':'Chicago','Хьюстон':'Houston','Филадельфия':'Philadelphia','Сан-Франциско':'San Francisco','Майами':'Miami','Вашингтон':'Washington','Бостон':'Boston','Даллас':'Dallas',
+    'Пекин':'Beijing','Шанхай':'Shanghai','Гуанчжоу':'Guangzhou','Шэньчжэнь':'Shenzhen','Чэнду':'Chengdu','Ухань':'Wuhan','Нанкин':'Nanjing','Ханчжоу':'Hangzhou','Сиань':"Xi'an",'Тяньцзинь':'Tianjin',
+    'Нью-Дели':'New Delhi','Мумбаи':'Mumbai','Бангалор':'Bangalore','Ченнаи':'Chennai','Хайдарабад':'Hyderabad','Калькутта':'Kolkata','Ахмедабад':'Ahmedabad','Пуна':'Pune','Сурат':'Surat','Джайпур':'Jaipur',
+    'Сан-Паулу':'São Paulo','Рио-де-Жанейро':'Rio de Janeiro','Бразилиа':'Brasília','Салвадор':'Salvador','Форталеза':'Fortaleza','Белу-Оризонти':'Belo Horizonte','Манаус':'Manaus','Куритиба':'Curitiba','Ресифи':'Recife','Порту-Алегри':'Porto Alegre',
+    'Лагос':'Lagos','Кано':'Kano','Ибадан':'Ibadan','Абуджа':'Abuja','Кадуна':'Kaduna','Порт-Харкорт':'Port Harcourt','Бенин-Сити':'Benin City','Майдугури':'Maiduguri','Зария':'Zaria','Абеокута':'Abeokuta',
+    'Токио':'Tokyo','Осака':'Osaka','Нагоя':'Nagoya','Саппоро':'Sapporo','Фукуока':'Fukuoka','Киото':'Kyoto','Кобе':'Kobe','Сайтама':'Saitama','Хиросима':'Hiroshima','Сендай':'Sendai',
+    'Мехико':'Mexico City','Гвадалахара':'Guadalajara','Монтеррей':'Monterrey','Пуэбла':'Puebla','Толука':'Toluca','Тихуана':'Tijuana','Леон':'León','Сьюдад-Хуарес':'Ciudad Juárez','Торреон':'Torreón','Мерида':'Mérida',
+    'Лондон':'London','Бирмингем':'Birmingham','Манчестер':'Manchester','Ливерпуль':'Liverpool','Бристоль':'Bristol','Шеффилд':'Sheffield','Лидс':'Leeds','Ньюкасл':'Newcastle','Ноттингем':'Nottingham','Лестер':'Leicester',
+    'Берлин':'Berlin','Гамбург':'Hamburg','Мюнхен':'Munich','Кёльн':'Cologne','Франкфурт':'Frankfurt','Штутгарт':'Stuttgart','Дюссельдорф':'Düsseldorf','Дортмунд':'Dortmund','Эссен':'Essen','Лейпциг':'Leipzig'
+};
+function getEnglishCityName(city) {
+    return cityToEn[city] || city;
+}
+const themes = {
+    cyberpunk: { '--accent':'#8b5cf6','--accent-secondary':'#39ff14','--border-glow':'#8b5cf6','--shadow-glow':'rgba(139,92,246,0.25)' },
+    red_phantom: { '--accent':'#ff2020','--accent-secondary':'#ff6030','--border-glow':'#ff2020','--shadow-glow':'rgba(255,32,32,0.25)' },
+    ice_neon: { '--accent':'#00e5ff','--accent-secondary':'#80f0ff','--border-glow':'#00e5ff','--shadow-glow':'rgba(0,229,255,0.25)' },
+    matrix: { '--accent':'#00ff41','--accent-secondary':'#008f11','--border-glow':'#00ff41','--shadow-glow':'rgba(0,255,65,0.25)' },
+    quartz: { '--accent':'#ff69b4','--accent-secondary':'#ffb6c1','--border-glow':'#ff69b4','--shadow-glow':'rgba(255,105,180,0.25)' },
+    volcano: { '--accent':'#ff4500','--accent-secondary':'#ff8c00','--border-glow':'#ff4500','--shadow-glow':'rgba(255,69,0,0.25)' },
+    midnight: { '--accent':'#191970','--accent-secondary':'#000080','--border-glow':'#191970','--shadow-glow':'rgba(25,25,112,0.25)' },
+    golden_glow: { '--accent':'#ffd700','--accent-secondary':'#ffec8b','--border-glow':'#ffd700','--shadow-glow':'rgba(255,215,0,0.25)' },
+    starlight: { '--accent':'#c0c0ff','--accent-secondary':'#e6e6fa','--border-glow':'#c0c0ff','--shadow-glow':'rgba(192,192,255,0.25)' },
+    dark_knight: { '--accent':'#404040','--accent-secondary':'#808080','--border-glow':'#404040','--shadow-glow':'rgba(64,64,64,0.25)' }
+};
 const translations = {
     ru: {
-        profile: 'ПРОФИЛЬ', click_test: 'КЛИК-ТЕСТ', weather: 'ПОГОДА', stopwatch_timer: 'СЕКУНДОМЕР & ТАЙМЕР',
-        calculator_time: 'КАЛЬКУЛЯТОР & ВРЕМЯ', randomizer_generator: 'РАНДОМАЙЗЕР & ГЕНЕРАТОР НИКОВ', notepad: 'БЛОКНОТ',
-        settings: 'НАСТРОЙКИ', nickname: 'Никнейм', country: 'Страна', city: 'Город', create_profile: 'Создать профиль',
-        reset_profile: 'Сбросить профиль', profile_active: '✅ профиль активен', click: 'КЛИК!', clicks: 'Клики',
-        time: 'Время', rank: 'Ранг', city_not_set: 'город не задан', refresh: 'Обновить', weekly_forecast: 'Прогноз на неделю',
-        temperature: 'Температура', precipitation: 'Осадки', stopwatch: '⏱️ Секундомер', timer: '⏳ Таймер',
-        start: 'СТАРТ', reset: 'СБРОС', pause: 'ПАУЗА', hours: 'ч', minutes: 'мин', seconds: 'сек', stop_alarm: 'ОСТАНОВИТЬ СИГНАЛ',
-        swap_blocks: '🔄 Поменять блоки местами', number_randomizer: 'РАНДОМАЙЗЕР ЧИСЕЛ', nickname_generator: 'ГЕНЕРАТОР НИКНЕЙМОВ',
-        from: 'от', to: 'до', generate: 'Сгенерировать', word_count: 'Кол-во слов', min_letters: 'мин букв', max_letters: 'макс букв',
-        '1_word': '1 слово', '2_words': '2 слова', enter_note: 'Введите заметку...', save_note: '💾 Сохранить запись',
-        clear_all: '🗑️ Очистить всё', theme_customization: 'КАСТОМИЗАЦИЯ ТЕМЫ', profile_editing: 'РЕДАКТИРОВАНИЕ ПРОФИЛЯ',
-        tab_order: 'МЕНЮ УПРАВЛЕНИЯ (ПОРЯДОК ВКЛАДОК)', update_profile: 'Обновить профиль', no_notes: 'Нет сохранённых заметок',
-        rank_noob: 'Нуб 🐌', rank_weak: 'Слабак ❌', rank_novice: 'Новичок ⚔️', rank_player: 'Игрок 🛡️', rank_amateur: 'Любитель 🔥',
-        rank_experienced: 'Опытный ⚡', rank_pro: 'Профи 🎯', rank_master: 'Мастер 🏆', rank_esports: 'Киберспортсмен 👾', rank_god: 'БОГ КЛИКА 🤖',
-        clear: 'Ясно', sunny: 'Солнечно', partly_cloudy: 'Малооблачно', cloudy: 'Облачно', overcast: 'Пасмурно',
-        variable_cloudiness: 'Переменная облачность', fog: 'Туман', drizzle: 'Морось', rain: 'Дождь', heavy_rain: 'Сильный дождь',
-        shower: 'Ливень', thunderstorm: 'Гроза', hail: 'Град', snow: 'Снег', snowfall: 'Снегопад', blizzard: 'Метель',
-        heavy_snow: 'Сильный снег', freezing_rain: 'Ледяной дождь', storm: 'Шторм', hurricane: 'Ураган', dust_storm: 'Пыльная буря',
-        smog: 'Смог', hoarfrost: 'Изморозь', glaze_ice: 'Гололёд', tornado: 'Торнадо',
-        theme_cyberpunk: 'Киберпанк', theme_red_phantom: 'Красный Фантом', theme_ice_neon: 'Ледяной Неон',
-        theme_matrix: 'Матрица', theme_quartz: 'Кварц', theme_volcano: 'Вулкан', theme_midnight: 'Полночь',
-        theme_golden_glow: 'Золотое сияние', theme_starlight: 'Звёздный свет', theme_dark_knight: 'Тёмный рыцарь',
-        volume_label: 'Громкость сигнала', notif_profile_created: '✅ Профиль создан!', notif_profile_updated: '✅ Профиль обновлён!',
-        notif_profile_reset: '✅ Профиль сброшен!', notif_note_saved: '✅ Заметка сохранена!', notif_note_deleted: '✅ Заметка удалена!',
-        notif_notes_cleared: '🗑️ Все заметки удалены!', notif_copied: '📋 Скопировано!', restart: 'НАЧАТЬ ЗАНОВО',
-        humidity: 'Влажность', wind_speed: 'Ветер', precipitation_mm: 'мм', wind_speed_kmh: 'км/ч'
+        profile:'ПРОФИЛЬ', tools:'ИНСТРУМЕНТЫ', games:'ИГРЫ', settings:'НАСТРОЙКИ',
+        timetools:'ВРЕМЯ', calc:'КАЛЬКУЛЯТОР', randomizer:'РАНДОМАЙЗЕРЫ', notepad:'БЛОКНОТ', weather:'ПОГОДА',
+        clicker:'КЛИК-ТЕСТ', race:'ГОНКИ', blast:'БЛОЧНЫЙ ПАЗЛ', sketch:'СКЕТЧПАД',
+        stopwatch_timer:'СЕКУНДОМЕР & ТАЙМЕР', calculator_time:'КАЛЬКУЛЯТОР',
+        randomizer_generator:'РАНДОМАЙЗЕР & ГЕНЕРАТОР НИКОВ', click_test:'КЛИК-ТЕСТ',
+        nickname:'Никнейм', country:'Страна', city:'Город',
+        create_profile:'Создать профиль', reset_profile:'Сбросить профиль',
+        profile_active:'профиль активен', click:'КЛИК!', clicks:'Клики',
+        time:'Время', rank:'Ранг', city_not_set:'город не задан',
+        weekly_forecast:'Прогноз на неделю',
+        stopwatch:'Секундомер', timer:'Таймер',
+        start:'СТАРТ', reset:'СБРОС', pause:'ПАУЗА',
+        hours:'ч', minutes:'мин', seconds:'сек',
+        swap_blocks:'Поменять блоки местами',
+        number_randomizer:'РАНДОМАЙЗЕР ЧИСЕЛ', nickname_generator:'ГЕНЕРАТОР НИКНЕЙМОВ',
+        from:'от', to:'до', generate:'Сгенерировать',
+        enter_note:'Введите заметку...', save_note:'Сохранить запись',
+        clear_all:'Очистить всё', theme_customization:'КАСТОМИЗАЦИЯ ТЕМЫ',
+        profile_editing:'РЕДАКТИРОВАНИЕ ПРОФИЛЯ',
+        update_profile:'Обновить профиль', no_notes:'Нет сохранённых заметок',
+        rank_noob:'Нуб 🐌', rank_weak:'Слабак ❌', rank_novice:'Новичок ⚔️', rank_player:'Игрок 🛡️',
+        rank_amateur:'Любитель 🔥', rank_experienced:'Опытный ⚡', rank_pro:'Профи 🎯',
+        rank_master:'Мастер 🏆', rank_esports:'Киберспортсмен 👾', rank_god:'БОГ КЛИКА 🤖',
+        clear:'Ясно', sunny:'Солнечно', partly_cloudy:'Малооблачно', cloudy:'Облачно', overcast:'Пасмурно',
+        fog:'Туман', drizzle:'Морось', rain:'Дождь', heavy_rain:'Сильный дождь',
+        shower:'Ливень', thunderstorm:'Гроза', hail:'Град', snow:'Снег', snowfall:'Снегопад', blizzard:'Метель',
+        heavy_snow:'Сильный снег', freezing_rain:'Ледяной дождь', storm:'Шторм', hurricane:'Ураган',
+        dust_storm:'Пыльная буря', smog:'Смог', hoarfrost:'Изморозь', glaze_ice:'Гололёд', tornado:'Торнадо',
+        theme_cyberpunk:'Киберпанк', theme_red_phantom:'Красный Фантом', theme_ice_neon:'Ледяной Неон',
+        theme_matrix:'Матрица', theme_quartz:'Кварц', theme_volcano:'Вулкан', theme_midnight:'Полночь',
+        theme_golden_glow:'Золотое сияние', theme_starlight:'Звёздный свет', theme_dark_knight:'Тёмный рыцарь',
+        volume_label:'Громкость сигнала',
+        notif_profile_created:'Профиль создан!', notif_profile_updated:'Профиль обновлён!',
+        notif_profile_reset:'Профиль сброшен!', notif_note_saved:'Заметка сохранена!',
+        notif_note_deleted:'Заметка удалена!', notif_notes_cleared:'Все заметки удалены!',
+        notif_copied:'Скопировано!', restart:'НАЧАТЬ ЗАНОВО',
+        precipitation_mm:'мм', wind_speed_kmh:'км/ч',
+        car1:'Фантом', car2:'Вихрь', car3:'Кобра', car4:'Титан',
+        lang_current_ru:'Русский', lang_current_en:'Английский',
+        enter_nickname:'Введите никнейм!', enter_time:'Введите время!'
     },
     en: {
-        profile: 'PROFILE', click_test: 'CLICK TEST', weather: 'WEATHER', stopwatch_timer: 'STOPWATCH & TIMER',
-        calculator_time: 'CALCULATOR & TIME', randomizer_generator: 'RANDOMIZER & NICK GENERATOR', notepad: 'NOTEPAD',
-        settings: 'SETTINGS', nickname: 'Nickname', country: 'Country', city: 'City', create_profile: 'Create Profile',
-        reset_profile: 'Reset Profile', profile_active: '✅ Profile Active', click: 'CLICK!', clicks: 'Clicks',
-        time: 'Time', rank: 'Rank', city_not_set: 'city not set', refresh: 'Refresh', weekly_forecast: 'Weekly Forecast',
-        temperature: 'Temperature', precipitation: 'Precipitation', stopwatch: '⏱️ Stopwatch', timer: '⏳ Timer',
-        start: 'START', reset: 'RESET', pause: 'PAUSE', hours: 'h', minutes: 'min', seconds: 'sec', stop_alarm: 'STOP ALARM',
-        swap_blocks: '🔄 Swap blocks', number_randomizer: 'NUMBER RANDOMIZER', nickname_generator: 'NICKNAME GENERATOR',
-        from: 'from', to: 'to', generate: 'Generate', word_count: 'Word count', min_letters: 'min letters', max_letters: 'max letters',
-        '1_word': '1 word', '2_words': '2 words', enter_note: 'Enter note...', save_note: '💾 Save Note',
-        clear_all: '🗑️ Clear All', theme_customization: 'THEME CUSTOMIZATION', profile_editing: 'PROFILE EDITING',
-        tab_order: 'TAB ORDER', update_profile: 'Update Profile', no_notes: 'No saved notes',
-        rank_noob: 'Noob 🐌', rank_weak: 'Weak ❌', rank_novice: 'Novice ⚔️', rank_player: 'Player 🛡️', rank_amateur: 'Amateur 🔥',
-        rank_experienced: 'Experienced ⚡', rank_pro: 'Pro 🎯', rank_master: 'Master 🏆', rank_esports: 'Esports 👾', rank_god: 'GOD OF CLICKS 🤖',
-        clear: 'Clear', sunny: 'Sunny', partly_cloudy: 'Partly cloudy', cloudy: 'Cloudy', overcast: 'Overcast',
-        variable_cloudiness: 'Variable cloudiness', fog: 'Fog', drizzle: 'Drizzle', rain: 'Rain', heavy_rain: 'Heavy rain',
-        shower: 'Shower', thunderstorm: 'Thunderstorm', hail: 'Hail', snow: 'Snow', snowfall: 'Snowfall', blizzard: 'Blizzard',
-        heavy_snow: 'Heavy snow', freezing_rain: 'Freezing rain', storm: 'Storm', hurricane: 'Hurricane', dust_storm: 'Dust storm',
-        smog: 'Smog', hoarfrost: 'Hoarfrost', glaze_ice: 'Glaze ice', tornado: 'Tornado',
-        theme_cyberpunk: 'Cyberpunk', theme_red_phantom: 'Red Phantom', theme_ice_neon: 'Ice Neon',
-        theme_matrix: 'Matrix', theme_quartz: 'Quartz', theme_volcano: 'Volcano', theme_midnight: 'Midnight',
-        theme_golden_glow: 'Golden Glow', theme_starlight: 'Starlight', theme_dark_knight: 'Dark Knight',
-        volume_label: 'Signal Volume', notif_profile_created: '✅ Profile created!', notif_profile_updated: '✅ Profile updated!',
-        notif_profile_reset: '✅ Profile reset!', notif_note_saved: '✅ Note saved!', notif_note_deleted: '✅ Note deleted!',
-        notif_notes_cleared: '🗑️ All notes cleared!', notif_copied: '📋 Copied!', restart: 'RESTART',
-        humidity: 'Humidity', wind_speed: 'Wind', precipitation_mm: 'mm', wind_speed_kmh: 'km/h'
+        profile:'PROFILE', tools:'TOOLS', games:'GAMES', settings:'SETTINGS',
+        timetools:'TIME', calc:'CALCULATOR', randomizer:'RANDOMIZERS', notepad:'NOTEPAD', weather:'WEATHER',
+        clicker:'CLICK TEST', race:'RACE', blast:'BLOCK PUZZLE', sketch:'SKETCHPAD',
+        stopwatch_timer:'STOPWATCH & TIMER', calculator_time:'CALCULATOR',
+        randomizer_generator:'RANDOMIZER & NICK GENERATOR', click_test:'CLICK TEST',
+        nickname:'Nickname', country:'Country', city:'City',
+        create_profile:'Create Profile', reset_profile:'Reset Profile',
+        profile_active:'profile active', click:'CLICK!', clicks:'Clicks',
+        time:'Time', rank:'Rank', city_not_set:'city not set',
+        weekly_forecast:'Weekly Forecast',
+        stopwatch:'Stopwatch', timer:'Timer',
+        start:'START', reset:'RESET', pause:'PAUSE',
+        hours:'h', minutes:'min', seconds:'sec',
+        swap_blocks:'Swap blocks',
+        number_randomizer:'NUMBER RANDOMIZER', nickname_generator:'NICKNAME GENERATOR',
+        from:'from', to:'to', generate:'Generate',
+        enter_note:'Enter note...', save_note:'Save Note',
+        clear_all:'Clear All', theme_customization:'THEME CUSTOMIZATION',
+        profile_editing:'PROFILE EDITING',
+        update_profile:'Update Profile', no_notes:'No saved notes',
+        rank_noob:'Noob 🐌', rank_weak:'Weak ❌', rank_novice:'Novice ⚔️', rank_player:'Player 🛡️',
+        rank_amateur:'Amateur 🔥', rank_experienced:'Experienced ⚡', rank_pro:'Pro 🎯',
+        rank_master:'Master 🏆', rank_esports:'Esports 👾', rank_god:'GOD OF CLICKS 🤖',
+        clear:'Clear', sunny:'Sunny', partly_cloudy:'Partly cloudy', cloudy:'Cloudy', overcast:'Overcast',
+        fog:'Fog', drizzle:'Drizzle', rain:'Rain', heavy_rain:'Heavy rain',
+        shower:'Shower', thunderstorm:'Thunderstorm', hail:'Hail', snow:'Snow', snowfall:'Snowfall', blizzard:'Blizzard',
+        heavy_snow:'Heavy snow', freezing_rain:'Freezing rain', storm:'Storm', hurricane:'Hurricane',
+        dust_storm:'Dust storm', smog:'Smog', hoarfrost:'Hoarfrost', glaze_ice:'Glaze ice', tornado:'Tornado',
+        theme_cyberpunk:'Cyberpunk', theme_red_phantom:'Red Phantom', theme_ice_neon:'Ice Neon',
+        theme_matrix:'Matrix', theme_quartz:'Quartz', theme_volcano:'Volcano', theme_midnight:'Midnight',
+        theme_golden_glow:'Golden Glow', theme_starlight:'Starlight', theme_dark_knight:'Dark Knight',
+        volume_label:'Signal Volume',
+        notif_profile_created:'Profile created!', notif_profile_updated:'Profile updated!',
+        notif_profile_reset:'Profile reset!', notif_note_saved:'Note saved!',
+        notif_note_deleted:'Note deleted!', notif_notes_cleared:'All notes cleared!',
+        notif_copied:'Copied!', restart:'RESTART',
+        precipitation_mm:'mm', wind_speed_kmh:'km/h',
+        car1:'Phantom', car2:'Vortex', car3:'Cobra', car4:'Titan',
+        lang_current_ru:'Russian', lang_current_en:'English',
+        enter_nickname:'Enter nickname!', enter_time:'Enter time!'
     }
 };
 
-const countriesData = {
-    ru: { russia: 'Россия', usa: 'США', china: 'Китай', india: 'Индия', brazil: 'Бразилия', nigeria: 'Нигерия', japan: 'Япония', mexico: 'Мексика', uk: 'Великобритания', germany: 'Германия' },
-    en: { russia: 'Russia', usa: 'USA', china: 'China', india: 'India', brazil: 'Brazil', nigeria: 'Nigeria', japan: 'Japan', mexico: 'Mexico', uk: 'United Kingdom', germany: 'Germany' }
-};
-
-const citiesData = {
-    russia: { ru: ['Москва', 'Санкт-Петербург', 'Новосибирск', 'Екатеринбург', 'Казань', 'Нижний Новгород', 'Челябинск', 'Самара', 'Рязань', 'Ростов-на-Дону'], en: ['Moscow', 'Saint Petersburg', 'Novosibirsk', 'Yekaterinburg', 'Kazan', 'Nizhny Novgorod', 'Chelyabinsk', 'Samara', 'Ryazan', 'Rostov-on-Don'] },
-    usa: { ru: ['Нью-Йорк', 'Лос-Анджелес', 'Чикаго', 'Хьюстон', 'Филадельфия', 'Сан-Франциско', 'Майами', 'Вашингтон', 'Бостон', 'Даллас'], en: ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Philadelphia', 'San Francisco', 'Miami', 'Washington', 'Boston', 'Dallas'] },
-    china: { ru: ['Пекин', 'Шанхай', 'Гуанчжоу', 'Шэньчжэнь', 'Чэнду', 'Ухань', 'Нанкин', 'Ханчжоу', 'Сиань', 'Тяньцзинь'], en: ['Beijing', 'Shanghai', 'Guangzhou', 'Shenzhen', 'Chengdu', 'Wuhan', 'Nanjing', 'Hangzhou', "Xi'an", 'Tianjin'] },
-    india: { ru: ['Нью-Дели', 'Мумбаи', 'Бангалор', 'Ченнаи', 'Хайдарабад', 'Калькутта', 'Ахмедабад', 'Пуна', 'Сурат', 'Джайпур'], en: ['New Delhi', 'Mumbai', 'Bangalore', 'Chennai', 'Hyderabad', 'Kolkata', 'Ahmedabad', 'Pune', 'Surat', 'Jaipur'] },
-    brazil: { ru: ['Сан-Паулу', 'Рио-де-Жанейро', 'Бразилиа', 'Салвадор', 'Форталеза', 'Белу-Оризонти', 'Манаус', 'Куритиба', 'Ресифи', 'Порту-Алегри'], en: ['São Paulo', 'Rio de Janeiro', 'Brasília', 'Salvador', 'Fortaleza', 'Belo Horizonte', 'Manaus', 'Curitiba', 'Recife', 'Porto Alegre'] },
-    nigeria: { ru: ['Лагос', 'Кано', 'Ибадан', 'Абуджа', 'Кадуна', 'Порт-Харкорт', 'Бенин-Сити', 'Майдугури', 'Зария', 'Абеокута'], en: ['Lagos', 'Kano', 'Ibadan', 'Abuja', 'Kaduna', 'Port Harcourt', 'Benin City', 'Maiduguri', 'Zaria', 'Abeokuta'] },
-    japan: { ru: ['Токио', 'Осака', 'Нагоя', 'Саппоро', 'Фукуока', 'Киото', 'Кобе', 'Сайтама', 'Хиросима', 'Сендай'], en: ['Tokyo', 'Osaka', 'Nagoya', 'Sapporo', 'Fukuoka', 'Kyoto', 'Kobe', 'Saitama', 'Hiroshima', 'Sendai'] },
-    mexico: { ru: ['Мехико', 'Гвадалахара', 'Монтеррей', 'Пуэбла', 'Толука', 'Тихуана', 'Леон', 'Сьюдад-Хуарес', 'Торреон', 'Мерида'], en: ['Mexico City', 'Guadalajara', 'Monterrey', 'Puebla', 'Toluca', 'Tijuana', 'León', 'Ciudad Juárez', 'Torreón', 'Mérida'] },
-    uk: { ru: ['Лондон', 'Бирмингем', 'Манчестер', 'Ливерпуль', 'Бристоль', 'Шеффилд', 'Лидс', 'Ньюкасл', 'Ноттингем', 'Лестер'], en: ['London', 'Birmingham', 'Manchester', 'Liverpool', 'Bristol', 'Sheffield', 'Leeds', 'Newcastle', 'Nottingham', 'Leicester'] },
-    germany: { ru: ['Берлин', 'Гамбург', 'Мюнхен', 'Кёльн', 'Франкфурт', 'Штутгарт', 'Дюссельдорф', 'Дортмунд', 'Эссен', 'Лейпциг'], en: ['Berlin', 'Hamburg', 'Munich', 'Cologne', 'Frankfurt', 'Stuttgart', 'Düsseldorf', 'Dortmund', 'Essen', 'Leipzig'] }
-};
-
-const themes = {
-    cyberpunk: { '--accent': '#8b5cf6', '--accent-secondary': '#39ff14', '--border-glow': '#8b5cf6', '--shadow-glow': 'rgba(139,92,246,0.25)' },
-    red_phantom: { '--accent': '#ff2020', '--accent-secondary': '#ff6030', '--border-glow': '#ff2020', '--shadow-glow': 'rgba(255,32,32,0.25)' },
-    ice_neon: { '--accent': '#00e5ff', '--accent-secondary': '#80f0ff', '--border-glow': '#00e5ff', '--shadow-glow': 'rgba(0,229,255,0.25)' },
-    matrix: { '--accent': '#00ff41', '--accent-secondary': '#008f11', '--border-glow': '#00ff41', '--shadow-glow': 'rgba(0,255,65,0.25)' },
-    quartz: { '--accent': '#ff69b4', '--accent-secondary': '#ffb6c1', '--border-glow': '#ff69b4', '--shadow-glow': 'rgba(255,105,180,0.25)' },
-    volcano: { '--accent': '#ff4500', '--accent-secondary': '#ff8c00', '--border-glow': '#ff4500', '--shadow-glow': 'rgba(255,69,0,0.25)' },
-    midnight: { '--accent': '#191970', '--accent-secondary': '#000080', '--border-glow': '#191970', '--shadow-glow': 'rgba(25,25,112,0.25)' },
-    golden_glow: { '--accent': '#ffd700', '--accent-secondary': '#ffec8b', '--border-glow': '#ffd700', '--shadow-glow': 'rgba(255,215,0,0.25)' },
-    starlight: { '--accent': '#c0c0ff', '--accent-secondary': '#e6e6fa', '--border-glow': '#c0c0ff', '--shadow-glow': 'rgba(192,192,255,0.25)' },
-    dark_knight: { '--accent': '#404040', '--accent-secondary': '#808080', '--border-glow': '#404040', '--shadow-glow': 'rgba(64,64,64,0.25)' }
-};
-
+/* ================== СОСТОЯНИЕ ================== */
 let currentLanguage = localStorage.getItem('zadrothub_lang') || 'ru';
 let currentScreen = 'profile';
-let currentCountry = localStorage.getItem('zadrothub_country') || '';
+let currentMainTab = 'profile';
+let currentCountry = localStorage.getItem('zadrothub_country') || 'russia';
 let currentCity = localStorage.getItem('zadrothub_city') || '';
 let profileCreated = localStorage.getItem('zadrothub_profile_created') === 'true';
-let tabOrder = ['profile', 'clicker', 'weather', 'timetools', 'calc', 'randomizer', 'notepad', 'settings'];
 let notes = JSON.parse(localStorage.getItem('zadrothub_notes') || '[]');
 let currentTimezone = 'UTC+3';
+let mainTabOrder = JSON.parse(localStorage.getItem('zadrothub_main_order') || '["profile","tools","games","settings"]');
+let subTabOrder = JSON.parse(localStorage.getItem('zadrothub_sub_order') || '{"tools":["timetools","calc","randomizer","notepad","weather"],"games":["clicker","race","blast","sketch"]}');
 
-let clickCount = 0, clickTimer = null, clickDuration = 5, isClickTestRunning = false, clickStartTime = 0;
-let stopwatchRunning = false, stopwatchTime = 0, stopwatchInterval = null;
-let timerRunning = false, timerTime = 0, timerInterval = null;
-let calcExpression = '';
-let weatherData = null;
-let weatherUpdateInterval = null;
-let lastWeatherFetchTime = 0;
-let notificationTimeout = null;
-let isForecastHovered = false;
-let clickTestEnded = false;
-let weatherGeoCache = null;
-let lastWeatherSources = { openMeteo: null, weatherApi: null, gismeteo: null };
+/* ================== СТРУКТУРА ================== */
+const NAV = {
+    profile: { labelKey:'profile', subs:[ {id:'profile', labelKey:'profile'} ] },
+    tools: { labelKey:'tools', subs:[
+        {id:'timetools', labelKey:'timetools'},
+        {id:'calc', labelKey:'calc'},
+        {id:'randomizer', labelKey:'randomizer'},
+        {id:'notepad', labelKey:'notepad'},
+        {id:'weather', labelKey:'weather'}
+    ]},
+    games: { labelKey:'games', subs:[
+        {id:'clicker', labelKey:'clicker'},
+        {id:'race', labelKey:'race'},
+        {id:'blast', labelKey:'blast'},
+        {id:'sketch', labelKey:'sketch'}
+    ]},
+    settings: { labelKey:'settings', subs:[ {id:'settings', labelKey:'settings'} ] }
+};
 
-function getLocalizedCity(city) {
-    if (!city) return '';
-    for (const country in citiesData) {
-        const ruIndex = citiesData[country].ru.indexOf(city);
-        if (ruIndex !== -1) return citiesData[country][currentLanguage][ruIndex];
-        const enIndex = citiesData[country].en.indexOf(city);
-        if (enIndex !== -1) return citiesData[country][currentLanguage][enIndex];
+function findMainTabBySubId(subId) {
+    for (const main in NAV) {
+        if (NAV[main].subs.some(s => s.id === subId)) return main;
     }
-    return city;
+    return 'profile';
 }
 
-function showNotification(text, type = 'success') {
-    const container = document.getElementById('notificationContainer');
-    if (!container) return;
-    const existing = container.querySelector('.notification');
-    if (existing) {
-        existing.remove();
-    }
-    const notification = document.createElement('div');
-    notification.className = `notification ${type}`;
-    notification.textContent = text;
-    container.appendChild(notification);
-    requestAnimationFrame(() => {
-        notification.classList.add('show');
-    });
+/* ================== УВЕДОМЛЕНИЯ ================== */
+let notificationTimeout = null;
+function showNotification(text, type='success') {
+    const c = document.getElementById('notificationContainer');
+    if (!c) return;
+    const existing = c.querySelector('.notification');
+    if (existing) existing.remove();
+    const n = document.createElement('div');
+    n.className = 'notification ' + type;
+    n.textContent = text;
+    c.appendChild(n);
+    requestAnimationFrame(() => n.classList.add('show'));
     if (notificationTimeout) clearTimeout(notificationTimeout);
     notificationTimeout = setTimeout(() => {
-        notification.classList.remove('show');
-        notification.classList.add('hide');
-        setTimeout(() => notification.remove(), 400);
+        n.classList.remove('show');
+        n.classList.add('hide');
+        setTimeout(() => n.remove(), 400);
     }, 2500);
 }
 
-function pad(num) { return num.toString().padStart(2, '0'); }
+function pad(num) { return num.toString().padStart(2,'0'); }
+
+/* ================== НАВИГАЦИЯ ================== */
+function initNavigation() {
+    const container = document.getElementById('navTabsContainer');
+    container.innerHTML = '';
+    mainTabOrder.forEach(mainKey => {
+        if (!NAV[mainKey]) return;
+        const tab = document.createElement('button');
+        tab.className = 'nav-tab';
+        tab.dataset.main = mainKey;
+        tab.textContent = translations[currentLanguage][NAV[mainKey].labelKey];
+        tab.onclick = () => switchMainTab(mainKey);
+        container.appendChild(tab);
+    });
+    initSubNavigation();
+}
+
+function initSubNavigation() {
+    const container = document.getElementById('subTabsContainer');
+    if (!container) return;
+    container.innerHTML = '';
+    const subs = NAV[currentMainTab]?.subs || [];
+    const order = subTabOrder[currentMainTab] || subs.map(s => s.id);
+    const orderedSubs = order.map(id => subs.find(s => s.id === id)).filter(Boolean);
+    subs.forEach(s => { if (!orderedSubs.includes(s)) orderedSubs.push(s); });
+    orderedSubs.forEach(sub => {
+        const tab = document.createElement('button');
+        tab.className = 'sub-tab';
+        tab.dataset.sub = sub.id;
+        tab.textContent = translations[currentLanguage][sub.labelKey];
+        tab.onclick = () => switchScreen(sub.id);
+        container.appendChild(tab);
+    });
+    container.style.display = subs.length <= 1 ? 'none' : 'flex';
+}
+
+function switchMainTab(mainKey) {
+    currentMainTab = mainKey;
+    document.querySelectorAll('.nav-tab').forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.main === mainKey);
+    });
+    initSubNavigation();
+    const firstSub = NAV[mainKey].subs[0].id;
+    switchScreen(firstSub);
+}
+
+function switchScreen(screenId) {
+    currentScreen = screenId;
+    const mainKey = findMainTabBySubId(screenId);
+    if (mainKey !== currentMainTab) {
+        currentMainTab = mainKey;
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.classList.toggle('active', tab.dataset.main === mainKey);
+        });
+        initSubNavigation();
+    }
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    const target = document.getElementById('screen-' + screenId);
+    if (target) target.classList.add('active');
+    document.querySelectorAll('.sub-tab').forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.sub === screenId);
+    });
+    if (screenId === 'weather') fetchWeatherData();
+    if (screenId === 'blast') drawBlast();
+}
+
+/* ================== ЯЗЫК ================== */
+function fillLangSelectors() {
+    const t = translations[currentLanguage];
+    ['langSelectProfile','langSelectSettings'].forEach(id => {
+        const sel = document.getElementById(id);
+        if (!sel) return;
+        sel.innerHTML = '';
+        const other = currentLanguage === 'ru' ? 'en' : 'ru';
+        const o1 = document.createElement('option');
+        o1.value = currentLanguage;
+        o1.textContent = currentLanguage === 'ru' ? t.lang_current_ru : t.lang_current_en;
+        const o2 = document.createElement('option');
+        o2.value = other;
+        o2.textContent = other === 'ru' ? t.lang_current_ru : t.lang_current_en;
+        sel.appendChild(o1);
+        sel.appendChild(o2);
+        sel.value = currentLanguage;
+    });
+}
 
 function applyLanguage() {
     document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -1404,8 +1116,7 @@ function applyLanguage() {
         const key = el.getAttribute('data-i18n-placeholder');
         if (translations[currentLanguage][key]) el.placeholder = translations[currentLanguage][key];
     });
-    document.getElementById('langSelectProfile').value = currentLanguage;
-    document.getElementById('langSelectSettings').value = currentLanguage;
+    fillLangSelectors();
     initNavigation();
     initCountrySelectors();
     if (profileCreated) updateWelcomeMessage();
@@ -1420,38 +1131,12 @@ function applyLanguage() {
     const restartBtn = document.getElementById('restartBtn');
     if (restartBtn) restartBtn.textContent = translations[currentLanguage].restart;
     if (isClickTestRunning) updateRank();
+    initCarSelect();
 }
 
-function initNavigation() {
-    const container = document.getElementById('navTabsContainer');
-    container.innerHTML = '';
-    const tabNames = {
-        ru: { profile: 'ПРОФИЛЬ', clicker: 'КЛИК-ТЕСТ', weather: 'ПОГОДА', timetools: 'СЕКУНДОМЕР & ТАЙМЕР', calc: 'КАЛЬКУЛЯТОР & ВРЕМЯ', randomizer: 'РАНДОМАЙЗЕР & ГЕНЕРАТОР НИКОВ', notepad: 'БЛОКНОТ', settings: 'НАСТРОЙКИ' },
-        en: { profile: 'PROFILE', clicker: 'CLICK TEST', weather: 'WEATHER', timetools: 'STOPWATCH & TIMER', calc: 'CALCULATOR & TIME', randomizer: 'RANDOMIZER & NICK GENERATOR', notepad: 'NOTEPAD', settings: 'SETTINGS' }
-    };
-    tabOrder.forEach(tabId => {
-        const tab = document.createElement('button');
-        tab.className = 'nav-tab';
-        tab.dataset.screen = tabId;
-        tab.textContent = tabNames[currentLanguage][tabId];
-        tab.onclick = () => switchScreen(tabId);
-        container.appendChild(tab);
-    });
-}
-
-function switchScreen(screenId) {
-    currentScreen = screenId;
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    const target = document.getElementById('screen-' + screenId);
-    if (target) target.classList.add('active');
-    document.querySelectorAll('.nav-tab').forEach(tab => {
-        tab.classList.toggle('active', tab.dataset.screen === screenId);
-    });
-}
-
+/* ================== ПРОФИЛЬ ================== */
 function initCountrySelectors() {
-    const selects = ['countrySelect', 'editCountrySelect'];
-    selects.forEach(id => {
+    ['countrySelect','editCountrySelect'].forEach(id => {
         const sel = document.getElementById(id);
         if (!sel) return;
         sel.innerHTML = '';
@@ -1468,8 +1153,7 @@ function initCountrySelectors() {
 }
 
 function updateCitySelectors() {
-    const selects = ['citySelect', 'editCitySelect'];
-    selects.forEach(id => {
+    ['citySelect','editCitySelect'].forEach(id => {
         const sel = document.getElementById(id);
         if (!sel) return;
         sel.innerHTML = '';
@@ -1480,14 +1164,25 @@ function updateCitySelectors() {
                 opt.textContent = city;
                 sel.appendChild(opt);
             });
-            sel.value = citiesData[currentCountry][currentLanguage].includes(currentCity) ? currentCity : citiesData[currentCountry][currentLanguage][0];
+            const savedCity = currentCity && citiesData[currentCountry][currentLanguage].includes(currentCity)
+                ? currentCity
+                : citiesData[currentCountry][currentLanguage][0];
+            sel.value = savedCity;
+            currentCity = savedCity;
+            localStorage.setItem('zadrothub_city', currentCity);
+            sel.onchange = function() {
+                currentCity = this.value;
+                localStorage.setItem('zadrothub_city', currentCity);
+                saveProfile();
+                fetchWeatherData();
+            };
         }
-        sel.onchange = function() { currentCity = this.value; fetchWeatherData(); };
     });
 }
 
 function applyDateMask(input) {
-    input.addEventListener('input', function(e) {
+    if (!input) return;
+    input.addEventListener('input', function() {
         let value = this.value.replace(/\D/g, '');
         if (value.length > 8) value = value.slice(0, 8);
         let formatted = '';
@@ -1508,7 +1203,6 @@ function saveProfile() {
     localStorage.setItem('zadrothub_lang', currentLanguage);
     localStorage.setItem('zadrothub_profile_created', profileCreated);
     document.getElementById('capsuleNick').textContent = document.getElementById('nickInput').value || '--';
-    fetchWeatherData();
 }
 
 function loadProfile() {
@@ -1530,8 +1224,13 @@ function showWelcomeScreen() {
 
 function updateWelcomeMessage() {
     const nick = document.getElementById('nickInput').value || 'NICK';
-    document.getElementById('welcomeMsg').textContent = currentLanguage === 'ru' ? `ДОБРО ПОЖАЛОВАТЬ В ZADROTHUB, ${nick}!` : `WELCOME TO ZADROTHUB, ${nick}!`;
+    document.getElementById('welcomeMsg').textContent = currentLanguage === 'ru'
+        ? 'ДОБРО ПОЖАЛОВАТЬ В ZADROTHUB, ' + nick + '!'
+        : 'WELCOME TO ZADROTHUB, ' + nick + '!';
 }
+
+/* ================== КЛИК-ТЕСТ ================== */
+let clickCount = 0, clickTimer = null, clickDuration = 5, isClickTestRunning = false, clickStartTime = 0, clickTestEnded = false;
 
 function initClickTest() {
     document.querySelectorAll('.duration-btn').forEach(btn => {
@@ -1540,17 +1239,14 @@ function initClickTest() {
             resetClickTest();
         });
     });
-    const clickZone = document.getElementById('clickZone');
-    clickZone.addEventListener('click', function() {
+    document.getElementById('clickZone').addEventListener('click', function() {
         if (clickTestEnded) return;
         if (!isClickTestRunning) startClickTest();
         clickCount++;
         document.getElementById('clickCount').textContent = clickCount;
         updateRank();
     });
-    document.getElementById('restartBtn').addEventListener('click', function() {
-        resetClickTest();
-    });
+    document.getElementById('restartBtn').addEventListener('click', resetClickTest);
 }
 
 function startClickTest() {
@@ -1567,7 +1263,6 @@ function startClickTest() {
     clickTimer = setInterval(() => {
         const elapsed = (Date.now() - clickStartTime) / 1000;
         document.getElementById('elapsedTime').textContent = elapsed.toFixed(1);
-        document.getElementById('clickTimerDisplay').textContent = `⏱️ ${elapsed.toFixed(1)}s`;
         if (elapsed >= clickDuration) endClickTest();
     }, 100);
 }
@@ -1593,7 +1288,6 @@ function resetClickTest() {
     document.getElementById('elapsedTime').textContent = '0.0';
     document.getElementById('cpsDisplay').textContent = '0.00';
     document.getElementById('rankDisplay').textContent = '—';
-    document.getElementById('clickTimerDisplay').textContent = '⏱️ 0.0s';
     document.getElementById('restartBtn').classList.remove('show');
     document.getElementById('clickZone').classList.remove('disabled');
 }
@@ -1614,50 +1308,80 @@ function updateRank() {
     else if (cps >= 6) rankKey = 'rank_player';
     else if (cps >= 5) rankKey = 'rank_novice';
     else if (cps >= 3) rankKey = 'rank_weak';
-    document.getElementById('rankDisplay').textContent = translations[currentLanguage][rankKey] || rankKey;
+    document.getElementById('rankDisplay').textContent = translations[currentLanguage][rankKey];
     document.getElementById('cpsDisplay').textContent = cps.toFixed(2);
 }
 
+/* ================== ВРЕМЯ ================== */
+let stopwatchRunning = false, stopwatchTime = 0, stopwatchInterval = null;
+let timerRunning = false, timerTime = 0, timerInterval = null;
+
 function initStopwatch() {
     document.getElementById('swStartPause').addEventListener('click', function() {
-        if (stopwatchRunning) { stopwatchRunning = false; clearInterval(stopwatchInterval); this.textContent = translations[currentLanguage].start; }
-        else { stopwatchRunning = true; this.textContent = translations[currentLanguage].pause; stopwatchInterval = setInterval(() => { stopwatchTime += 10; updateStopwatchDisplay(); }, 10); }
+        if (stopwatchRunning) {
+            stopwatchRunning = false;
+            clearInterval(stopwatchInterval);
+            this.textContent = translations[currentLanguage].start;
+        } else {
+            stopwatchRunning = true;
+            this.textContent = translations[currentLanguage].pause;
+            stopwatchInterval = setInterval(() => { stopwatchTime += 10; updateStopwatchDisplay(); }, 10);
+        }
     });
     document.getElementById('swReset').addEventListener('click', function() {
-        stopwatchRunning = false; clearInterval(stopwatchInterval); stopwatchTime = 0; updateStopwatchDisplay();
+        stopwatchRunning = false;
+        clearInterval(stopwatchInterval);
+        stopwatchTime = 0;
+        updateStopwatchDisplay();
         document.getElementById('swStartPause').textContent = translations[currentLanguage].start;
     });
 }
 
 function updateStopwatchDisplay() {
-    const h = Math.floor(stopwatchTime / 3600000), m = Math.floor((stopwatchTime % 3600000) / 60000), s = Math.floor((stopwatchTime % 60000) / 1000), cs = Math.floor((stopwatchTime % 1000) / 10);
-    document.getElementById('stopwatchDisplay').textContent = `${pad(h)}:${pad(m)}:${pad(s)}.${pad(cs)}`;
+    const h = Math.floor(stopwatchTime/3600000), m = Math.floor((stopwatchTime%3600000)/60000);
+    const s = Math.floor((stopwatchTime%60000)/1000), cs = Math.floor((stopwatchTime%1000)/10);
+    document.getElementById('stopwatchDisplay').textContent = pad(h)+':'+pad(m)+':'+pad(s)+'.'+pad(cs);
 }
 
 function initTimer() {
     document.getElementById('timerStartPause').addEventListener('click', function() {
-        if (timerRunning) { timerRunning = false; clearInterval(timerInterval); this.textContent = translations[currentLanguage].start; }
-        else {
-            const h = parseInt(document.getElementById('timerHours').value) || 0, m = parseInt(document.getElementById('timerMinutes').value) || 0, s = parseInt(document.getElementById('timerSeconds').value) || 0;
-            timerTime = (h * 3600 + m * 60 + s) * 1000;
-            if (timerTime <= 0) { showNotification(currentLanguage === 'ru' ? 'Введите время!' : 'Enter time!', 'danger'); return; }
-            timerRunning = true; this.textContent = translations[currentLanguage].pause;
+        if (timerRunning) {
+            timerRunning = false;
+            clearInterval(timerInterval);
+            this.textContent = translations[currentLanguage].start;
+        } else {
+            const h = parseInt(document.getElementById('timerHours').value) || 0;
+            const m = parseInt(document.getElementById('timerMinutes').value) || 0;
+            const s = parseInt(document.getElementById('timerSeconds').value) || 0;
+            timerTime = (h*3600 + m*60 + s) * 1000;
+            if (timerTime <= 0) { showNotification(translations[currentLanguage].enter_time, 'danger'); return; }
+            timerRunning = true;
+            this.textContent = translations[currentLanguage].pause;
             timerInterval = setInterval(() => {
                 timerTime -= 100;
-                if (timerTime <= 0) { timerTime = 0; timerRunning = false; clearInterval(timerInterval); this.textContent = translations[currentLanguage].start; playAlarm(); }
+                if (timerTime <= 0) {
+                    timerTime = 0;
+                    timerRunning = false;
+                    clearInterval(timerInterval);
+                    document.getElementById('timerStartPause').textContent = translations[currentLanguage].start;
+                    playAlarm();
+                }
                 updateTimerDisplay();
             }, 100);
         }
     });
     document.getElementById('timerReset').addEventListener('click', function() {
-        timerRunning = false; clearInterval(timerInterval); timerTime = 0; updateTimerDisplay();
+        timerRunning = false;
+        clearInterval(timerInterval);
+        timerTime = 0;
+        updateTimerDisplay();
         document.getElementById('timerStartPause').textContent = translations[currentLanguage].start;
     });
 }
 
 function updateTimerDisplay() {
-    const h = Math.floor(timerTime / 3600000), m = Math.floor((timerTime % 3600000) / 60000), s = Math.floor((timerTime % 60000) / 1000);
-    document.getElementById('timerDisplay').textContent = `${pad(h)}:${pad(m)}:${pad(s)}`;
+    const h = Math.floor(timerTime/3600000), m = Math.floor((timerTime%3600000)/60000), s = Math.floor((timerTime%60000)/1000);
+    document.getElementById('timerDisplay').textContent = pad(h)+':'+pad(m)+':'+pad(s);
 }
 
 function playAlarm() {
@@ -1669,109 +1393,110 @@ function playAlarm() {
                 const osc = ctx.createOscillator(), gain = ctx.createGain();
                 osc.connect(gain); gain.connect(ctx.destination);
                 osc.frequency.value = 880; osc.type = 'sine';
-                gain.gain.value = vol; gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+                gain.gain.value = vol;
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
                 osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.3);
-            }, i * 500);
+            }, i*500);
         }
     } catch(e) {}
 }
+
+/* ================== КАЛЬКУЛЯТОР ================== */
+let calcExpression = '';
 
 function initCalculator() {
     document.getElementById('calcGrid').addEventListener('click', function(e) {
         const btn = e.target.closest('button');
         if (!btn) return;
-        const op = btn.dataset.op;
-        const display = document.getElementById('calcDisplay');
-        if (op === 'C') { calcExpression = ''; display.textContent = '0'; }
-        else if (op === 'back') { calcExpression = calcExpression.slice(0, -1); display.textContent = calcExpression || '0'; }
-        else if (op === '=') {
-            const result = evaluateExpression(calcExpression);
-            display.textContent = result;
-            calcExpression = result.toString();
-        }
-        else if (op === 'sqrt') { calcExpression += 'Math.sqrt('; display.textContent = calcExpression; }
-        else if (op === 'x2') { calcExpression += '**2'; display.textContent = calcExpression; }
-        else if (op === 'xy') { calcExpression += '**'; display.textContent = calcExpression; }
-        else if (op === 'pi') { calcExpression += 'Math.PI'; display.textContent = calcExpression; }
-        else { calcExpression += op; display.textContent = calcExpression; }
+        handleCalcOp(btn.dataset.op);
     });
-    document.getElementById('swapCalcBtn').addEventListener('click', function() {
-        const grid = document.getElementById('calcTimeGrid');
-        grid.insertBefore(grid.children[1], grid.children[0]);
+    const disp = document.getElementById('calcDisplay');
+    disp.addEventListener('click', () => disp.focus());
+    disp.addEventListener('keydown', function(e) {
+        const k = e.key;
+        if (/^[0-9]$/.test(k)) { e.preventDefault(); handleCalcOp(k); return; }
+        if (['+','-','*','/','(',')','.','%'].includes(k)) { e.preventDefault(); handleCalcOp(k); return; }
+        if (k === 'Enter' || k === '=') { e.preventDefault(); handleCalcOp('='); return; }
+        if (k === 'Backspace') { e.preventDefault(); handleCalcOp('back'); return; }
+        if (k === 'Escape' || k === 'Delete') { e.preventDefault(); handleCalcOp('C'); return; }
     });
+}
+
+function handleCalcOp(op) {
+    const display = document.getElementById('calcDisplay');
+    if (op === 'C') { calcExpression = ''; display.textContent = '0'; }
+    else if (op === 'back') { calcExpression = calcExpression.slice(0, -1); display.textContent = calcExpression || '0'; }
+    else if (op === '=') {
+        const result = evaluateExpression(calcExpression);
+        display.textContent = result;
+        calcExpression = result.toString();
+    }
+    else if (op === 'sqrt') { calcExpression += 'Math.sqrt('; display.textContent = calcExpression; }
+    else if (op === 'x2') { calcExpression += '**2'; display.textContent = calcExpression; }
+    else if (op === 'xy') { calcExpression += '**'; display.textContent = calcExpression; }
+    else if (op === 'pi') { calcExpression += 'Math.PI'; display.textContent = calcExpression; }
+    else { calcExpression += op; display.textContent = calcExpression; }
+    display.scrollLeft = display.scrollWidth;
 }
 
 function evaluateExpression(expr) {
     expr = expr.replace(/Math\.sqrt\(/g, '√').replace(/Math\.PI/g, 'π').replace(/\*\*2/g, '²').replace(/\*\*/g, '^');
     const tokens = expr.match(/\d+\.?\d*|π|√|[\+\-\*\/\%\^\(\)]/g) || [];
     if (tokens.length === 0) return '0';
-    const outputQueue = [];
-    const operatorStack = [];
-    const precedence = { '+': 1, '-': 1, '*': 2, '/': 2, '%': 2, '^': 3, '√': 4 };
-    const associativity = { '+': 'L', '-': 'L', '*': 'L', '/': 'L', '%': 'L', '^': 'R', '√': 'R' };
-    
-    tokens.forEach(token => {
-        if (/\d|π/.test(token)) {
-            outputQueue.push(token === 'π' ? Math.PI : parseFloat(token));
-        } else if (token === '(') {
-            operatorStack.push(token);
-        } else if (token === ')') {
-            while (operatorStack.length && operatorStack[operatorStack.length-1] !== '(') {
-                outputQueue.push(operatorStack.pop());
-            }
-            operatorStack.pop();
-        } else {
-            while (operatorStack.length && operatorStack[operatorStack.length-1] !== '(' &&
-                   (precedence[operatorStack[operatorStack.length-1]] > precedence[token] ||
-                    (precedence[operatorStack[operatorStack.length-1]] === precedence[token] && associativity[token] === 'L'))) {
-                outputQueue.push(operatorStack.pop());
-            }
-            operatorStack.push(token);
+    const out = [], ops = [];
+    const prec = {'+':1,'-':1,'*':2,'/':2,'%':2,'^':3,'√':4};
+    const assoc = {'+':'L','-':'L','*':'L','/':'L','%':'L','^':'R','√':'R'};
+    tokens.forEach(t => {
+        if (/\d|π/.test(t)) out.push(t === 'π' ? Math.PI : parseFloat(t));
+        else if (t === '(') ops.push(t);
+        else if (t === ')') { while (ops.length && ops[ops.length-1] !== '(') out.push(ops.pop()); ops.pop(); }
+        else {
+            while (ops.length && ops[ops.length-1] !== '(' &&
+                  (prec[ops[ops.length-1]] > prec[t] || (prec[ops[ops.length-1]] === prec[t] && assoc[t] === 'L'))) out.push(ops.pop());
+            ops.push(t);
         }
     });
-    while (operatorStack.length) outputQueue.push(operatorStack.pop());
-
-    const stack = [];
-    outputQueue.forEach(token => {
-        if (typeof token === 'number') {
-            stack.push(token);
-        } else if (token === '√') {
-            const a = stack.pop();
-            if (a === undefined) return;
-            stack.push(Math.sqrt(a));
-        } else if (token === '²') {
-            const a = stack.pop();
-            if (a === undefined) return;
-            stack.push(a * a);
-        } else {
-            const b = stack.pop();
-            const a = stack.pop();
+    while (ops.length) out.push(ops.pop());
+    const st = [];
+    out.forEach(t => {
+        if (typeof t === 'number') st.push(t);
+        else if (t === '√') { const a = st.pop(); st.push(Math.sqrt(a)); }
+        else if (t === '²') { const a = st.pop(); st.push(a*a); }
+        else {
+            const b = st.pop(), a = st.pop();
             if (a === undefined || b === undefined) return;
-            switch(token) {
-                case '+': stack.push(a + b); break;
-                case '-': stack.push(a - b); break;
-                case '*': stack.push(a * b); break;
-                case '/': stack.push(b !== 0 ? a / b : 0); break;
-                case '%': stack.push(b !== 0 ? a % b : 0); break;
-                case '^': stack.push(Math.pow(a, b)); break;
-                default: stack.push(0);
+            switch(t) {
+                case '+': st.push(a+b); break;
+                case '-': st.push(a-b); break;
+                case '*': st.push(a*b); break;
+                case '/': st.push(b !== 0 ? a/b : 0); break;
+                case '%': st.push(b !== 0 ? a%b : 0); break;
+                case '^': st.push(Math.pow(a,b)); break;
             }
         }
     });
-    return stack.length === 1 ? stack[0] : 'Error';
+    return st.length === 1 ? st[0] : 'Error';
 }
 
+/* ================== РАНДОМАЙЗЕР ================== */
 function initRandomizer() {
     document.getElementById('generateNumberBtn').addEventListener('click', () => {
-        const from = parseInt(document.getElementById('randomFrom').value) || 0;
-        const to = parseInt(document.getElementById('randomTo').value) || 100;
+        const fromEl = document.getElementById('randomFrom');
+        const toEl = document.getElementById('randomTo');
+        let from = parseInt(fromEl.value, 10);
+        let to = parseInt(toEl.value, 10);
+        if (isNaN(from)) from = 0;
+        if (isNaN(to)) to = 100;
+        if (from > to) { const tmp = from; from = to; to = tmp; }
         document.getElementById('randomResult').textContent = Math.floor(Math.random() * (to - from + 1)) + from;
     });
     document.getElementById('generateNickBtn').addEventListener('click', () => {
         const wc = parseInt(document.getElementById('nickWordCount').value) || 1;
         const minL = parseInt(document.getElementById('nickMinLetters').value) || 4;
         const maxL = parseInt(document.getElementById('nickMaxLetters').value) || 10;
-        const vowels = 'aeiouy', cons = 'bcdfghjklmnpqrstvwxz';
+        const langNick = document.getElementById('nickLangSelect').value;
+        const vowels = langNick === 'ru' ? 'аеёиоуыэюя' : 'aeiouy';
+        const cons = langNick === 'ru' ? 'бвгджзйклмнпрстфхцчшщ' : 'bcdfghjklmnpqrstvwxz';
         let nick = '';
         for (let w = 0; w < wc; w++) {
             const len = Math.floor(Math.random() * (maxL - minL + 1)) + minL;
@@ -1783,6 +1508,7 @@ function initRandomizer() {
     });
 }
 
+/* ================== БЛОКНОТ ================== */
 function initNotepad() {
     updateNoteList();
     document.getElementById('saveNoteBtn').addEventListener('click', () => {
@@ -1805,9 +1531,10 @@ function initNotepad() {
 
 function updateNoteList() {
     const list = document.getElementById('noteList');
+    if (!list) return;
     list.innerHTML = '';
     if (notes.length === 0) {
-        list.innerHTML = `<div class="empty-notes">${translations[currentLanguage].no_notes}</div>`;
+        list.innerHTML = '<div class="empty-notes">' + translations[currentLanguage].no_notes + '</div>';
         return;
     }
     notes.forEach((note, index) => {
@@ -1816,7 +1543,7 @@ function updateNoteList() {
         const text = document.createElement('span');
         text.textContent = note.text;
         text.style.cursor = 'pointer';
-        text.title = 'Нажмите, чтобы скопировать';
+        text.title = currentLanguage === 'ru' ? 'Нажмите, чтобы скопировать' : 'Click to copy';
         text.addEventListener('click', () => {
             navigator.clipboard.writeText(note.text).then(() => {
                 showNotification(translations[currentLanguage].notif_copied, 'info');
@@ -1827,7 +1554,6 @@ function updateNoteList() {
         const btn = document.createElement('button');
         btn.className = 'delete-btn';
         btn.textContent = '✕';
-        btn.title = currentLanguage === 'ru' ? 'Удалить' : 'Delete';
         btn.onclick = () => {
             notes.splice(index, 1);
             localStorage.setItem('zadrothub_notes', JSON.stringify(notes));
@@ -1838,20 +1564,23 @@ function updateNoteList() {
     });
 }
 
+/* ================== НАСТРОЙКИ ================== */
 function initSettings() {
     const themeGrid = document.getElementById('themeGrid');
-    themeGrid.innerHTML = '';
-    Object.keys(themes).forEach(themeKey => {
-        const btn = document.createElement('button');
-        btn.className = 'theme-btn';
-        btn.setAttribute('data-i18n', 'theme_' + themeKey);
-        btn.textContent = translations[currentLanguage]['theme_' + themeKey] || themeKey;
-        btn.onclick = () => {
-            const t = themes[themeKey];
-            Object.keys(t).forEach(prop => document.documentElement.style.setProperty(prop, t[prop]));
-        };
-        themeGrid.appendChild(btn);
-    });
+    if (themeGrid) {
+        themeGrid.innerHTML = '';
+        Object.keys(themes).forEach(themeKey => {
+            const btn = document.createElement('button');
+            btn.className = 'theme-btn';
+            btn.setAttribute('data-i18n', 'theme_' + themeKey);
+            btn.textContent = translations[currentLanguage]['theme_' + themeKey] || themeKey;
+            btn.onclick = () => {
+                const t = themes[themeKey];
+                Object.keys(t).forEach(prop => document.documentElement.style.setProperty(prop, t[prop]));
+            };
+            themeGrid.appendChild(btn);
+        });
+    }
     initTabOrder();
     const updateBtn = document.getElementById('updateProfileBtn');
     if (updateBtn) {
@@ -1864,39 +1593,97 @@ function updateProfileHandler() {
     const nick = document.getElementById('editNickInput').value.trim();
     if (nick) { document.getElementById('nickInput').value = nick; document.getElementById('capsuleNick').textContent = nick; }
     document.getElementById('bday-input').value = document.getElementById('editBdayInput').value;
+    profileCreated = true;
     saveProfile();
+    showWelcomeScreen();
     showNotification(translations[currentLanguage].notif_profile_updated, 'success');
+    fetchWeatherData();
 }
 
 function initTabOrder() {
-    const list = document.getElementById('tabOrderList');
-    list.innerHTML = '';
-    const names = {
-        ru: { profile: 'ПРОФИЛЬ', clicker: 'КЛИК-ТЕСТ', weather: 'ПОГОДА', timetools: 'СЕКУНДОМЕР & ТАЙМЕР', calc: 'КАЛЬКУЛЯТОР & ВРЕМЯ', randomizer: 'РАНДОМАЙЗЕР & ГЕНЕРАТОР НИКОВ', notepad: 'БЛОКНОТ', settings: 'НАСТРОЙКИ' },
-        en: { profile: 'PROFILE', clicker: 'CLICK TEST', weather: 'WEATHER', timetools: 'STOPWATCH & TIMER', calc: 'CALCULATOR & TIME', randomizer: 'RANDOMIZER & NICK GENERATOR', notepad: 'NOTEPAD', settings: 'SETTINGS' }
+    const mainList = document.getElementById('mainTabOrderList');
+    const subList = document.getElementById('subTabOrderList');
+    if (!mainList || !subList) return;
+
+    const mainNames = {
+        ru: { profile:'ПРОФИЛЬ', tools:'ИНСТРУМЕНТЫ', games:'ИГРЫ', settings:'НАСТРОЙКИ' },
+        en: { profile:'PROFILE', tools:'TOOLS', games:'GAMES', settings:'SETTINGS' }
     };
-    tabOrder.forEach((tabId, index) => {
-        const item = document.createElement('div');
-        item.className = 'tab-order-item';
-        const span = document.createElement('span');
-        span.textContent = names[currentLanguage][tabId];
-        const upBtn = document.createElement('button'); upBtn.textContent = '↑';
-        upBtn.onclick = () => { if (index > 0) { [tabOrder[index-1], tabOrder[index]] = [tabOrder[index], tabOrder[index-1]]; initNavigation(); switchScreen(currentScreen); initTabOrder(); } };
-        const downBtn = document.createElement('button'); downBtn.textContent = '↓';
-        downBtn.onclick = () => { if (index < tabOrder.length - 1) { [tabOrder[index+1], tabOrder[index]] = [tabOrder[index], tabOrder[index+1]]; initNavigation(); switchScreen(currentScreen); initTabOrder(); } };
-        item.appendChild(span); item.appendChild(upBtn); item.appendChild(downBtn); list.appendChild(item);
-    });
+    const subNames = {
+        ru: { timetools:'ВРЕМЯ', calc:'КАЛЬКУЛЯТОР', randomizer:'РАНДОМАЙЗЕРЫ', notepad:'БЛОКНОТ', weather:'ПОГОДА',
+              clicker:'КЛИК-ТЕСТ', race:'ГОНКИ', blast:'БЛОЧНЫЙ ПАЗЛ', sketch:'СКЕТЧПАД',
+              profile:'ПРОФИЛЬ', settings:'НАСТРОЙКИ' },
+        en: { timetools:'TIME', calc:'CALCULATOR', randomizer:'RANDOMIZERS', notepad:'NOTEPAD', weather:'WEATHER',
+              clicker:'CLICK TEST', race:'RACE', blast:'BLOCK PUZZLE', sketch:'SKETCHPAD',
+              profile:'PROFILE', settings:'SETTINGS' }
+    };
+
+    function renderMain() {
+        mainList.innerHTML = '';
+        mainTabOrder.forEach((id, i) => {
+            if (!NAV[id]) return;
+            const item = document.createElement('div');
+            item.className = 'tab-order-item';
+            const span = document.createElement('span');
+            span.textContent = mainNames[currentLanguage][id] || id;
+            const up = document.createElement('button'); up.textContent = '↑';
+            const dn = document.createElement('button'); dn.textContent = '↓';
+            up.onclick = () => { if (i > 0) { [mainTabOrder[i-1], mainTabOrder[i]] = [mainTabOrder[i], mainTabOrder[i-1]]; saveMainOrder(); renderMain(); } };
+            dn.onclick = () => { if (i < mainTabOrder.length-1) { [mainTabOrder[i+1], mainTabOrder[i]] = [mainTabOrder[i], mainTabOrder[i+1]]; saveMainOrder(); renderMain(); } };
+            item.appendChild(span); item.appendChild(up); item.appendChild(dn); mainList.appendChild(item);
+        });
+    }
+
+    function renderSub() {
+        subList.innerHTML = '';
+        Object.keys(NAV).forEach(mainKey => {
+            if (NAV[mainKey].subs.length <= 1) return;
+            const header = document.createElement('h5');
+            header.style.cssText = 'margin:14px 0 8px;font-size:0.75rem;color:#8a9abb;text-transform:uppercase;letter-spacing:1px;';
+            header.textContent = '— ' + (mainNames[currentLanguage][mainKey] || mainKey) + ' —';
+            subList.appendChild(header);
+            const order = subTabOrder[mainKey] || NAV[mainKey].subs.map(s => s.id);
+            const orderedSubs = order.map(id => NAV[mainKey].subs.find(s => s.id === id)).filter(Boolean);
+            NAV[mainKey].subs.forEach(s => { if (!orderedSubs.includes(s)) orderedSubs.push(s); });
+            orderedSubs.forEach((sub, i) => {
+                const item = document.createElement('div');
+                item.className = 'tab-order-item';
+                const span = document.createElement('span');
+                span.textContent = subNames[currentLanguage][sub.id] || sub.id;
+                const up = document.createElement('button'); up.textContent = '↑';
+                const dn = document.createElement('button'); dn.textContent = '↓';
+                up.onclick = () => { if (i > 0) { [order[i-1], order[i]] = [order[i], order[i-1]]; subTabOrder[mainKey] = order; saveSubOrder(); renderSub(); } };
+                dn.onclick = () => { if (i < order.length-1) { [order[i+1], order[i]] = [order[i], order[i+1]]; subTabOrder[mainKey] = order; saveSubOrder(); renderSub(); } };
+                item.appendChild(span); item.appendChild(up); item.appendChild(dn); subList.appendChild(item);
+            });
+        });
+    }
+
+    renderMain();
+    renderSub();
 }
 
+function saveMainOrder() {
+    localStorage.setItem('zadrothub_main_order', JSON.stringify(mainTabOrder));
+    initNavigation();
+}
+function saveSubOrder() {
+    localStorage.setItem('zadrothub_sub_order', JSON.stringify(subTabOrder));
+    initSubNavigation();
+}
+
+/* ================== ЧАСЫ ================== */
 function initTimezoneSelector() {
     const sel = document.getElementById('timezoneSelect');
+    if (!sel) return;
+    sel.innerHTML = '';
     for (let i = -12; i <= 12; i++) {
         const val = 'UTC' + (i >= 0 ? '+' : '') + i;
         const opt = document.createElement('option');
         opt.value = val; opt.textContent = val;
         sel.appendChild(opt);
     }
-    sel.value = 'UTC+3';
+    sel.value = currentTimezone;
     sel.onchange = () => { currentTimezone = sel.value; updateClock(); };
 }
 
@@ -1905,68 +1692,203 @@ function updateClock() {
     const utc = now.getTime() + now.getTimezoneOffset() * 60000;
     const offset = parseInt(currentTimezone.replace('UTC', '')) * 3600000;
     const local = new Date(utc + offset);
-    const timeStr = `${pad(local.getHours())}:${pad(local.getMinutes())}:${pad(local.getSeconds())}`;
-    document.getElementById('capsuleClock').textContent = `${currentTimezone} ${timeStr}`;
-    document.getElementById('clockCircle').textContent = timeStr;
+    const timeStr = pad(local.getHours())+':'+pad(local.getMinutes())+':'+pad(local.getSeconds());
+    const cc = document.getElementById('capsuleClock');
+    if (cc) cc.textContent = currentTimezone + ' ' + timeStr;
+    const cl = document.getElementById('clockCircle');
+    if (cl) cl.textContent = timeStr;
+}
+
+/* ================== ПОГОДА (исправленная) ================== */
+let weatherData = null;
+let weatherUpdateInterval = null;
+let lastWeatherFetchTime = 0;
+let isForecastHovered = false;
+let weatherGeoCache = null;
+let weatherAbortController = null;
+let weatherRequestInFlight = false;
+
+function getLocalizedCity(city) {
+    if (!city) return '';
+    for (const country in citiesData) {
+        const ruIndex = citiesData[country].ru.indexOf(city);
+        if (ruIndex !== -1) return citiesData[country][currentLanguage][ruIndex];
+        const enIndex = citiesData[country].en.indexOf(city);
+        if (enIndex !== -1) return citiesData[country][currentLanguage][enIndex];
+    }
+    return city;
 }
 
 function getWeatherDesc(code) {
-    const map = { 0:'clear', 1:'sunny', 2:'partly_cloudy', 3:'cloudy', 45:'fog', 48:'fog', 51:'drizzle', 53:'drizzle', 55:'drizzle', 61:'rain', 63:'rain', 65:'heavy_rain', 71:'snow', 73:'snow', 75:'heavy_snow', 80:'shower', 81:'shower', 82:'shower', 95:'thunderstorm', 96:'thunderstorm', 99:'thunderstorm' };
+    const map = {
+        0:'clear', 1:'sunny', 2:'partly_cloudy', 3:'cloudy',
+        45:'fog', 48:'fog',
+        51:'drizzle', 53:'drizzle', 55:'drizzle',
+        56:'freezing_rain', 57:'freezing_rain',
+        61:'rain', 63:'rain', 65:'heavy_rain',
+        66:'freezing_rain', 67:'freezing_rain',
+        71:'snow', 73:'snow', 75:'heavy_snow', 77:'snowfall',
+        80:'shower', 81:'shower', 82:'shower',
+        85:'snowfall', 86:'heavy_snow',
+        95:'thunderstorm', 96:'thunderstorm', 99:'thunderstorm'
+    };
     return map[code] || 'clear';
 }
 
 function getWeatherEmoji(code) {
-    const map = { 0:'☀️', 1:'🌤️', 2:'⛅', 3:'☁️', 45:'🌫️', 48:'🌫️', 51:'🌦️', 53:'🌦️', 55:'🌦️', 61:'🌧️', 63:'🌧️', 65:'🌧️', 71:'❄️', 73:'❄️', 75:'❄️', 80:'🌧️', 81:'🌧️', 82:'🌧️', 95:'⛈️', 96:'⛈️', 99:'⛈️' };
+    const map = {
+        0:'☀️', 1:'🌤️', 2:'⛅', 3:'☁️',
+        45:'🌫️', 48:'🌫️',
+        51:'🌦️', 53:'🌦️', 55:'🌦️',
+        56:'🌧️', 57:'🌧️',
+        61:'🌧️', 63:'🌧️', 65:'🌧️',
+        66:'🌧️', 67:'🌧️',
+        71:'❄️', 73:'❄️', 75:'❄️', 77:'❄️',
+        80:'🌧️', 81:'🌧️', 82:'🌧️',
+        85:'❄️', 86:'❄️',
+        95:'⛈️', 96:'⛈️', 99:'⛈️'
+    };
     return map[code] || '☁️';
 }
 
-function aggregateWeatherData(sources) {
-    const temps = [];
-    const hum = [];
-    const precip = [];
-    const wind = [];
-    const codes = [];
-    if (sources.openMeteo) {
-        temps.push(sources.openMeteo.temp);
-        hum.push(sources.openMeteo.humidity);
-        precip.push(sources.openMeteo.precip);
-        wind.push(sources.openMeteo.wind);
-        codes.push(sources.openMeteo.code);
+/* Фолбэк — координаты всех городов, если геокодер не ответит */
+const CITY_COORDS_FALLBACK = {
+    'Москва': { lat: 55.7558, lon: 37.6173 },
+    'Санкт-Петербург': { lat: 59.9343, lon: 30.3351 },
+    'Новосибирск': { lat: 55.0084, lon: 82.9357 },
+    'Екатеринбург': { lat: 56.8389, lon: 60.6057 },
+    'Казань': { lat: 55.8304, lon: 49.0661 },
+    'Нижний Новгород': { lat: 56.3269, lon: 44.0059 },
+    'Челябинск': { lat: 55.1644, lon: 61.4368 },
+    'Самара': { lat: 53.2001, lon: 50.15 },
+    'Рязань': { lat: 54.6269, lon: 39.6916 },
+    'Ростов-на-Дону': { lat: 47.2225, lon: 39.7188 },
+    'Нью-Йорк': { lat: 40.7128, lon: -74.0060 },
+    'Лос-Анджелес': { lat: 34.0522, lon: -118.2437 },
+    'Чикаго': { lat: 41.8781, lon: -87.6298 },
+    'Хьюстон': { lat: 29.7604, lon: -95.3698 },
+    'Филадельфия': { lat: 39.9526, lon: -75.1652 },
+    'Сан-Франциско': { lat: 37.7749, lon: -122.4194 },
+    'Майами': { lat: 25.7617, lon: -80.1918 },
+    'Вашингтон': { lat: 38.9072, lon: -77.0369 },
+    'Бостон': { lat: 42.3601, lon: -71.0589 },
+    'Даллас': { lat: 32.7767, lon: -96.7970 },
+    'Пекин': { lat: 39.9042, lon: 116.4074 },
+    'Шанхай': { lat: 31.2304, lon: 121.4737 },
+    'Гуанчжоу': { lat: 23.1291, lon: 113.2644 },
+    'Шэньчжэнь': { lat: 22.5431, lon: 114.0579 },
+    'Чэнду': { lat: 30.5728, lon: 104.0668 },
+    'Ухань': { lat: 30.5928, lon: 114.3055 },
+    'Нанкин': { lat: 32.0603, lon: 118.7969 },
+    'Ханчжоу': { lat: 30.2741, lon: 120.1551 },
+    'Сиань': { lat: 34.3416, lon: 108.9398 },
+    'Тяньцзинь': { lat: 39.3434, lon: 117.3616 },
+    'Нью-Дели': { lat: 28.6139, lon: 77.2090 },
+    'Мумбаи': { lat: 19.0760, lon: 72.8777 },
+    'Бангалор': { lat: 12.9716, lon: 77.5946 },
+    'Ченнаи': { lat: 13.0827, lon: 80.2707 },
+    'Хайдарабад': { lat: 17.3850, lon: 78.4867 },
+    'Калькутта': { lat: 22.5726, lon: 88.3639 },
+    'Ахмедабад': { lat: 23.0225, lon: 72.5714 },
+    'Пуна': { lat: 18.5204, lon: 73.8567 },
+    'Сурат': { lat: 21.1702, lon: 72.8311 },
+    'Джайпур': { lat: 26.9124, lon: 75.7873 },
+    'Сан-Паулу': { lat: -23.5505, lon: -46.6333 },
+    'Рио-де-Жанейро': { lat: -22.9068, lon: -43.1729 },
+    'Бразилиа': { lat: -15.7939, lon: -47.8828 },
+    'Салвадор': { lat: -12.9777, lon: -38.5016 },
+    'Форталеза': { lat: -3.7319, lon: -38.5267 },
+    'Белу-Оризонти': { lat: -19.9167, lon: -43.9345 },
+    'Манаус': { lat: -3.1190, lon: -60.0217 },
+    'Куритиба': { lat: -25.4284, lon: -49.2733 },
+    'Ресифи': { lat: -8.0476, lon: -34.8770 },
+    'Порту-Алегри': { lat: -30.0346, lon: -51.2177 },
+    'Лагос': { lat: 6.5244, lon: 3.3792 },
+    'Кано': { lat: 12.0022, lon: 8.5920 },
+    'Ибадан': { lat: 7.3775, lon: 3.9470 },
+    'Абуджа': { lat: 9.0765, lon: 7.3986 },
+    'Кадуна': { lat: 10.5264, lon: 7.4388 },
+    'Порт-Харкорт': { lat: 4.8156, lon: 7.0498 },
+    'Бенин-Сити': { lat: 6.3350, lon: 5.6037 },
+    'Майдугури': { lat: 11.8311, lon: 13.1510 },
+    'Зария': { lat: 11.0855, lon: 7.7199 },
+    'Абеокута': { lat: 7.1475, lon: 3.3619 },
+    'Токио': { lat: 35.6762, lon: 139.6503 },
+    'Осака': { lat: 34.6937, lon: 135.5023 },
+    'Нагоя': { lat: 35.1815, lon: 136.9066 },
+    'Саппоро': { lat: 43.0618, lon: 141.3545 },
+    'Фукуока': { lat: 33.5904, lon: 130.4017 },
+    'Киото': { lat: 35.0116, lon: 135.7681 },
+    'Кобе': { lat: 34.6901, lon: 135.1955 },
+    'Сайтама': { lat: 35.8617, lon: 139.6455 },
+    'Хиросима': { lat: 34.3853, lon: 132.4553 },
+    'Сендай': { lat: 38.2682, lon: 140.8694 },
+    'Мехико': { lat: 19.4326, lon: -99.1332 },
+    'Гвадалахара': { lat: 20.6597, lon: -103.3496 },
+    'Монтеррей': { lat: 25.6866, lon: -100.3161 },
+    'Пуэбла': { lat: 19.0414, lon: -98.2063 },
+    'Толука': { lat: 19.2826, lon: -99.6557 },
+    'Тихуана': { lat: 32.5149, lon: -117.0382 },
+    'Леон': { lat: 21.1250, lon: -101.6860 },
+    'Сьюдад-Хуарес': { lat: 31.6904, lon: -106.4245 },
+    'Торреон': { lat: 25.5428, lon: -103.4068 },
+    'Мерида': { lat: 20.9674, lon: -89.5926 },
+    'Лондон': { lat: 51.5074, lon: -0.1278 },
+    'Бирмингем': { lat: 52.4862, lon: -1.8904 },
+    'Манчестер': { lat: 53.4808, lon: -2.2426 },
+    'Ливерпуль': { lat: 53.4084, lon: -2.9916 },
+    'Бристоль': { lat: 51.4545, lon: -2.5879 },
+    'Шеффилд': { lat: 53.3811, lon: -1.4701 },
+    'Лидс': { lat: 53.8008, lon: -1.5491 },
+    'Ньюкасл': { lat: 54.9783, lon: -1.6178 },
+    'Ноттингем': { lat: 52.9548, lon: -1.1581 },
+    'Лестер': { lat: 52.6369, lon: -1.1398 },
+    'Берлин': { lat: 52.5200, lon: 13.4050 },
+    'Гамбург': { lat: 53.5511, lon: 9.9937 },
+    'Мюнхен': { lat: 48.1351, lon: 11.5820 },
+    'Кёльн': { lat: 50.9375, lon: 6.9603 },
+    'Франкфурт': { lat: 50.1109, lon: 8.6821 },
+    'Штутгарт': { lat: 48.7758, lon: 9.1829 },
+    'Дюссельдорф': { lat: 51.2277, lon: 6.7735 },
+    'Дортмунд': { lat: 51.5136, lon: 7.4653 },
+    'Эссен': { lat: 51.4556, lon: 7.0116 },
+    'Лейпциг': { lat: 51.3397, lon: 12.3731 }
+};
+
+async function geocodeCity(cityName) {
+    const enName = getEnglishCityName(cityName);
+    const urls = [
+        'https://geocoding-api.open-meteo.com/v1/search?name=' + encodeURIComponent(enName) + '&count=5&language=en&format=json',
+        'https://geocoding-api.open-meteo.com/v1/search?name=' + encodeURIComponent(cityName) + '&count=5&language=' + currentLanguage + '&format=json'
+    ];
+    for (const url of urls) {
+        try {
+            const r = await fetch(url);
+            if (!r.ok) continue;
+            const g = await r.json();
+            if (g.results && g.results.length) {
+                const preferred = g.results.find(x => {
+                    const cn = (x.country || '').toLowerCase();
+                    const want = (countriesData.en[currentCountry] || '').toLowerCase();
+                    return cn.includes(want.split(' ')[0]);
+                }) || g.results[0];
+                return { lat: preferred.latitude, lon: preferred.longitude };
+            }
+        } catch(e) { /* ignore, try next */ }
     }
-    if (sources.weatherApi) {
-        temps.push(sources.weatherApi.temp);
-        hum.push(sources.weatherApi.humidity);
-        precip.push(sources.weatherApi.precip);
-        wind.push(sources.weatherApi.wind);
-        codes.push(sources.weatherApi.code);
-    }
-    if (sources.gismeteo) {
-        temps.push(sources.gismeteo.temp);
-        hum.push(sources.gismeteo.humidity);
-        precip.push(sources.gismeteo.precip);
-        wind.push(sources.gismeteo.wind);
-        codes.push(sources.gismeteo.code);
-    }
-    const avg = arr => arr.length ? arr.reduce((a,b) => a+b, 0) / arr.length : null;
-    const mostCommon = arr => {
-        if (!arr.length) return null;
-        const freq = {};
-        arr.forEach(v => freq[v] = (freq[v] || 0) + 1);
-        return Object.keys(freq).sort((a,b) => freq[b] - freq[a])[0];
-    };
-    return {
-        temp: avg(temps),
-        humidity: avg(hum),
-        precip: avg(precip),
-        wind: avg(wind),
-        code: mostCommon(codes) || (codes[0] || 0)
-    };
+    if (CITY_COORDS_FALLBACK[cityName]) return CITY_COORDS_FALLBACK[cityName];
+    return null;
 }
 
-async function getOpenMeteoWeather(lat, lon) {
-    const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,precipitation,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto`);
+async function getOpenMeteoWeather(lat, lon, signal) {
+    const url = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon +
+        '&current=temperature_2m,relative_humidity_2m,precipitation,weather_code,wind_speed_10m' +
+        '&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max' +
+        '&timezone=auto&forecast_days=7';
+    const res = await fetch(url, { signal });
     if (!res.ok) return null;
     const data = await res.json();
+    if (!data || !data.current) return null;
     return {
         temp: data.current.temperature_2m,
         humidity: data.current.relative_humidity_2m,
@@ -1977,47 +1899,22 @@ async function getOpenMeteoWeather(lat, lon) {
     };
 }
 
-async function getWeatherApiWeather(city) {
-    try {
-        const res = await fetch(`https://api.weatherapi.com/v1/current.json?key=demo&q=${encodeURIComponent(city)}&aqi=no`);
-        if (!res.ok) return null;
-        const data = await res.json();
-        return {
-            temp: data.current.temp_c,
-            humidity: data.current.humidity,
-            precip: data.current.precip_mm || 0,
-            wind: data.current.wind_kph,
-            code: data.current.condition?.code || 0
-        };
-    } catch { return null; }
-}
-
-async function getGismeteoWeather(city) {
-    try {
-        const res = await fetch(`https://api.gismeteo.net/v2/weather/current/?city=${encodeURIComponent(city)}`, {
-            headers: { 'X-Gismeteo-Token': 'demo' }
-        });
-        if (!res.ok) return null;
-        const data = await res.json();
-        return {
-            temp: data.response?.temperature?.air?.C || null,
-            humidity: data.response?.humidity?.percent || null,
-            precip: data.response?.precipitation?.amount || 0,
-            wind: data.response?.wind?.speed?.m_s || 0,
-            code: data.response?.cloudiness?.type || 0
-        };
-    } catch { return null; }
-}
-
 function updateWeatherDisplay() {
     if (!weatherData) return;
-    document.getElementById('weatherEmoji').textContent = getWeatherEmoji(weatherData.code);
-    document.getElementById('weatherTemp').textContent = `${Math.round(weatherData.temp)}°C`;
-    document.getElementById('weatherCity').textContent = getLocalizedCity(currentCity);
-    document.getElementById('weatherDesc').textContent = translations[currentLanguage][getWeatherDesc(weatherData.code)] || getWeatherDesc(weatherData.code);
-    document.getElementById('weatherHumidity').textContent = `${Math.round(weatherData.humidity || 0)}%`;
-    document.getElementById('weatherPrecip').textContent = `${weatherData.precip || 0} ${translations[currentLanguage].precipitation_mm || 'мм'}`;
-    document.getElementById('weatherWind').textContent = `${Math.round(weatherData.wind || 0)} ${translations[currentLanguage].wind_speed_kmh || 'км/ч'}`;
+    const emojiEl = document.getElementById('weatherEmoji');
+    const tempEl = document.getElementById('weatherTemp');
+    const cityEl = document.getElementById('weatherCity');
+    const descEl = document.getElementById('weatherDesc');
+    const humEl = document.getElementById('weatherHumidity');
+    const precEl = document.getElementById('weatherPrecip');
+    const windEl = document.getElementById('weatherWind');
+    if (emojiEl) emojiEl.textContent = getWeatherEmoji(weatherData.code);
+    if (tempEl) tempEl.textContent = Math.round(weatherData.temp) + '°C';
+    if (cityEl) cityEl.textContent = getLocalizedCity(currentCity);
+    if (descEl) descEl.textContent = translations[currentLanguage][getWeatherDesc(weatherData.code)] || getWeatherDesc(weatherData.code);
+    if (humEl) humEl.textContent = Math.round(weatherData.humidity || 0) + '%';
+    if (precEl) precEl.textContent = (weatherData.precip || 0) + ' ' + translations[currentLanguage].precipitation_mm;
+    if (windEl) windEl.textContent = Math.round(weatherData.wind || 0) + ' ' + translations[currentLanguage].wind_speed_kmh;
 }
 
 function updateForecastDisplay() {
@@ -2025,71 +1922,709 @@ function updateForecastDisplay() {
     const container = document.getElementById('forecastContainer');
     const grid = document.getElementById('forecastGrid');
     const chart = document.getElementById('tempChart');
-    if (!weatherData?.daily) { container.style.display = 'none'; return; }
+    if (!container || !weatherData || !weatherData.daily) {
+        if (container) container.style.display = 'none';
+        return;
+    }
     container.style.display = 'block';
-    grid.innerHTML = ''; chart.innerHTML = '';
+    grid.innerHTML = '';
+    chart.innerHTML = '';
     const daily = weatherData.daily;
     const weekDays = currentLanguage === 'ru' ? ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'] : ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-    const maxT = Math.max(...daily.temperature_2m_max.slice(0,7));
-    const minT = Math.min(...daily.temperature_2m_min.slice(0,7));
+    const maxT = Math.max.apply(null, daily.temperature_2m_max.slice(0,7));
+    const minT = Math.min.apply(null, daily.temperature_2m_min.slice(0,7));
     const range = maxT - minT || 1;
     for (let i = 0; i < Math.min(7, daily.time.length); i++) {
         const d = new Date(daily.time[i] + 'T00:00:00');
         const dayName = weekDays[d.getDay()];
-        const dateStr = `${pad(d.getDate())}.${pad(d.getMonth()+1)}`;
+        const dateStr = pad(d.getDate()) + '.' + pad(d.getMonth()+1);
         const code = daily.weather_code[i];
         const bar = document.createElement('div');
         bar.className = 'temp-bar';
         const barHeight = Math.min(Math.max(((daily.temperature_2m_max[i] - minT) / range * 100 + 20), 20), 100);
         bar.style.height = barHeight + 'px';
-        bar.innerHTML = `<span class="temp-label">${daily.temperature_2m_max[i]}°C</span>`;
+        bar.innerHTML = '<span class="temp-label">' + daily.temperature_2m_max[i] + '°C</span>';
         chart.appendChild(bar);
         const card = document.createElement('div');
         card.className = 'forecast-day';
-        card.innerHTML = `<div class="day-name">${dayName}, ${dateStr}</div><div class="weather-icon">${getWeatherEmoji(code)}</div><div class="temp">${daily.temperature_2m_max[i]}°C</div><div class="temp-range">${daily.temperature_2m_min[i]}°C</div><div class="precipitation">💧 ${daily.precipitation_probability_max?.[i] || 0}%</div>`;
+        card.innerHTML = '<div class="day-name">' + dayName + ', ' + dateStr + '</div>' +
+            '<div class="weather-icon">' + getWeatherEmoji(code) + '</div>' +
+            '<div class="temp">' + daily.temperature_2m_max[i] + '°C</div>' +
+            '<div class="temp-range">' + daily.temperature_2m_min[i] + '°C</div>' +
+            '<div class="precipitation">💧 ' + ((daily.precipitation_probability_max && daily.precipitation_probability_max[i]) || 0) + '%</div>';
         grid.appendChild(card);
     }
 }
 
 async function fetchWeatherData() {
-    if (!currentCity) return;
+    if (weatherRequestInFlight) return;
+
+    if (!currentCity && citiesData[currentCountry]) {
+        currentCity = citiesData[currentCountry][currentLanguage][0];
+        localStorage.setItem('zadrothub_city', currentCity);
+    }
+    if (!currentCity) {
+        const wc = document.getElementById('weatherCity');
+        if (wc) wc.textContent = translations[currentLanguage].city_not_set;
+        return;
+    }
+
     const now = Date.now();
-    if (now - lastWeatherFetchTime < 25000) return;
+    if (now - lastWeatherFetchTime < 15000 && weatherData) return;
     lastWeatherFetchTime = now;
+
+    if (weatherAbortController) {
+        try { weatherAbortController.abort(); } catch(e) {}
+    }
+    weatherAbortController = new AbortController();
+    const signal = weatherAbortController.signal;
+    weatherRequestInFlight = true;
+
     try {
         if (!weatherGeoCache || weatherGeoCache.city !== currentCity) {
-            const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(currentCity)}&count=1&language=${currentLanguage}`);
-            const geoData = await geoRes.json();
-            if (geoData.results?.length) {
-                weatherGeoCache = { city: currentCity, lat: geoData.results[0].latitude, lon: geoData.results[0].longitude };
-            } else {
+            const coords = await geocodeCity(currentCity);
+            if (!coords) {
+                const wc = document.getElementById('weatherCity');
+                if (wc) wc.textContent = getLocalizedCity(currentCity);
                 return;
             }
+            weatherGeoCache = { city: currentCity, lat: coords.lat, lon: coords.lon };
         }
-        const { lat, lon } = weatherGeoCache;
-        const [openMeteo, weatherApi, gismeteo] = await Promise.all([
-            getOpenMeteoWeather(lat, lon),
-            getWeatherApiWeather(currentCity),
-            getGismeteoWeather(currentCity)
-        ]);
-        lastWeatherSources = { openMeteo, weatherApi, gismeteo };
-        const aggregated = aggregateWeatherData({ openMeteo, weatherApi, gismeteo });
-        weatherData = {
-            ...aggregated,
-            daily: openMeteo?.daily || null
-        };
+
+        let openMeteo = null;
+        try {
+            openMeteo = await getOpenMeteoWeather(weatherGeoCache.lat, weatherGeoCache.lon, signal);
+        } catch (err) {
+            if (err.name === 'AbortError') return;
+        }
+
+        if (!openMeteo && CITY_COORDS_FALLBACK[currentCity]) {
+            try {
+                openMeteo = await getOpenMeteoWeather(CITY_COORDS_FALLBACK[currentCity].lat, CITY_COORDS_FALLBACK[currentCity].lon, signal);
+            } catch (err) {
+                if (err.name === 'AbortError') return;
+            }
+        }
+
+        if (!openMeteo) return;
+        weatherData = openMeteo;
         updateWeatherDisplay();
         updateForecastDisplay();
-    } catch(e) { console.error(e); }
+    } catch(e) {
+        if (e.name !== 'AbortError') console.error('Weather error:', e);
+    } finally {
+        weatherRequestInFlight = false;
+    }
 }
 
+/* ================== ГОНКИ ================== */
+let raceRAF = null, raceRunning = false, raceScore = 0, raceSpeed = 4, raceRoad = 0;
+let raceObstacles = [];
+let raceBest = parseInt(localStorage.getItem('zadrothub_race_best') || '0');
+let raceCarIdx = 0;
+const CARS = [
+    { color:'#39ff14', glow:'#39ff14', handling:5 },
+    { color:'#00e5ff', glow:'#00e5ff', handling:7 },
+    { color:'#ff69b4', glow:'#ff69b4', handling:6 },
+    { color:'#ffd700', glow:'#ffd700', handling:5 }
+];
+let raceCar = { x: 320, y: 340, w: 34, h: 50, color: CARS[0].color, glow: CARS[0].glow, handling: CARS[0].handling };
+let raceLeftP = false, raceRightP = false;
+
+function initCarSelect() {
+    const sel = document.getElementById('carSelect');
+    if (!sel) return;
+    sel.innerHTML = '';
+    CARS.forEach((c, i) => {
+        const card = document.createElement('div');
+        card.className = 'car-card' + (i === raceCarIdx ? ' selected' : '');
+        const name = translations[currentLanguage]['car' + (i+1)];
+        card.innerHTML = '<div class="car-name" style="color:' + c.glow + '">' + name + '</div>';
+        card.onclick = () => {
+            raceCarIdx = i;
+            raceCar.color = c.color;
+            raceCar.glow = c.glow;
+            raceCar.handling = c.handling;
+            document.querySelectorAll('.car-card').forEach((x, j) => x.classList.toggle('selected', j === i));
+        };
+        sel.appendChild(card);
+    });
+}
+
+function initRace() {
+    initCarSelect();
+    const bestEl = document.getElementById('raceBest');
+    if (bestEl) bestEl.textContent = raceBest;
+
+    const left = document.getElementById('raceLeft');
+    const right = document.getElementById('raceRight');
+    if (!left || !right) return;
+
+    function bindHold(el, setter) {
+        el.addEventListener('pointerdown', e => { e.preventDefault(); setter(true); });
+        el.addEventListener('pointerup', e => { e.preventDefault(); setter(false); });
+        el.addEventListener('pointerleave', () => setter(false));
+        el.addEventListener('pointercancel', () => setter(false));
+    }
+    bindHold(left, v => raceLeftP = v);
+    bindHold(right, v => raceRightP = v);
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowLeft' || e.key.toLowerCase() === 'a') raceLeftP = true;
+        if (e.key === 'ArrowRight' || e.key.toLowerCase() === 'd') raceRightP = true;
+    });
+    document.addEventListener('keyup', e => {
+        if (e.key === 'ArrowLeft' || e.key.toLowerCase() === 'a') raceLeftP = false;
+        if (e.key === 'ArrowRight' || e.key.toLowerCase() === 'd') raceRightP = false;
+    });
+
+    document.getElementById('raceStart').onclick = () => {
+        if (raceRunning) return;
+        raceRunning = true;
+        raceScore = 0;
+        raceSpeed = 3;
+        raceObstacles = [];
+        raceCar.x = 320;
+        raceCar.y = 340;
+        document.getElementById('raceScore').textContent = '0';
+        raceLoop();
+    };
+}
+
+function raceLoop() {
+    const canvas = document.getElementById('raceCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width, H = canvas.height;
+
+    raceRoad = (raceRoad + raceSpeed) % 80;
+    raceSpeed = Math.min(raceSpeed + 0.001, 12);
+    raceScore += 1;
+    document.getElementById('raceScore').textContent = Math.floor(raceScore / 10);
+
+    if (raceLeftP) raceCar.x -= raceCar.handling;
+    if (raceRightP) raceCar.x += raceCar.handling;
+    raceCar.x = Math.max(60, Math.min(W - 60, raceCar.x));
+
+    if (Math.random() < 0.02 && raceObstacles.length < 5) {
+        raceObstacles.push({ x: 60 + Math.random() * (W - 120), y: -40, w: 40, h: 60 });
+    }
+    raceObstacles.forEach(o => o.y += raceSpeed);
+    raceObstacles = raceObstacles.filter(o => o.y < H + 60);
+
+    ctx.fillStyle = '#05060a';
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.strokeStyle = 'rgba(139,92,246,0.25)';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(50, 0); ctx.lineTo(50, H);
+    ctx.moveTo(W - 50, 0); ctx.lineTo(W - 50, H);
+    ctx.stroke();
+
+    ctx.strokeStyle = 'rgba(57,255,20,0.08)';
+    ctx.lineWidth = 1;
+    for (let x = 100; x < W - 50; x += 60) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+    }
+
+    ctx.strokeStyle = 'rgba(57,255,20,0.5)';
+    ctx.lineWidth = 3;
+    ctx.setLineDash([40, 30]);
+    ctx.lineDashOffset = -raceRoad;
+    ctx.beginPath(); ctx.moveTo(W/2, 0); ctx.lineTo(W/2, H); ctx.stroke();
+    ctx.setLineDash([]);
+
+    raceObstacles.forEach(o => {
+        ctx.shadowColor = '#ff4060';
+        ctx.shadowBlur = 15;
+        ctx.fillStyle = '#ff2040';
+        ctx.fillRect(o.x - o.w/2, o.y, o.w, o.h);
+        ctx.strokeStyle = '#ff8090';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(o.x - o.w/2, o.y, o.w, o.h);
+        ctx.shadowBlur = 0;
+    });
+
+    ctx.shadowColor = raceCar.glow;
+    ctx.shadowBlur = 20;
+    ctx.fillStyle = raceCar.color;
+    ctx.fillRect(raceCar.x - raceCar.w/2, raceCar.y - raceCar.h/2, raceCar.w, raceCar.h);
+    ctx.strokeStyle = '#fff';
+    ctx.lineWidth = 1.5;
+    ctx.strokeRect(raceCar.x - raceCar.w/2, raceCar.y - raceCar.h/2, raceCar.w, raceCar.h);
+    ctx.shadowBlur = 0;
+
+    ctx.fillStyle = 'rgba(0,0,0,0.5)';
+    ctx.fillRect(raceCar.x - raceCar.w/2 + 6, raceCar.y - raceCar.h/2 + 8, raceCar.w - 12, 10);
+    ctx.fillRect(raceCar.x - raceCar.w/2 + 6, raceCar.y + raceCar.h/2 - 14, raceCar.w - 12, 8);
+
+    for (let i = 0; i < raceObstacles.length; i++) {
+        const o = raceObstacles[i];
+        if (raceCar.x - raceCar.w/2 < o.x + o.w/2 && raceCar.x + raceCar.w/2 > o.x - o.w/2 &&
+            raceCar.y - raceCar.h/2 < o.y + o.h && raceCar.y + raceCar.h/2 > o.y) {
+            raceEnd();
+            return;
+        }
+    }
+    raceRAF = requestAnimationFrame(raceLoop);
+}
+
+function raceEnd() {
+    raceRunning = false;
+    cancelAnimationFrame(raceRAF);
+    const score = Math.floor(raceScore / 10);
+    if (score > raceBest) {
+        raceBest = score;
+        localStorage.setItem('zadrothub_race_best', String(raceBest));
+        const el = document.getElementById('raceBest');
+        if (el) el.textContent = raceBest;
+        showNotification('🏆 ' + raceBest, 'success');
+    } else {
+        showNotification('Score: ' + score, 'danger');
+    }
+}
+
+/* ================== БЛОЧНЫЙ ПАЗЛ ================== */
+const BLAST_N = 8;
+let blastGrid = [];
+let blastPieces = [];
+let blastScore = 0;
+let blastBest = parseInt(localStorage.getItem('zadrothub_blast_best') || '0');
+let blastDrag = null;
+const BLAST_COLORS = ['#8b5cf6','#39ff14','#00e5ff','#ff69b4','#ffd700','#ff4500'];
+const BLAST_SHAPES = [
+    [[1]], [[1,1]], [[1],[1]], [[1,1],[1,1]], [[1,1,1]], [[1],[1],[1]],
+    [[1,1,1,1]], [[1],[1],[1],[1]], [[1,0],[1,1]], [[0,1],[1,1]],
+    [[1,1,1],[0,1,0]], [[1,0],[1,0],[1,1]]
+];
+
+function initBlast() {
+    const bestEl = document.getElementById('blastBest');
+    if (bestEl) bestEl.textContent = blastBest;
+    const newBtn = document.getElementById('blastNew');
+    if (newBtn) newBtn.onclick = newBlast;
+    newBlast();
+    document.addEventListener('pointermove', onBlastMove);
+    document.addEventListener('pointerup', onBlastUp);
+    document.addEventListener('pointercancel', onBlastUp);
+}
+
+function newBlast() {
+    blastGrid = [];
+    for (let y = 0; y < BLAST_N; y++) {
+        blastGrid.push([]);
+        for (let x = 0; x < BLAST_N; x++) blastGrid[y].push(null);
+    }
+    blastScore = 0;
+    const sc = document.getElementById('blastScore');
+    if (sc) sc.textContent = 0;
+    spawnPieces();
+    drawBlast();
+}
+
+function spawnPieces() {
+    blastPieces = [];
+    for (let i = 0; i < 3; i++) {
+        const shape = BLAST_SHAPES[Math.floor(Math.random()*BLAST_SHAPES.length)];
+        const color = BLAST_COLORS[Math.floor(Math.random()*BLAST_COLORS.length)];
+        blastPieces.push({ shape, color });
+    }
+    renderBlastTray();
+}
+
+function renderBlastTray() {
+    const tray = document.getElementById('blastTray');
+    if (!tray) return;
+    tray.innerHTML = '';
+    blastPieces.forEach((p, i) => {
+        const d = document.createElement('div');
+        d.className = 'blast-piece';
+        d.dataset.idx = i;
+        d.style.gridTemplateColumns = 'repeat(' + p.shape[0].length + ', 22px)';
+        p.shape.forEach(row => row.forEach(cell => {
+            const c = document.createElement('div');
+            c.className = 'blast-cell';
+            if (cell) c.style.background = p.color;
+            d.appendChild(c);
+        }));
+        d.addEventListener('pointerdown', e => onBlastDown(e, i, d));
+        tray.appendChild(d);
+    });
+}
+
+function drawBlast() {
+    const g = document.getElementById('blastGrid');
+    if (!g) return;
+    g.style.gridTemplateColumns = 'repeat(' + BLAST_N + ', 34px)';
+    g.innerHTML = '';
+    for (let y = 0; y < BLAST_N; y++) {
+        for (let x = 0; x < BLAST_N; x++) {
+            const c = document.createElement('div');
+            c.className = 'blast-cell';
+            c.dataset.x = x;
+            c.dataset.y = y;
+            if (blastGrid[y][x]) c.style.background = blastGrid[y][x];
+            g.appendChild(c);
+        }
+    }
+}
+
+function onBlastDown(e, i, el) {
+    e.preventDefault();
+    blastDrag = { idx: i, el, sx: e.clientX, sy: e.clientY };
+    el.style.opacity = '0.6';
+    el.style.position = 'relative';
+    el.style.zIndex = '100';
+}
+
+function clearBlastHighlights() {
+    document.querySelectorAll('#blastGrid .blast-cell').forEach(c => {
+        c.style.outline = '';
+        c.style.boxShadow = '';
+    });
+}
+
+function getBlastCellFromPoint(x, y) {
+    const el = document.elementFromPoint(x, y);
+    if (!el) return null;
+    if (el.classList.contains('blast-cell') && el.parentElement && el.parentElement.id === 'blastGrid') {
+        return { el, x: +el.dataset.x, y: +el.dataset.y };
+    }
+    return null;
+}
+
+function onBlastMove(e) {
+    if (!blastDrag) return;
+    e.preventDefault();
+    blastDrag.el.style.transform = 'translate(' + (e.clientX - blastDrag.sx) + 'px, ' + (e.clientY - blastDrag.sy) + 'px)';
+    blastDrag.el.style.pointerEvents = 'none';
+    clearBlastHighlights();
+    const cell = getBlastCellFromPoint(e.clientX, e.clientY);
+    blastDrag.el.style.pointerEvents = '';
+    if (!cell) return;
+    const piece = blastPieces[blastDrag.idx];
+    if (!piece) return;
+    const sh = piece.shape;
+    const startX = cell.x;
+    const startY = cell.y;
+    if (startX < 0 || startY < 0 || startY + sh.length > BLAST_N || startX + sh[0].length > BLAST_N) return;
+    let ok = true;
+    for (let dy = 0; dy < sh.length && ok; dy++)
+        for (let dx = 0; dx < sh[dy].length && ok; dx++)
+            if (sh[dy][dx] && blastGrid[startY+dy][startX+dx]) ok = false;
+    if (ok) {
+        for (let dy = 0; dy < sh.length; dy++)
+            for (let dx = 0; dx < sh[dy].length; dx++)
+                if (sh[dy][dx]) {
+                    const t = document.querySelector('#blastGrid .blast-cell[data-x="' + (startX+dx) + '"][data-y="' + (startY+dy) + '"]');
+                    if (t) { t.style.outline = '2px solid ' + piece.color; t.style.boxShadow = '0 0 12px ' + piece.color; }
+                }
+    } else {
+        for (let dy = 0; dy < sh.length; dy++)
+            for (let dx = 0; dx < sh[dy].length; dx++)
+                if (sh[dy][dx]) {
+                    const t = document.querySelector('#blastGrid .blast-cell[data-x="' + (startX+dx) + '"][data-y="' + (startY+dy) + '"]');
+                    if (t) { t.style.outline = '2px solid #ff4060'; t.style.boxShadow = '0 0 12px #ff4060'; }
+                }
+    }
+}
+
+function onBlastUp(e) {
+    if (!blastDrag) return;
+    const piece = blastPieces[blastDrag.idx];
+    blastDrag.el.style.transform = '';
+    blastDrag.el.style.opacity = '';
+    blastDrag.el.style.zIndex = '';
+    clearBlastHighlights();
+    if (!piece) { blastDrag = null; return; }
+    const cell = getBlastCellFromPoint(e.clientX, e.clientY);
+    if (!cell) { blastDrag = null; return; }
+    const sh = piece.shape;
+    const startX = cell.x;
+    const startY = cell.y;
+    if (startX < 0 || startY < 0 || startY + sh.length > BLAST_N || startX + sh[0].length > BLAST_N) { blastDrag = null; return; }
+    let ok = true;
+    for (let dy = 0; dy < sh.length && ok; dy++)
+        for (let dx = 0; dx < sh[dy].length && ok; dx++)
+            if (sh[dy][dx] && blastGrid[startY+dy][startX+dx]) ok = false;
+    if (ok) {
+        for (let dy = 0; dy < sh.length; dy++)
+            for (let dx = 0; dx < sh[dy].length; dx++)
+                if (sh[dy][dx]) blastGrid[startY+dy][startX+dx] = piece.color;
+        blastPieces.splice(blastDrag.idx, 1);
+        checkBlastLines();
+        if (isBlastGameOver()) {
+            if (blastScore > blastBest) {
+                blastBest = blastScore;
+                localStorage.setItem('zadrothub_blast_best', String(blastBest));
+                const b = document.getElementById('blastBest');
+                if (b) b.textContent = blastBest;
+                showNotification('🏆 ' + blastBest, 'success');
+            } else {
+                showNotification('Score: ' + blastScore, 'danger');
+            }
+        }
+    }
+    blastDrag = null;
+}
+
+function checkBlastLines() {
+    const linesToClear = [];
+    for (let y = 0; y < BLAST_N; y++) {
+        let full = true;
+        for (let x = 0; x < BLAST_N; x++) if (!blastGrid[y][x]) { full = false; break; }
+        if (full) linesToClear.push({ type: 'row', index: y });
+    }
+    for (let x = 0; x < BLAST_N; x++) {
+        let full = true;
+        for (let y = 0; y < BLAST_N; y++) if (!blastGrid[y][x]) { full = false; break; }
+        if (full) linesToClear.push({ type: 'col', index: x });
+    }
+    if (linesToClear.length === 0) {
+        if (blastPieces.length === 0) spawnPieces();
+        else renderBlastTray();
+        drawBlast();
+        return;
+    }
+
+    linesToClear.forEach(line => {
+        for (let i = 0; i < BLAST_N; i++) {
+            const x = line.type === 'row' ? i : line.index;
+            const y = line.type === 'row' ? line.index : i;
+            const cell = document.querySelector('#blastGrid .blast-cell[data-x="' + x + '"][data-y="' + y + '"]');
+            if (cell) {
+                cell.style.transition = 'all 0.45s cubic-bezier(0.34,1.56,0.64,1)';
+                cell.style.transform = 'scale(0) rotate(180deg)';
+                cell.style.opacity = '0';
+                cell.style.boxShadow = '0 0 30px #fff, 0 0 60px var(--accent-secondary)';
+                cell.style.background = '#ffffff';
+            }
+        }
+    });
+
+    let points = 0;
+    const n = linesToClear.length;
+    if (n === 1) points = 10;
+    else if (n === 2) points = 30;
+    else if (n === 3) points = 60;
+    else points = n * 25;
+    blastScore += points;
+    const sc = document.getElementById('blastScore');
+    if (sc) sc.textContent = blastScore;
+
+    setTimeout(() => {
+        linesToClear.forEach(line => {
+            for (let i = 0; i < BLAST_N; i++) {
+                const x = line.type === 'row' ? i : line.index;
+                const y = line.type === 'row' ? line.index : i;
+                blastGrid[y][x] = null;
+            }
+        });
+        if (blastPieces.length === 0) spawnPieces();
+        else renderBlastTray();
+        drawBlast();
+    }, 450);
+}
+
+function isBlastGameOver() {
+    if (blastPieces.length === 0) return false;
+    for (let pi = 0; pi < blastPieces.length; pi++) {
+        const p = blastPieces[pi];
+        for (let y = 0; y <= BLAST_N - p.shape.length; y++)
+            for (let x = 0; x <= BLAST_N - p.shape[0].length; x++) {
+                let ok = true;
+                for (let dy = 0; dy < p.shape.length && ok; dy++)
+                    for (let dx = 0; dx < p.shape[dy].length && ok; dx++)
+                        if (p.shape[dy][dx] && blastGrid[y+dy][x+dx]) ok = false;
+                if (ok) return false;
+            }
+    }
+    return true;
+}
+
+/* ================== СКЕТЧПАД ================== */
+let skCanvas, skCtx, skDrawing = false;
+let skColor = '#8b5cf6', skSize = 4, skTool = 'brush';
+let skStartX = 0, skStartY = 0, skSnap = null;
+const SK_COLORS = ['#ffffff','#000000','#ff0000','#00ff00','#0000ff','#ffff00','#ff00ff','#00ffff','#ff8800','#8b5cf6','#39ff14','#ff69b4'];
+
+function initSketch() {
+    skCanvas = document.getElementById('sketchCanvas');
+    if (!skCanvas) return;
+    skCtx = skCanvas.getContext('2d');
+    skCtx.fillStyle = '#05060a';
+    skCtx.fillRect(0, 0, skCanvas.width, skCanvas.height);
+    skCtx.lineCap = 'round';
+    skCtx.lineJoin = 'round';
+
+    const wrap = document.getElementById('sketchColors');
+    wrap.innerHTML = '';
+    SK_COLORS.forEach(c => {
+        const s = document.createElement('div');
+        s.className = 'color-swatch';
+        s.style.background = c;
+        s.onclick = () => {
+            skColor = c;
+            document.querySelectorAll('.color-swatch').forEach(x => x.classList.remove('active'));
+            s.classList.add('active');
+        };
+        wrap.appendChild(s);
+    });
+    if (wrap.firstChild) wrap.firstChild.classList.add('active');
+
+    document.getElementById('sketchCustomColor').oninput = e => skColor = e.target.value;
+    document.getElementById('sketchSize').oninput = e => skSize = +e.target.value;
+
+    document.querySelectorAll('.tool-btn').forEach(b => {
+        b.onclick = () => {
+            skTool = b.dataset.tool;
+            document.querySelectorAll('.tool-btn').forEach(x => x.classList.toggle('active', x === b));
+        };
+    });
+
+    skCanvas.addEventListener('pointerdown', startDraw);
+    skCanvas.addEventListener('pointermove', moveDraw);
+    skCanvas.addEventListener('pointerup', endDraw);
+    skCanvas.addEventListener('pointerleave', endDraw);
+    skCanvas.addEventListener('pointercancel', endDraw);
+
+    document.getElementById('sketchClear').onclick = () => {
+        skCtx.fillStyle = '#05060a';
+        skCtx.fillRect(0, 0, skCanvas.width, skCanvas.height);
+    };
+    document.getElementById('sketchSave').onclick = () => {
+        const a = document.createElement('a');
+        a.download = 'zadrothub-sketch.png';
+        a.href = skCanvas.toDataURL('image/png');
+        a.click();
+    };
+}
+
+function getSketchPos(e) {
+    const r = skCanvas.getBoundingClientRect();
+    return {
+        x: (e.clientX - r.left) * skCanvas.width / r.width,
+        y: (e.clientY - r.top) * skCanvas.height / r.height
+    };
+}
+
+function startDraw(e) {
+    e.preventDefault();
+    skDrawing = true;
+    const p = getSketchPos(e);
+    skStartX = p.x; skStartY = p.y;
+    skSnap = skCtx.getImageData(0, 0, skCanvas.width, skCanvas.height);
+    if (skTool === 'brush' || skTool === 'neon' || skTool === 'eraser') {
+        skCtx.beginPath();
+        skCtx.moveTo(p.x, p.y);
+    }
+}
+
+function moveDraw(e) {
+    if (!skDrawing) return;
+    e.preventDefault();
+    const p = getSketchPos(e);
+    if (skTool === 'brush' || skTool === 'neon' || skTool === 'eraser') {
+        skCtx.strokeStyle = skTool === 'eraser' ? '#05060a' : skColor;
+        if (skTool === 'neon') {
+            skCtx.lineWidth = Math.max(1, skSize * 0.7);
+            skCtx.shadowColor = skColor;
+            skCtx.shadowBlur = Math.min(skSize * 1.2, 15);
+        } else {
+            skCtx.lineWidth = skSize;
+            skCtx.shadowColor = 'transparent';
+            skCtx.shadowBlur = 0;
+        }
+        skCtx.lineTo(p.x, p.y);
+        skCtx.stroke();
+        skCtx.shadowBlur = 0;
+    } else {
+        skCtx.putImageData(skSnap, 0, 0);
+        skCtx.strokeStyle = skColor;
+        skCtx.lineWidth = skSize;
+        skCtx.shadowColor = 'transparent';
+        skCtx.beginPath();
+        if (skTool === 'line') {
+            skCtx.moveTo(skStartX, skStartY);
+            skCtx.lineTo(p.x, p.y);
+        } else if (skTool === 'rect') {
+            skCtx.rect(skStartX, skStartY, p.x - skStartX, p.y - skStartY);
+        } else if (skTool === 'circle') {
+            const r = Math.hypot(p.x - skStartX, p.y - skStartY);
+            skCtx.arc(skStartX, skStartY, r, 0, Math.PI * 2);
+        } else if (skTool === 'triangle') {
+            const r = Math.hypot(p.x - skStartX, p.y - skStartY);
+            skCtx.moveTo(skStartX, skStartY - r);
+            skCtx.lineTo(skStartX + r * 0.866, skStartY + r * 0.5);
+            skCtx.lineTo(skStartX - r * 0.866, skStartY + r * 0.5);
+            skCtx.closePath();
+        } else if (skTool === 'star') {
+            const r = Math.hypot(p.x - skStartX, p.y - skStartY);
+            const r2 = r * 0.4;
+            for (let i = 0; i < 10; i++) {
+                const ang = -Math.PI/2 + i * Math.PI / 5;
+                const rad = i % 2 === 0 ? r : r2;
+                const px = skStartX + Math.cos(ang) * rad;
+                const py = skStartY + Math.sin(ang) * rad;
+                if (i === 0) skCtx.moveTo(px, py); else skCtx.lineTo(px, py);
+            }
+            skCtx.closePath();
+        } else if (skTool === 'arrow') {
+            const dx = p.x - skStartX, dy = p.y - skStartY;
+            const ang = Math.atan2(dy, dx);
+            skCtx.moveTo(skStartX, skStartY);
+            skCtx.lineTo(p.x, p.y);
+            const hl = Math.min(Math.hypot(dx, dy) * 0.3, 30);
+            skCtx.moveTo(p.x, p.y);
+            skCtx.lineTo(p.x - Math.cos(ang - 0.4) * hl, p.y - Math.sin(ang - 0.4) * hl);
+            skCtx.moveTo(p.x, p.y);
+            skCtx.lineTo(p.x - Math.cos(ang + 0.4) * hl, p.y - Math.sin(ang + 0.4) * hl);
+        } else if (skTool === 'diamond') {
+            const r = Math.hypot(p.x - skStartX, p.y - skStartY);
+            skCtx.moveTo(skStartX, skStartY - r);
+            skCtx.lineTo(skStartX + r, skStartY);
+            skCtx.lineTo(skStartX, skStartY + r);
+            skCtx.lineTo(skStartX - r, skStartY);
+            skCtx.closePath();
+        } else if (skTool === 'pentagon') {
+            const r = Math.hypot(p.x - skStartX, p.y - skStartY);
+            for (let i = 0; i < 5; i++) {
+                const ang = -Math.PI/2 + i * 2 * Math.PI / 5;
+                const px = skStartX + Math.cos(ang) * r;
+                const py = skStartY + Math.sin(ang) * r;
+                if (i === 0) skCtx.moveTo(px, py); else skCtx.lineTo(px, py);
+            }
+            skCtx.closePath();
+        } else if (skTool === 'hexagon') {
+            const r = Math.hypot(p.x - skStartX, p.y - skStartY);
+            for (let i = 0; i < 6; i++) {
+                const ang = i * Math.PI / 3;
+                const px = skStartX + Math.cos(ang) * r;
+                const py = skStartY + Math.sin(ang) * r;
+                if (i === 0) skCtx.moveTo(px, py); else skCtx.lineTo(px, py);
+            }
+            skCtx.closePath();
+        }
+        skCtx.stroke();
+    }
+}
+
+function endDraw() {
+    if (!skDrawing) return;
+    skDrawing = false;
+    skCtx.beginPath();
+}
+
+/* ================== INIT ================== */
 document.getElementById('createProfileBtn').addEventListener('click', () => {
     const nick = document.getElementById('nickInput').value.trim();
-    if (!nick) { showNotification(currentLanguage === 'ru' ? 'Введите никнейм!' : 'Enter nickname!', 'danger'); return; }
+    if (!nick) { showNotification(translations[currentLanguage].enter_nickname, 'danger'); return; }
     profileCreated = true;
     saveProfile();
     showWelcomeScreen();
     showNotification(translations[currentLanguage].notif_profile_created, 'success');
+    fetchWeatherData();
 });
 
 document.getElementById('resetProfileBtn').addEventListener('click', () => {
@@ -2098,14 +2633,26 @@ document.getElementById('resetProfileBtn').addEventListener('click', () => {
     setTimeout(() => location.reload(), 800);
 });
 
-document.getElementById('langSelectProfile').addEventListener('change', function() { currentLanguage = this.value; saveProfile(); applyLanguage(); });
-document.getElementById('langSelectSettings').addEventListener('change', function() { currentLanguage = this.value; saveProfile(); applyLanguage(); });
+document.getElementById('langSelectProfile').addEventListener('change', function() {
+    currentLanguage = this.value;
+    saveProfile();
+    applyLanguage();
+});
+document.getElementById('langSelectSettings').addEventListener('change', function() {
+    currentLanguage = this.value;
+    saveProfile();
+    applyLanguage();
+});
 
 applyDateMask(document.getElementById('bday-input'));
 applyDateMask(document.getElementById('editBdayInput'));
 
 document.addEventListener('DOMContentLoaded', () => {
     loadProfile();
+    if (!currentCity && citiesData[currentCountry]) {
+        currentCity = citiesData[currentCountry][currentLanguage][0];
+        localStorage.setItem('zadrothub_city', currentCity);
+    }
     applyLanguage();
     initClickTest();
     initStopwatch();
@@ -2115,10 +2662,16 @@ document.addEventListener('DOMContentLoaded', () => {
     initNotepad();
     initSettings();
     initTimezoneSelector();
+    initRace();
+    initBlast();
+    initSketch();
     updateClock();
     setInterval(updateClock, 1000);
     fetchWeatherData();
     weatherUpdateInterval = setInterval(fetchWeatherData, 30000);
+
+    switchMainTab('profile');
+    switchScreen('profile');
 
     const forecastContainer = document.getElementById('forecastContainer');
     if (forecastContainer) {
