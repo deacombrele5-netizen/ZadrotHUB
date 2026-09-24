@@ -493,11 +493,34 @@ select.neon-input { background-image: none; padding-right: 22px; cursor: pointer
 .car-card .car-name { font-family: 'Orbitron', monospace; font-size: 0.72rem; font-weight: 700; }
 .game-score { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 14px; max-width: 640px; margin-left: auto; margin-right: auto; }
 .game-score .stat-item { font-family: 'Orbitron', monospace; }
-.blast-grid { display: grid; gap: 4px; justify-content: center; padding: 12px; background: #0b0d14; border-radius: 20px; border: 1px solid #1f2538; touch-action: none; margin: 0 auto; max-width: 400px; }
-.blast-cell { width: 34px; height: 34px; border-radius: 8px; background: #12161f; transition: background 0.15s, box-shadow 0.1s; }
+
+/* === БЛОЧНЫЙ ПАЗЛ: РЕЗИНОВАЯ СЕТКА === */
+.blast-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 4px;
+    justify-content: center;
+    padding: 12px;
+    background: #0b0d14;
+    border-radius: 20px;
+    border: 1px solid #1f2538;
+    touch-action: none;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 400px;
+    aspect-ratio: 1 / 1;
+}
+.blast-cell {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 8px;
+    background: #12161f;
+    transition: background 0.15s, box-shadow 0.1s;
+}
 .blast-tray { display: flex; gap: 16px; justify-content: center; margin: 16px 0; flex-wrap: wrap; min-height: 120px; align-items: center; }
 .blast-piece { display: grid; gap: 3px; padding: 8px; background: #12161f; border: 2px solid #2f354a; border-radius: 14px; cursor: grab; touch-action: none; user-select: none; }
-.blast-piece .blast-cell { width: 22px; height: 22px; }
+.blast-piece .blast-cell { width: 22px; height: 22px; aspect-ratio: 1/1; }
 .blast-ghost { border-color: var(--accent-secondary); box-shadow: 0 0 25px var(--accent-secondary); }
 .blast-ghost .blast-cell { border-radius: 6px; }
 .sketch-tools { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; align-items: center; }
@@ -570,10 +593,7 @@ select.neon-input { background-image: none; padding-right: 22px; cursor: pointer
         display: block;
         box-sizing: border-box;
     }
-    .profile-form {
-        max-width: 100%;
-        width: 100%;
-    }
+    .profile-form { max-width: 100%; width: 100%; }
     .profile-form .neon-input { max-width: 100% !important; width: 100% !important; }
     .timer-inputs input { max-width: 100% !important; width: 100% !important; }
     .col2-grid .col input,
@@ -597,13 +617,28 @@ select.neon-input { background-image: none; padding-right: 22px; cursor: pointer
     .forecast-grid { grid-template-columns: repeat(3, 1fr); }
     .notepad-wrap { flex-direction: column; }
     .car-select { grid-template-columns: repeat(2, 1fr); }
-    .blast-cell { width: 30px; height: 30px; }
-    .blast-piece .blast-cell { width: 20px; height: 20px; }
-    .blast-grid { max-width: 100%; }
-    .blast-tray { min-height: 100px; gap: 12px; }
     .race-btn { font-size: 2.4rem; min-height: 80px; }
     .tab-order-item button { min-height: 44px; padding: 10px 18px; }
     .note-item .delete-btn { width: 36px; height: 36px; }
+
+    /* ===== БЛОЧНЫЙ ПАЗЛ: РОВНАЯ СЕТКА НА ТЕЛЕФОНЕ ===== */
+    .blast-grid {
+        grid-template-columns: repeat(8, 1fr);
+        gap: 4px;
+        padding: 10px;
+        max-width: 100%;
+        width: 100%;
+        aspect-ratio: 1 / 1;
+    }
+    .blast-cell {
+        width: 100%;
+        height: 100%;
+        aspect-ratio: 1 / 1;
+        border-radius: 6px;
+    }
+    .blast-piece { gap: 2px; padding: 6px; }
+    .blast-piece .blast-cell { width: 20px; height: 20px; }
+    .blast-tray { min-height: 90px; gap: 12px; }
 
     /* ===== УБИРАЕМ ИНДИВИДУАЛЬНЫЕ max-width У ПОЛЕЙ ===== */
     #timerHours, #timerMinutes, #timerSeconds { max-width: 100% !important; width: 100% !important; }
@@ -621,7 +656,7 @@ select.neon-input { background-image: none; padding-right: 22px; cursor: pointer
 @media (max-width: 480px) {
     .forecast-grid { grid-template-columns: repeat(2, 1fr); }
     .clock-circle { width: 160px; height: 160px; font-size: 1.5rem; }
-    .blast-cell { width: 26px; height: 26px; }
+    .blast-cell { border-radius: 5px; }
     .blast-piece .blast-cell { width: 18px; height: 18px; }
 }
 </style>
@@ -2238,7 +2273,7 @@ function renderBlastTray() {
 function drawBlast() {
     const g = document.getElementById('blastGrid');
     if (!g) return;
-    g.style.gridTemplateColumns = 'repeat(' + BLAST_N + ', 34px)';
+    g.style.gridTemplateColumns = 'repeat(' + BLAST_N + ', 1fr)';
     g.innerHTML = '';
     for (let y = 0; y < BLAST_N; y++) {
         for (let x = 0; x < BLAST_N; x++) {
@@ -2322,13 +2357,16 @@ function getBlastCellFromPoint(x, y) {
     return null;
 }
 
+/* Мягкий поиск ближайшей клетки: если палец рядом с полем — всё равно найдёт */
 function findNearestBlastCell(x, y, shape) {
-    const cells = document.querySelectorAll('#blastGrid .blast-cell');
-    if (!cells.length) return null;
-    const gridRect = document.getElementById('blastGrid').getBoundingClientRect();
-    const cellSize = 34 + 4;
-    const offsetX = Math.round((x - gridRect.left) / cellSize);
-    const offsetY = Math.round((y - gridRect.top) / cellSize);
+    const grid = document.getElementById('blastGrid');
+    if (!grid) return null;
+    const gridRect = grid.getBoundingClientRect();
+    const cellSize = gridRect.width / BLAST_N;
+    const gap = 4;
+    const step = cellSize + gap;
+    const offsetX = Math.round((x - gridRect.left) / step);
+    const offsetY = Math.round((y - gridRect.top) / step);
     const startX = offsetX - Math.floor(shape[0].length / 2);
     const startY = offsetY - Math.floor(shape.length / 2);
     return { x: startX, y: startY };
@@ -2385,6 +2423,40 @@ function onBlastMove(e) {
     }
 }
 
+/* Установка: если есть lastCell — ставим туда. Плюс "зажим" к краю поля,
+   если фигура вылезает за пределы, но хотя бы одна клетка попадает внутрь. */
+function tryPlaceBlast(startX, startY, sh) {
+    // Зажимаем в границы поля
+    let sx = Math.max(0, Math.min(BLAST_N - sh[0].length, startX));
+    let sy = Math.max(0, Math.min(BLAST_N - sh.length, startY));
+    // Проверяем, что хотя бы одна клетка фигуры попадает в поле (для "крайних" случаев)
+    let anyInField = false;
+    for (let dy = 0; dy < sh.length; dy++) {
+        for (let dx = 0; dx < sh[dy].length; dx++) {
+            if (sh[dy][dx]) {
+                const gx = startX + dx;
+                const gy = startY + dy;
+                if (gx >= 0 && gx < BLAST_N && gy >= 0 && gy < BLAST_N) { anyInField = true; break; }
+            }
+        }
+        if (anyInField) break;
+    }
+    if (!anyInField) return null;
+
+    // Проверяем, что в зажатой позиции не занято
+    for (let dy = 0; dy < sh.length; dy++) {
+        for (let dx = 0; dx < sh[dy].length; dx++) {
+            if (sh[dy][dx]) {
+                const gx = sx + dx;
+                const gy = sy + dy;
+                if (gx < 0 || gx >= BLAST_N || gy < 0 || gy >= BLAST_N) return null;
+                if (blastGrid[gy][gx]) return null;
+            }
+        }
+    }
+    return { x: sx, y: sy };
+}
+
 function onBlastUp(e) {
     if (!blastDrag) return;
     const piece = blastPieces[blastDrag.idx];
@@ -2402,26 +2474,23 @@ function onBlastUp(e) {
         startY = blastDrag.lastCell.y;
     } else {
         const direct = getBlastCellFromPoint(e.clientX, e.clientY);
-        if (!direct) { blastDrag = null; return; }
-        startX = direct.x - Math.floor(piece.shape[0].length / 2);
-        startY = direct.y - Math.floor(piece.shape.length / 2);
+        if (!direct) {
+            const near = findNearestBlastCell(e.clientX, e.clientY, piece.shape);
+            if (!near) { blastDrag = null; return; }
+            startX = near.x;
+            startY = near.y;
+        } else {
+            startX = direct.x - Math.floor(piece.shape[0].length / 2);
+            startY = direct.y - Math.floor(piece.shape.length / 2);
+        }
     }
 
     const sh = piece.shape;
-    const fits = startX >= 0 && startY >= 0 &&
-                 startY + sh.length <= BLAST_N &&
-                 startX + sh[0].length <= BLAST_N;
-    if (!fits) { blastDrag = null; return; }
-
-    let ok = true;
-    for (let dy = 0; dy < sh.length && ok; dy++)
-        for (let dx = 0; dx < sh[dy].length && ok; dx++)
-            if (sh[dy][dx] && blastGrid[startY+dy][startX+dx]) ok = false;
-
-    if (ok) {
+    const placed = tryPlaceBlast(startX, startY, sh);
+    if (placed) {
         for (let dy = 0; dy < sh.length; dy++)
             for (let dx = 0; dx < sh[dy].length; dx++)
-                if (sh[dy][dx]) blastGrid[startY+dy][startX+dx] = piece.color;
+                if (sh[dy][dx]) blastGrid[placed.y+dy][placed.x+dx] = piece.color;
         blastPieces.splice(blastDrag.idx, 1);
         checkBlastLines();
         if (isBlastGameOver()) {
