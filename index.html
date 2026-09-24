@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y8PHBQXQF8"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -8,565 +9,569 @@
   gtag('js', new Date());
   gtag('config', 'G-Y8PHBQXQF8');
 </script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<meta name="theme-color" content="#090a0f">
-<title>ZadrotHUB</title>
-<meta name="description" content="ZadrotHUB — клик-тест, гонки, блочный пазл, скетчпад, калькулятор, погода, блокнот.">
-<link rel="icon" type="image/png" href="favicon.png">
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
-* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-:root {
-    --bg-primary: #090a0f;
-    --bg-card: #0e101a;
-    --border-glow: #8b5cf6;
-    --accent: #8b5cf6;
-    --accent-secondary: #39ff14;
-    --text-primary: #eaeef5;
-    --shadow-glow: rgba(139, 92, 246, 0.25);
-    --notification-bg: #1a1f2e;
-    --notification-border: #8b5cf6;
-}
-body {
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    font-family: 'Inter', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    margin: 0;
-    overflow-x: hidden;
-}
-.app-container {
-    max-width: 1400px;
-    width: 100%;
-    background: var(--bg-card);
-    border: 1px solid var(--border-glow);
-    border-radius: 36px;
-    padding: 24px 30px 32px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 30px var(--shadow-glow);
-    position: relative;
-}
-.top-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid rgba(139,92,246,0.15);
-    padding-bottom: 16px;
-    margin-bottom: 12px;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-.nav-tabs { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; }
-.nav-tabs::-webkit-scrollbar { display: none; }
-.nav-tab {
-    background: transparent;
-    border: 1px solid rgba(139,92,246,0.22);
-    color: #b0b0c0;
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 700;
-    font-size: 0.68rem;
-    padding: 8px 14px;
-    border-radius: 40px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    white-space: nowrap;
-    flex-shrink: 0;
-    min-height: 36px;
-    display: inline-flex;
-    align-items: center;
-}
-.nav-tab:hover { border-color: var(--accent); color: #d4caff; }
-.nav-tab.active {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #fff;
-    box-shadow: 0 0 30px var(--shadow-glow);
-}
-.sub-tabs {
-    display: flex;
-    gap: 5px;
-    overflow-x: auto;
-    scrollbar-width: none;
-    padding-bottom: 12px;
-    margin-bottom: 20px;
-    border-bottom: 1px solid rgba(139,92,246,0.12);
-}
-.sub-tabs::-webkit-scrollbar { display: none; }
-.sub-tab {
-    background: transparent;
-    border: 1px solid rgba(139,92,246,0.18);
-    color: #9098b0;
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 600;
-    font-size: 0.58rem;
-    padding: 7px 12px;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    white-space: nowrap;
-    flex-shrink: 0;
-    min-height: 32px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-.sub-tab:hover { border-color: var(--accent); color: #d4caff; }
-.sub-tab.active {
-    background: rgba(139,92,246,0.15);
-    border-color: var(--accent);
-    color: #fff;
-    box-shadow: 0 0 15px var(--shadow-glow);
-}
-.capsule-group { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
-.capsule {
-    background: rgba(14, 16, 26, 0.8);
-    border: 1px solid var(--border-glow);
-    border-radius: 60px;
-    padding: 5px 14px;
-    font-family: 'Orbitron', monospace;
-    font-weight: 600;
-    font-size: 0.7rem;
-    color: var(--accent);
-    box-shadow: 0 0 20px var(--shadow-glow);
-    white-space: nowrap;
-    height: 34px;
-    display: inline-flex;
-    align-items: center;
-}
-.capsule-nick { border-color: var(--accent-secondary); color: var(--accent-secondary); }
-.screen { display: none; animation: fadeIn 0.3s ease; }
-.screen.active { display: block; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-h2, h3 {
-    font-family: 'Orbitron', monospace;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: #d0c0ff;
-    text-shadow: 0 0 12px var(--shadow-glow);
-    margin-bottom: 20px;
-}
-.neon-input, select.neon-input, input.neon-input {
-    background: #12161f !important;
-    border: 1px solid #2a2e3f;
-    border-radius: 40px;
-    padding: 14px 22px;
-    font-family: 'Inter', sans-serif;
-    font-size: 1rem;
-    color: #eaeef5 !important;
-    width: 100%;
-    max-width: 340px;
-    outline: none;
-    -webkit-appearance: none;
-    appearance: none;
-}
-.neon-input:focus { border-color: var(--accent); box-shadow: 0 0 25px var(--shadow-glow); }
-select.neon-input { background-image: none; padding-right: 22px; cursor: pointer; }
-.btn-neon {
-    background: transparent;
-    border: 1px solid var(--accent);
-    color: #c8b8ff;
-    font-weight: 600;
-    padding: 10px 24px;
-    border-radius: 40px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    min-height: 40px;
-    touch-action: manipulation;
-}
-.btn-neon:hover { background: var(--accent); color: #fff; box-shadow: 0 0 40px var(--shadow-glow); }
-.btn-green { border-color: var(--accent-secondary); color: #b0ffa0; }
-.btn-green:hover { background: var(--accent-secondary); color: #090a0f; }
-.btn-danger { border-color: #ff4060; color: #ff8090; }
-.btn-danger:hover { background: #ff4060; color: #fff; }
-.profile-form { display: flex; flex-direction: column; gap: 18px; max-width: 420px; }
-.profile-form .neon-input { max-width: 100%; }
-.profile-welcome {
-    background: rgba(139,92,246,0.04);
-    border-left: 4px solid var(--accent);
-    padding: 20px 28px;
-    border-radius: 16px;
-}
-.profile-welcome h3 { margin-bottom: 8px; font-size: 1.4rem; }
-.weather-card, .weather-forecast {
-    background: #0d101a;
-    border: 1px solid #1f2538;
-    border-radius: 28px;
-    padding: 28px 36px;
-    margin-bottom: 20px;
-}
-.weather-city {
-    font-family: 'Orbitron', monospace;
-    font-size: 1.1rem;
-    color: var(--accent);
-    margin-top: 4px;
-}
-.weather-details { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 12px; color: #b0b8d0; font-size: 0.9rem; }
-.weather-detail-item { display: flex; align-items: center; gap: 6px; }
-.forecast-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 15px; margin-top: 20px; }
-.forecast-day {
-    background: #12161f;
-    border: 1px solid #2a2e3f;
-    border-radius: 20px;
-    padding: 15px;
-    text-align: center;
-}
-.forecast-day .day-name { font-weight: bold; color: #d0c0ff; margin-bottom: 10px; font-size: 0.85rem; }
-.forecast-day .weather-icon { font-size: 2rem; margin: 10px 0; }
-.forecast-day .temp { font-size: 1.2rem; color: #fff; margin: 5px 0; }
-.forecast-day .temp-range { font-size: 0.85rem; color: #8a9abb; }
-.forecast-day .precipitation { font-size: 0.8rem; color: #6ab0ff; margin-top: 5px; }
-.temp-chart {
-    display: flex;
-    align-items: flex-end;
-    gap: 10px;
-    height: 150px;
-    margin: 20px 0;
-    padding: 25px 0 20px;
-    border-bottom: 2px solid #2a2e3f;
-}
-.temp-bar {
-    flex: 1;
-    background: linear-gradient(to top, var(--accent), var(--accent-secondary));
-    border-radius: 10px 10px 0 0;
-    position: relative;
-    min-height: 20px;
-}
-.temp-bar .temp-label {
-    position: absolute;
-    top: -25px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 0.75rem;
-    color: #fff;
-    white-space: nowrap;
-}
-.click-zone {
-    background: #12161f;
-    border: 2px solid var(--accent-secondary);
-    border-radius: 40px;
-    padding: 44px 36px;
-    text-align: center;
-    cursor: pointer;
-    max-width: 420px;
-    margin: 10px 0;
-    user-select: none;
-    touch-action: manipulation;
-}
-.click-zone:active { transform: scale(0.96); background: #1a1f2e; }
-.click-zone.disabled { pointer-events: none; opacity: 0.5; }
-.click-zone h3 { font-size: 2.6rem; color: var(--accent-secondary); }
-.restart-btn {
-    display: none;
-    margin: 10px auto;
-    background: transparent;
-    border: 2px solid var(--accent);
-    color: #c8b8ff;
-    font-weight: 700;
-    padding: 12px 30px;
-    border-radius: 40px;
-    cursor: pointer;
-    font-size: 1rem;
-    min-height: 48px;
-}
-.restart-btn.show { display: block; }
-.stats-grid { display: flex; gap: 20px; flex-wrap: wrap; margin: 16px 0; }
-.stat-item {
-    background: #0d101a;
-    border-radius: 40px;
-    padding: 8px 26px;
-    border: 1px solid #2a2e42;
-}
-.stopwatch-display {
-    font-family: 'Orbitron', monospace;
-    font-size: 3.8rem;
-    letter-spacing: 6px;
-    background: #0b0d14;
-    padding: 16px 32px;
-    border-radius: 60px;
-    border: 1px solid #2f354a;
-    display: inline-block;
-    color: #b8d0ff;
-    text-align: center;
-}
-.timer-inputs { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
-.timer-inputs input {
-    width: 80px;
-    background: #12161f !important;
-    border: 1px solid #2f354a;
-    border-radius: 40px;
-    padding: 10px 12px;
-    color: #eaeef5 !important;
-    font-size: 1.2rem;
-    text-align: center;
-    font-family: 'Orbitron', monospace;
-}
-.flex-row { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
-.mt-20 { margin-top: 20px; }
-.mb-12 { margin-bottom: 12px; }
-.theme-grid { display: flex; flex-wrap: wrap; gap: 14px; }
-.theme-btn {
-    background: #0d101a;
-    border: 1px solid #2f354a;
-    border-radius: 40px;
-    padding: 10px 26px;
-    font-weight: 600;
-    cursor: pointer;
-    color: #c0c8e0;
-    font-size: 0.85rem;
-    min-height: 40px;
-}
-.theme-btn:hover { border-color: var(--accent); color: #fff; }
-.settings-group {
-    background: #0b0d14;
-    border-radius: 28px;
-    padding: 24px 30px;
-    border: 1px solid #1f2538;
-    margin-bottom: 24px;
-}
-.settings-group h4 {
-    font-family: 'Orbitron', monospace;
-    font-size: 1rem;
-    letter-spacing: 1px;
-    color: #b0b8d0;
-    margin-bottom: 16px;
-    text-transform: uppercase;
-}
-.tools-grid { display: flex; flex-wrap: wrap; gap: 40px; }
-.tools-grid > div { flex: 1 1 300px; }
-.col2-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-.col2-grid .col {
-    background: #0b0d14;
-    border: 1px solid #1f2538;
-    border-radius: 28px;
-    padding: 22px 20px;
-}
-.col2-grid .col h3 { font-size: 1rem; margin-bottom: 12px; }
-.col2-grid .col input, .col2-grid .col select {
-    background: #12161f;
-    border: 1px solid #2a2e3f;
-    border-radius: 30px;
-    padding: 10px 16px;
-    color: #eaeef5;
-    width: 100%;
-    margin-bottom: 10px;
-}
-.big-result {
-    font-family: 'Orbitron', monospace;
-    font-size: 2.4rem;
-    color: var(--accent-secondary);
-    padding: 12px 0;
-    text-align: center;
-}
-.calc-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; max-width: 400px; }
-.calc-grid button {
-    background: #0d101a;
-    border: 1px solid #2f354a;
-    border-radius: 30px;
-    padding: 10px 0;
-    color: #c8d0ff;
-    font-size: 1rem;
-    cursor: pointer;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.calc-grid button:hover { border-color: var(--accent); background: #181e2b; }
-.calc-display {
-    grid-column: span 5;
-    background: #0b0d14;
-    border: 1px solid #2f354a;
-    border-radius: 40px;
-    padding: 16px 22px;
-    font-family: 'Orbitron', monospace;
-    font-size: 1.8rem;
-    text-align: right;
-    color: #eaeef5;
-    min-height: 70px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    white-space: nowrap;
-    cursor: text;
-    outline: none;
-}
-.calc-display:focus { border-color: var(--accent); box-shadow: 0 0 25px var(--shadow-glow); }
-.clock-circle {
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    border: 4px solid var(--accent);
-    background: #0b0d14;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Orbitron', monospace;
-    font-size: 2.6rem;
-    color: var(--accent);
-    margin: 0 auto;
-    text-align: center;
-    white-space: nowrap;
-}
-.notepad-wrap { display: flex; gap: 30px; flex-wrap: wrap; }
-.notepad-wrap .notepad-col { flex: 2; min-width: 300px; display: flex; flex-direction: column; gap: 12px; }
-.notepad-wrap textarea {
-    width: 100%;
-    background: #0b0d14;
-    border: 1px solid #2f354a;
-    border-radius: 28px;
-    padding: 20px;
-    color: #eaeef5;
-    font-size: 1rem;
-    min-height: 200px;
-    resize: vertical;
-    flex: 1;
-}
-.notepad-wrap .save-btn-wrap button, .notepad-wrap .clear-btn-wrap button { width: 100%; display: block; }
-.note-list {
-    flex: 1;
-    min-width: 200px;
-    background: #0b0d14;
-    border: 1px solid #2f354a;
-    border-radius: 28px;
-    padding: 16px 12px 16px 20px;
-    max-height: 400px;
-    overflow-y: auto;
-}
-.note-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 8px 8px 8px 0;
-    border-bottom: 1px solid #1f2538;
-    color: #b8c8e0;
-    gap: 12px;
-}
-.note-item span { flex: 1; word-break: break-word; white-space: pre-wrap; }
-.note-item .delete-btn {
-    background: rgba(255,64,96,0.1);
-    border: 1px solid rgba(255,64,96,0.3);
-    color: #ff6070;
-    cursor: pointer;
-    font-weight: bold;
-    border-radius: 50%;
-    width: 26px;
-    height: 26px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    padding: 0;
-}
-.empty-notes { text-align: center; color: #6a7a9a; padding: 40px 20px; font-style: italic; }
-.tab-order-item { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid #1f2538; flex-wrap: wrap; }
-.tab-order-item span { flex: 1 1 200px; min-width: 0; color: #c8d0ff; font-weight: 500; word-break: break-word; font-size: 0.85rem; }
-.tab-order-item button { background: transparent; border: 1px solid #3a4050; border-radius: 30px; color: #b0b8d0; padding: 4px 12px; cursor: pointer; font-size: 0.8rem; flex-shrink: 0; }
-.tab-order-item button:hover { border-color: var(--accent); color: #fff; }
-.game-wrap { background: #0b0d14; border: 1px solid #1f2538; border-radius: 28px; padding: 20px; }
-.game-canvas {
-    display: block; width: 100%; max-width: 640px; margin: 0 auto;
-    background: #05060a; border-radius: 20px; border: 1px solid #2f354a;
-    touch-action: none;
-}
-.race-controls { display: flex; gap: 16px; margin-top: 14px; max-width: 640px; margin-left: auto; margin-right: auto; }
-.race-btn {
-    flex: 1; background: rgba(139,92,246,0.08); border: 2px solid var(--accent);
-    color: #c8b8ff; font-size: 2rem; font-weight: 700; border-radius: 20px;
-    padding: 20px 0; cursor: pointer; min-height: 70px;
-    touch-action: manipulation;
-}
-.race-btn:active { background: var(--accent); color: #fff; }
-.car-select {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
-    margin-bottom: 16px; max-width: 640px; margin-left: auto; margin-right: auto;
-}
-.car-card {
-    background: #12161f; border: 2px solid #2f354a; border-radius: 20px;
-    padding: 14px 8px; text-align: center; cursor: pointer;
-}
-.car-card.selected { border-color: var(--accent-secondary); }
-.car-card .car-name { font-family: 'Orbitron', monospace; font-size: 0.72rem; font-weight: 700; }
-.game-score { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 14px; max-width: 640px; margin-left: auto; margin-right: auto; }
-.game-score .stat-item { font-family: 'Orbitron', monospace; }
-.blast-grid { display: grid; gap: 4px; justify-content: center; padding: 12px; background: #0b0d14; border-radius: 20px; border: 1px solid #1f2538; touch-action: none; margin: 0 auto; max-width: 400px; }
-.blast-cell { width: 34px; height: 34px; border-radius: 8px; background: #12161f; transition: background 0.15s, box-shadow 0.1s; }
-.blast-tray { display: flex; gap: 16px; justify-content: center; margin: 16px 0; flex-wrap: wrap; min-height: 120px; align-items: center; }
-.blast-piece { display: grid; gap: 3px; padding: 8px; background: #12161f; border: 2px solid #2f354a; border-radius: 14px; cursor: grab; touch-action: none; user-select: none; }
-.blast-piece .blast-cell { width: 22px; height: 22px; }
-.sketch-tools { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; align-items: center; }
-.sketch-tools .tool-btn { background: #0d101a; border: 1px solid #2f354a; color: #c8d0ff; padding: 10px 14px; border-radius: 30px; cursor: pointer; font-size: 0.8rem; min-height: 40px; }
-.sketch-tools .tool-btn.active { border-color: var(--accent-secondary); background: rgba(57,255,20,0.1); color: #b0ffa0; }
-.color-swatches { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
-.color-swatch { width: 32px; height: 32px; border-radius: 50%; cursor: pointer; border: 2px solid #2f354a; }
-.color-swatch.active { border-color: #fff; }
-.sketch-canvas { display: block; width: 100%; max-width: 800px; margin: 0 auto; background: #05060a; border-radius: 20px; border: 1px solid #2f354a; touch-action: none; cursor: crosshair; }
-.custom-color-wrap { position: relative; width: 38px; height: 38px; border-radius: 50%; border: 2px solid #2f354a; overflow: hidden; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; background: conic-gradient(#ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000); }
-.custom-color-wrap input[type="color"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
-::-webkit-scrollbar-button { display: none !important; width: 0 !important; height: 0 !important; }
-::-webkit-scrollbar { width: 8px; height: 8px; }
-::-webkit-scrollbar-track { background: transparent; border-radius: 10px; margin: 4px 0; }
-::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
-* { scrollbar-width: thin; scrollbar-color: var(--accent) transparent; }
-.notification-container { position: fixed; top: 20px; right: 20px; z-index: 10000; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
-.notification {
-    background: var(--notification-bg);
-    border: 1px solid var(--notification-border);
-    border-radius: 16px;
-    padding: 16px 22px;
-    color: #fff;
-    font-size: 0.95rem;
-    transform: translateX(120%);
-    opacity: 0;
-    transition: transform 0.45s, opacity 0.45s;
-    pointer-events: auto;
-    max-width: 320px;
-}
-.notification.show { transform: translateX(0); opacity: 1; }
-.notification.hide { transform: translateX(120%); opacity: 0; }
-.notification.success { border-left: 4px solid var(--accent-secondary); }
-.notification.info { border-left: 4px solid var(--accent); }
-.notification.danger { border-left: 4px solid #ff4060; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ZadrotHUB</title>
+    <meta name="description" content="ZadrotHUB — клик-тест, гонки, блочный пазл, скетчпад, калькулятор, погода, блокнот.">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        :root {
+            --bg-primary: #090a0f;
+            --bg-card: #0e101a;
+            --border-glow: #8b5cf6;
+            --accent: #8b5cf6;
+            --accent-secondary: #39ff14;
+            --text-primary: #eaeef5;
+            --shadow-glow: rgba(139, 92, 246, 0.25);
+            --notification-bg: #1a1f2e;
+            --notification-border: #8b5cf6;
+        }
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        .app-container {
+            max-width: 1400px;
+            width: 100%;
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 36px;
+            padding: 24px 30px 32px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 30px var(--shadow-glow);
+            position: relative;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(139,92,246,0.15);
+            padding-bottom: 16px;
+            margin-bottom: 12px;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .nav-tabs { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; }
+        .nav-tabs::-webkit-scrollbar { display: none; }
+        .nav-tab {
+            background: transparent;
+            border: 1px solid rgba(139,92,246,0.22);
+            color: #b0b0c0;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 0.68rem;
+            padding: 8px 14px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            white-space: nowrap;
+            flex-shrink: 0;
+            min-height: 36px;
+            display: inline-flex;
+            align-items: center;
+        }
+        .nav-tab:hover { border-color: var(--accent); color: #d4caff; }
+        .nav-tab.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+            box-shadow: 0 0 30px var(--shadow-glow);
+        }
+        .sub-tabs {
+            display: flex;
+            gap: 5px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(139,92,246,0.12);
+        }
+        .sub-tabs::-webkit-scrollbar { display: none; }
+        .sub-tab {
+            background: transparent;
+            border: 1px solid rgba(139,92,246,0.18);
+            color: #9098b0;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            font-size: 0.58rem;
+            padding: 7px 12px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            white-space: nowrap;
+            flex-shrink: 0;
+            min-height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .sub-tab:hover { border-color: var(--accent); color: #d4caff; }
+        .sub-tab.active {
+            background: rgba(139,92,246,0.15);
+            border-color: var(--accent);
+            color: #fff;
+            box-shadow: 0 0 15px var(--shadow-glow);
+        }
+        .capsule-group { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
+        .capsule {
+            background: rgba(14, 16, 26, 0.8);
+            border: 1px solid var(--border-glow);
+            border-radius: 60px;
+            padding: 5px 14px;
+            font-family: 'Orbitron', monospace;
+            font-weight: 600;
+            font-size: 0.7rem;
+            color: var(--accent);
+            box-shadow: 0 0 20px var(--shadow-glow);
+            white-space: nowrap;
+            height: 34px;
+            display: inline-flex;
+            align-items: center;
+        }
+        .capsule-nick { border-color: var(--accent-secondary); color: var(--accent-secondary); }
+        .screen { display: none; animation: fadeIn 0.3s ease; }
+        .screen.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        h2, h3 {
+            font-family: 'Orbitron', monospace;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #d0c0ff;
+            text-shadow: 0 0 12px var(--shadow-glow);
+            margin-bottom: 20px;
+        }
+        .neon-input, select.neon-input, input.neon-input {
+            background: #12161f !important;
+            border: 1px solid #2a2e3f;
+            border-radius: 40px;
+            padding: 14px 22px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            color: #eaeef5 !important;
+            width: 100%;
+            max-width: 340px;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        .neon-input:focus { border-color: var(--accent); box-shadow: 0 0 25px var(--shadow-glow); }
+        select.neon-input { background-image: none; padding-right: 22px; cursor: pointer; }
+        .btn-neon {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: #c8b8ff;
+            font-weight: 600;
+            padding: 10px 24px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            min-height: 40px;
+            touch-action: manipulation;
+        }
+        .btn-neon:hover { background: var(--accent); color: #fff; box-shadow: 0 0 40px var(--shadow-glow); }
+        .btn-green { border-color: var(--accent-secondary); color: #b0ffa0; }
+        .btn-green:hover { background: var(--accent-secondary); color: #090a0f; }
+        .btn-danger { border-color: #ff4060; color: #ff8090; }
+        .btn-danger:hover { background: #ff4060; color: #fff; }
+        .profile-form { display: flex; flex-direction: column; gap: 18px; max-width: 420px; }
+        .profile-form .neon-input { max-width: 100%; }
+        .profile-welcome {
+            background: rgba(139,92,246,0.04);
+            border-left: 4px solid var(--accent);
+            padding: 20px 28px;
+            border-radius: 16px;
+        }
+        .profile-welcome h3 { margin-bottom: 8px; font-size: 1.4rem; }
+        .weather-card, .weather-forecast {
+            background: #0d101a;
+            border: 1px solid #1f2538;
+            border-radius: 28px;
+            padding: 28px 36px;
+            margin-bottom: 20px;
+        }
+        .weather-city {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.1rem;
+            color: var(--accent);
+            margin-top: 4px;
+        }
+        .weather-details { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 12px; color: #b0b8d0; font-size: 0.9rem; }
+        .weather-detail-item { display: flex; align-items: center; gap: 6px; }
+        .forecast-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 15px; margin-top: 20px; }
+        .forecast-day {
+            background: #12161f;
+            border: 1px solid #2a2e3f;
+            border-radius: 20px;
+            padding: 15px;
+            text-align: center;
+        }
+        .forecast-day .day-name { font-weight: bold; color: #d0c0ff; margin-bottom: 10px; font-size: 0.85rem; }
+        .forecast-day .weather-icon { font-size: 2rem; margin: 10px 0; }
+        .forecast-day .temp { font-size: 1.2rem; color: #fff; margin: 5px 0; }
+        .forecast-day .temp-range { font-size: 0.85rem; color: #8a9abb; }
+        .forecast-day .precipitation { font-size: 0.8rem; color: #6ab0ff; margin-top: 5px; }
+        .temp-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+            height: 150px;
+            margin: 20px 0;
+            padding: 25px 0 20px;
+            border-bottom: 2px solid #2a2e3f;
+        }
+        .temp-bar {
+            flex: 1;
+            background: linear-gradient(to top, var(--accent), var(--accent-secondary));
+            border-radius: 10px 10px 0 0;
+            position: relative;
+            min-height: 20px;
+        }
+        .temp-bar .temp-label {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            color: #fff;
+            white-space: nowrap;
+        }
+        .click-zone {
+            background: #12161f;
+            border: 2px solid var(--accent-secondary);
+            border-radius: 40px;
+            padding: 44px 36px;
+            text-align: center;
+            cursor: pointer;
+            max-width: 420px;
+            margin: 10px 0;
+            user-select: none;
+            touch-action: manipulation;
+        }
+        .click-zone:active { transform: scale(0.96); background: #1a1f2e; }
+        .click-zone.disabled { pointer-events: none; opacity: 0.5; }
+        .click-zone h3 { font-size: 2.6rem; color: var(--accent-secondary); }
+        .restart-btn {
+            display: none;
+            margin: 10px auto;
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: #c8b8ff;
+            font-weight: 700;
+            padding: 12px 30px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 1rem;
+            min-height: 48px;
+        }
+        .restart-btn.show { display: block; }
+        .stats-grid { display: flex; gap: 20px; flex-wrap: wrap; margin: 16px 0; }
+        .stat-item {
+            background: #0d101a;
+            border-radius: 40px;
+            padding: 8px 26px;
+            border: 1px solid #2a2e42;
+        }
+        .stopwatch-display {
+            font-family: 'Orbitron', monospace;
+            font-size: 3.8rem;
+            letter-spacing: 6px;
+            background: #0b0d14;
+            padding: 16px 32px;
+            border-radius: 60px;
+            border: 1px solid #2f354a;
+            display: inline-block;
+            color: #b8d0ff;
+            text-align: center;
+        }
+        .timer-inputs { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+        .timer-inputs input {
+            width: 80px;
+            background: #12161f !important;
+            border: 1px solid #2f354a;
+            border-radius: 40px;
+            padding: 10px 12px;
+            color: #eaeef5 !important;
+            font-size: 1.2rem;
+            text-align: center;
+            font-family: 'Orbitron', monospace;
+        }
+        .flex-row { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+        .mt-20 { margin-top: 20px; }
+        .mb-12 { margin-bottom: 12px; }
+        .theme-grid { display: flex; flex-wrap: wrap; gap: 14px; }
+        .theme-btn {
+            background: #0d101a;
+            border: 1px solid #2f354a;
+            border-radius: 40px;
+            padding: 10px 26px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #c0c8e0;
+            font-size: 0.85rem;
+            min-height: 40px;
+        }
+        .theme-btn:hover { border-color: var(--accent); color: #fff; }
+        .settings-group {
+            background: #0b0d14;
+            border-radius: 28px;
+            padding: 24px 30px;
+            border: 1px solid #1f2538;
+            margin-bottom: 24px;
+        }
+        .settings-group h4 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            color: #b0b8d0;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+        .tools-grid { display: flex; flex-wrap: wrap; gap: 40px; }
+        .tools-grid > div { flex: 1 1 300px; }
+        .col2-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .col2-grid .col {
+            background: #0b0d14;
+            border: 1px solid #1f2538;
+            border-radius: 28px;
+            padding: 22px 20px;
+        }
+        .col2-grid .col h3 { font-size: 1rem; margin-bottom: 12px; }
+        .col2-grid .col input, .col2-grid .col select {
+            background: #12161f;
+            border: 1px solid #2a2e3f;
+            border-radius: 30px;
+            padding: 10px 16px;
+            color: #eaeef5;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .big-result {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.4rem;
+            color: var(--accent-secondary);
+            padding: 12px 0;
+            text-align: center;
+        }
+        .calc-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; max-width: 400px; }
+        .calc-grid button {
+            background: #0d101a;
+            border: 1px solid #2f354a;
+            border-radius: 30px;
+            padding: 10px 0;
+            color: #c8d0ff;
+            font-size: 1rem;
+            cursor: pointer;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .calc-grid button:hover { border-color: var(--accent); background: #181e2b; }
+        .calc-display {
+            grid-column: span 5;
+            background: #0b0d14;
+            border: 1px solid #2f354a;
+            border-radius: 40px;
+            padding: 16px 22px;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            text-align: right;
+            color: #eaeef5;
+            min-height: 70px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+            cursor: text;
+            outline: none;
+        }
+        .calc-display:focus { border-color: var(--accent); box-shadow: 0 0 25px var(--shadow-glow); }
+        .clock-circle {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 4px solid var(--accent);
+            background: #0b0d14;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', monospace;
+            font-size: 2.6rem;
+            color: var(--accent);
+            margin: 0 auto;
+            text-align: center;
+            white-space: nowrap;
+        }
+        .notepad-wrap { display: flex; gap: 30px; flex-wrap: wrap; }
+        .notepad-wrap .notepad-col { flex: 2; min-width: 300px; display: flex; flex-direction: column; gap: 12px; }
+        .notepad-wrap textarea {
+            width: 100%;
+            background: #0b0d14;
+            border: 1px solid #2f354a;
+            border-radius: 28px;
+            padding: 20px;
+            color: #eaeef5;
+            font-size: 1rem;
+            min-height: 200px;
+            resize: vertical;
+            flex: 1;
+        }
+        .notepad-wrap .save-btn-wrap button, .notepad-wrap .clear-btn-wrap button { width: 100%; display: block; }
+        .note-list {
+            flex: 1;
+            min-width: 200px;
+            background: #0b0d14;
+            border: 1px solid #2f354a;
+            border-radius: 28px;
+            padding: 16px 12px 16px 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .note-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 8px 8px 8px 0;
+            border-bottom: 1px solid #1f2538;
+            color: #b8c8e0;
+            gap: 12px;
+        }
+        .note-item span { flex: 1; word-break: break-word; white-space: pre-wrap; }
+        .note-item .delete-btn {
+            background: rgba(255,64,96,0.1);
+            border: 1px solid rgba(255,64,96,0.3);
+            color: #ff6070;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            padding: 0;
+        }
+        .empty-notes { text-align: center; color: #6a7a9a; padding: 40px 20px; font-style: italic; }
+        .tab-order-item { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid #1f2538; flex-wrap: wrap; }
+        .tab-order-item span { flex: 1 1 200px; min-width: 0; color: #c8d0ff; font-weight: 500; word-break: break-word; font-size: 0.85rem; }
+        .tab-order-item button { background: transparent; border: 1px solid #3a4050; border-radius: 30px; color: #b0b8d0; padding: 4px 12px; cursor: pointer; font-size: 0.8rem; flex-shrink: 0; }
+        .tab-order-item button:hover { border-color: var(--accent); color: #fff; }
 
-/* ============ МОБИЛЬНАЯ ВЕРСИЯ ============ */
-@media (max-width: 768px) {
-    body { padding: 0; align-items: flex-start; padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); }
-    .app-container { padding: 14px 12px 22px; border-radius: 22px; max-width: 100%; margin: 8px; }
-    .top-bar { flex-direction: column; align-items: stretch; gap: 10px; }
-    .nav-tab { font-size: 0.62rem; padding: 8px 14px; }
-    .sub-tab { font-size: 0.58rem; padding: 8px 12px; }
-    .capsule-group { justify-content: center; }
-    h2 { font-size: 1.15rem; text-align: center; }
-    h3 { font-size: 1rem; text-align: center; }
-    .neon-input { padding: 12px 18px; font-size: 16px; max-width: 100%; min-height: 46px; }
-    .btn-neon { padding: 12px 18px; font-size: 0.85rem; min-height: 46px; }
-    .col2-grid { grid-template-columns: 1fr; gap: 14px; }
-    .calc-grid { max-width: 100%; gap: 7px; }
-    .calc-grid button { height: 56px; font-size: 1.15rem; border-radius: 18px; padding: 14px 0; }
-    .calc-display { font-size: 1.3rem; min-height: 56px; }
-    .stopwatch-display { font-size: 2rem; letter-spacing: 2px; padding: 14px 18px; width: 100%; }
-    .clock-circle { width: 200px; height: 200px; font-size: 1.8rem; }
-    .tools-grid { gap: 20px; }
-    .tools-grid > div { flex: 1 1 100%; }
-    .forecast-grid { grid-template-columns: repeat(3, 1fr); }
-    .notepad-wrap { flex-direction: column; }
-    .car-select { grid-template-columns: repeat(2, 1fr); }
-    .blast-cell { width: 30px; height: 30px; }
-    .blast-piece .blast-cell { width: 20px; height: 20px; }
-    .blast-grid { max-width: 100%; }
-    .blast-tray { min-height: 100px; gap: 12px; }
-}
-@media (max-width: 480px) {
-    .forecast-grid { grid-template-columns: repeat(2, 1fr); }
-    .clock-circle { width: 160px; height: 160px; font-size: 1.5rem; }
-    .blast-cell { width: 26px; height: 26px; }
-    .blast-piece .blast-cell { width: 18px; height: 18px; }
-}
-</style>
+        /* ИГРЫ */
+        .game-wrap { background: #0b0d14; border: 1px solid #1f2538; border-radius: 28px; padding: 20px; }
+        .game-canvas {
+            display: block; width: 100%; max-width: 640px; margin: 0 auto;
+            background: #05060a; border-radius: 20px; border: 1px solid #2f354a;
+            touch-action: none;
+        }
+        .race-controls { display: flex; gap: 16px; margin-top: 14px; max-width: 640px; margin-left: auto; margin-right: auto; }
+        .race-btn {
+            flex: 1; background: rgba(139,92,246,0.08); border: 2px solid var(--accent);
+            color: #c8b8ff; font-size: 2rem; font-weight: 700; border-radius: 20px;
+            padding: 20px 0; cursor: pointer; min-height: 70px;
+            touch-action: manipulation;
+        }
+        .race-btn:active { background: var(--accent); color: #fff; }
+        .car-select {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+            margin-bottom: 16px; max-width: 640px; margin-left: auto; margin-right: auto;
+        }
+        .car-card {
+            background: #12161f; border: 2px solid #2f354a; border-radius: 20px;
+            padding: 14px 8px; text-align: center; cursor: pointer;
+        }
+        .car-card.selected { border-color: var(--accent-secondary); }
+        .car-card .car-name { font-family: 'Orbitron', monospace; font-size: 0.72rem; font-weight: 700; }
+        .game-score { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 14px; max-width: 640px; margin-left: auto; margin-right: auto; }
+        .game-score .stat-item { font-family: 'Orbitron', monospace; }
+
+        /* ПАЗЛ */
+        .blast-grid { display: grid; gap: 4px; justify-content: center; padding: 12px; background: #0b0d14; border-radius: 20px; border: 1px solid #1f2538; touch-action: none; margin: 0 auto; max-width: 400px; }
+        .blast-cell { width: 34px; height: 34px; border-radius: 8px; background: #12161f; transition: background 0.15s, box-shadow 0.1s; }
+        .blast-tray { display: flex; gap: 16px; justify-content: center; margin: 16px 0; flex-wrap: wrap; min-height: 120px; align-items: center; }
+        .blast-piece { display: grid; gap: 3px; padding: 8px; background: #12161f; border: 2px solid #2f354a; border-radius: 14px; cursor: grab; touch-action: none; user-select: none; }
+        .blast-piece .blast-cell { width: 22px; height: 22px; }
+
+        /* СКЕТЧ */
+        .sketch-tools { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; align-items: center; }
+        .sketch-tools .tool-btn { background: #0d101a; border: 1px solid #2f354a; color: #c8d0ff; padding: 10px 14px; border-radius: 30px; cursor: pointer; font-size: 0.8rem; min-height: 40px; }
+        .sketch-tools .tool-btn.active { border-color: var(--accent-secondary); background: rgba(57,255,20,0.1); color: #b0ffa0; }
+        .color-swatches { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+        .color-swatch { width: 32px; height: 32px; border-radius: 50%; cursor: pointer; border: 2px solid #2f354a; }
+        .color-swatch.active { border-color: #fff; }
+        .sketch-canvas { display: block; width: 100%; max-width: 800px; margin: 0 auto; background: #05060a; border-radius: 20px; border: 1px solid #2f354a; touch-action: none; cursor: crosshair; }
+        .custom-color-wrap { position: relative; width: 38px; height: 38px; border-radius: 50%; border: 2px solid #2f354a; overflow: hidden; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; background: conic-gradient(#ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000); }
+        .custom-color-wrap input[type="color"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+
+        ::-webkit-scrollbar-button { display: none !important; width: 0 !important; height: 0 !important; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; border-radius: 10px; margin: 4px 0; }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+        * { scrollbar-width: thin; scrollbar-color: var(--accent) transparent; }
+
+        .notification-container { position: fixed; top: 20px; right: 20px; z-index: 10000; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
+        .notification {
+            background: var(--notification-bg);
+            border: 1px solid var(--notification-border);
+            border-radius: 16px;
+            padding: 16px 22px;
+            color: #fff;
+            font-size: 0.95rem;
+            transform: translateX(120%);
+            opacity: 0;
+            transition: transform 0.45s, opacity 0.45s;
+            pointer-events: auto;
+            max-width: 320px;
+        }
+        .notification.show { transform: translateX(0); opacity: 1; }
+        .notification.hide { transform: translateX(120%); opacity: 0; }
+        .notification.success { border-left: 4px solid var(--accent-secondary); }
+        .notification.info { border-left: 4px solid var(--accent); }
+        .notification.danger { border-left: 4px solid #ff4060; }
+
+        @media (max-width: 768px) {
+            body { padding: 0; align-items: flex-start; }
+            .app-container { padding: 14px 12px 22px; border-radius: 22px; max-width: 100%; margin: 8px; }
+            .top-bar { flex-direction: column; align-items: stretch; gap: 10px; }
+            .nav-tab { font-size: 0.62rem; padding: 8px 14px; }
+            .sub-tab { font-size: 0.58rem; padding: 8px 12px; }
+            .capsule-group { justify-content: center; }
+            h2 { font-size: 1.15rem; text-align: center; }
+            h3 { font-size: 1rem; text-align: center; }
+            .neon-input { padding: 12px 18px; font-size: 0.95rem; max-width: 100%; min-height: 46px; }
+            .btn-neon { padding: 12px 18px; font-size: 0.85rem; min-height: 46px; }
+            .col2-grid { grid-template-columns: 1fr; gap: 14px; }
+            .calc-grid { max-width: 100%; gap: 7px; }
+            .calc-grid button { height: 56px; font-size: 1.15rem; border-radius: 18px; padding: 14px 0; }
+            .calc-display { font-size: 1.3rem; min-height: 56px; }
+            .stopwatch-display { font-size: 2rem; letter-spacing: 2px; padding: 14px 18px; width: 100%; }
+            .clock-circle { width: 200px; height: 200px; font-size: 1.8rem; }
+            .tools-grid { gap: 20px; }
+            .tools-grid > div { flex: 1 1 100%; }
+            .forecast-grid { grid-template-columns: repeat(3, 1fr); }
+            .notepad-wrap { flex-direction: column; }
+            .car-select { grid-template-columns: repeat(2, 1fr); }
+            .blast-cell { width: 30px; height: 30px; }
+            .blast-piece .blast-cell { width: 20px; height: 20px; }
+        }
+        @media (max-width: 480px) {
+            .forecast-grid { grid-template-columns: repeat(2, 1fr); }
+            .clock-circle { width: 160px; height: 160px; font-size: 1.5rem; }
+            .blast-cell { width: 26px; height: 26px; }
+            .blast-piece .blast-cell { width: 18px; height: 18px; }
+        }
+    </style>
 </head>
 <body>
 <div class="app-container">
@@ -579,6 +584,7 @@ select.neon-input { background-image: none; padding-right: 22px; cursor: pointer
     </div>
     <div class="sub-tabs" id="subTabsContainer"></div>
 
+    <!-- ПРОФИЛЬ -->
     <div id="screen-profile" class="screen active">
         <h2 data-i18n="profile">ПРОФИЛЬ</h2>
         <div id="profileFormWrapper">
@@ -602,6 +608,7 @@ select.neon-input { background-image: none; padding-right: 22px; cursor: pointer
         </div>
     </div>
 
+    <!-- ВРЕМЯ: секундомер + таймер + МИРОВОЕ ВРЕМЯ (часы + часовой пояс) -->
     <div id="screen-timetools" class="screen">
         <h2 data-i18n="stopwatch_timer">СЕКУНДОМЕР & ТАЙМЕР</h2>
         <div class="tools-grid">
@@ -638,6 +645,7 @@ select.neon-input { background-image: none; padding-right: 22px; cursor: pointer
         </div>
     </div>
 
+    <!-- КАЛЬКУЛЯТОР (только калькулятор, без времени) -->
     <div id="screen-calc" class="screen">
         <h2 data-i18n="calculator_time">КАЛЬКУЛЯТОР</h2>
         <div class="calc-grid" id="calcGrid">
@@ -650,6 +658,7 @@ select.neon-input { background-image: none; padding-right: 22px; cursor: pointer
         </div>
     </div>
 
+    <!-- РАНДОМАЙЗЕР -->
     <div id="screen-randomizer" class="screen">
         <h2 data-i18n="randomizer_generator">РАНДОМАЙЗЕР & ГЕНЕРАТОР НИКОВ</h2>
         <div class="col2-grid">
@@ -680,6 +689,7 @@ select.neon-input { background-image: none; padding-right: 22px; cursor: pointer
         </div>
     </div>
 
+    <!-- БЛОКНОТ -->
     <div id="screen-notepad" class="screen">
         <h2 data-i18n="notepad">БЛОКНОТ</h2>
         <div class="notepad-wrap">
@@ -692,6 +702,7 @@ select.neon-input { background-image: none; padding-right: 22px; cursor: pointer
         </div>
     </div>
 
+    <!-- ПОГОДА -->
     <div id="screen-weather" class="screen">
         <h2 data-i18n="weather">ПОГОДА</h2>
         <div class="weather-card">
@@ -712,6 +723,7 @@ select.neon-input { background-image: none; padding-right: 22px; cursor: pointer
         </div>
     </div>
 
+    <!-- КЛИК-ТЕСТ -->
     <div id="screen-clicker" class="screen">
         <h2 data-i18n="click_test">КЛИК-ТЕСТ</h2>
         <div class="flex-row mb-12">
@@ -730,6 +742,7 @@ select.neon-input { background-image: none; padding-right: 22px; cursor: pointer
         </div>
     </div>
 
+    <!-- ГОНКИ -->
     <div id="screen-race" class="screen">
         <h2 data-i18n="race">ГОНКИ</h2>
         <div class="car-select" id="carSelect"></div>
@@ -747,6 +760,7 @@ select.neon-input { background-image: none; padding-right: 22px; cursor: pointer
         <button class="btn-neon btn-green mt-20" id="raceStart">НАЧАТЬ ГОНКУ</button>
     </div>
 
+    <!-- БЛОЧНЫЙ ПАЗЛ -->
     <div id="screen-blast" class="screen">
         <h2 data-i18n="blast">БЛОЧНЫЙ ПАЗЛ</h2>
         <div class="game-score">
@@ -758,6 +772,7 @@ select.neon-input { background-image: none; padding-right: 22px; cursor: pointer
         <button class="btn-neon btn-green" id="blastNew">Новая игра</button>
     </div>
 
+    <!-- СКЕТЧПАД -->
     <div id="screen-sketch" class="screen">
         <h2 data-i18n="sketch">СКЕТЧПАД</h2>
         <div class="sketch-tools">
@@ -784,6 +799,7 @@ select.neon-input { background-image: none; padding-right: 22px; cursor: pointer
         <canvas id="sketchCanvas" class="sketch-canvas" width="800" height="500"></canvas>
     </div>
 
+    <!-- НАСТРОЙКИ -->
     <div id="screen-settings" class="screen">
         <h2 data-i18n="settings">НАСТРОЙКИ</h2>
         <div class="settings-group">
@@ -831,6 +847,7 @@ const citiesData = {
     uk: { ru: ['Лондон','Бирмингем','Манчестер','Ливерпуль','Бристоль','Шеффилд','Лидс','Ньюкасл','Ноттингем','Лестер'], en: ['London','Birmingham','Manchester','Liverpool','Bristol','Sheffield','Leeds','Newcastle','Nottingham','Leicester'] },
     germany: { ru: ['Берлин','Гамбург','Мюнхен','Кёльн','Франкфурт','Штутгарт','Дюссельдорф','Дортмунд','Эссен','Лейпциг'], en: ['Berlin','Hamburg','Munich','Cologne','Frankfurt','Stuttgart','Düsseldorf','Dortmund','Essen','Leipzig'] }
 };
+/* EN-названия городов для геокодера (то, что реально пойдёт в API) */
 const cityToEn = {
     'Москва':'Moscow','Санкт-Петербург':'Saint Petersburg','Новосибирск':'Novosibirsk','Екатеринбург':'Yekaterinburg','Казань':'Kazan','Нижний Новгород':'Nizhny Novgorod','Челябинск':'Chelyabinsk','Самара':'Samara','Рязань':'Ryazan','Ростов-на-Дону':'Rostov-on-Don',
     'Нью-Йорк':'New York','Лос-Анджелес':'Los Angeles','Чикаго':'Chicago','Хьюстон':'Houston','Филадельфия':'Philadelphia','Сан-Франциско':'San Francisco','Майами':'Miami','Вашингтон':'Washington','Бостон':'Boston','Даллас':'Dallas',
@@ -843,61 +860,9 @@ const cityToEn = {
     'Лондон':'London','Бирмингем':'Birmingham','Манчестер':'Manchester','Ливерпуль':'Liverpool','Бристоль':'Bristol','Шеффилд':'Sheffield','Лидс':'Leeds','Ньюкасл':'Newcastle','Ноттингем':'Nottingham','Лестер':'Leicester',
     'Берлин':'Berlin','Гамбург':'Hamburg','Мюнхен':'Munich','Кёльн':'Cologne','Франкфурт':'Frankfurt','Штутгарт':'Stuttgart','Дюссельдорф':'Düsseldorf','Дортмунд':'Dortmund','Эссен':'Essen','Лейпциг':'Leipzig'
 };
-function getEnglishCityName(city) { return cityToEn[city] || city; }
-
-const CITY_COORDS_FALLBACK = {
-    'Москва': { lat: 55.7558, lon: 37.6173 }, 'Санкт-Петербург': { lat: 59.9343, lon: 30.3351 },
-    'Новосибирск': { lat: 55.0084, lon: 82.9357 }, 'Екатеринбург': { lat: 56.8389, lon: 60.6057 },
-    'Казань': { lat: 55.8304, lon: 49.0661 }, 'Нижний Новгород': { lat: 56.3269, lon: 44.0059 },
-    'Челябинск': { lat: 55.1644, lon: 61.4368 }, 'Самара': { lat: 53.2001, lon: 50.15 },
-    'Рязань': { lat: 54.6269, lon: 39.6916 }, 'Ростов-на-Дону': { lat: 47.2225, lon: 39.7188 },
-    'Нью-Йорк': { lat: 40.7128, lon: -74.0060 }, 'Лос-Анджелес': { lat: 34.0522, lon: -118.2437 },
-    'Чикаго': { lat: 41.8781, lon: -87.6298 }, 'Хьюстон': { lat: 29.7604, lon: -95.3698 },
-    'Филадельфия': { lat: 39.9526, lon: -75.1652 }, 'Сан-Франциско': { lat: 37.7749, lon: -122.4194 },
-    'Майами': { lat: 25.7617, lon: -80.1918 }, 'Вашингтон': { lat: 38.9072, lon: -77.0369 },
-    'Бостон': { lat: 42.3601, lon: -71.0589 }, 'Даллас': { lat: 32.7767, lon: -96.7970 },
-    'Пекин': { lat: 39.9042, lon: 116.4074 }, 'Шанхай': { lat: 31.2304, lon: 121.4737 },
-    'Гуанчжоу': { lat: 23.1291, lon: 113.2644 }, 'Шэньчжэнь': { lat: 22.5431, lon: 114.0579 },
-    'Чэнду': { lat: 30.5728, lon: 104.0668 }, 'Ухань': { lat: 30.5928, lon: 114.3055 },
-    'Нанкин': { lat: 32.0603, lon: 118.7969 }, 'Ханчжоу': { lat: 30.2741, lon: 120.1551 },
-    'Сиань': { lat: 34.3416, lon: 108.9398 }, 'Тяньцзинь': { lat: 39.3434, lon: 117.3616 },
-    'Нью-Дели': { lat: 28.6139, lon: 77.2090 }, 'Мумбаи': { lat: 19.0760, lon: 72.8777 },
-    'Бангалор': { lat: 12.9716, lon: 77.5946 }, 'Ченнаи': { lat: 13.0827, lon: 80.2707 },
-    'Хайдарабад': { lat: 17.3850, lon: 78.4867 }, 'Калькутта': { lat: 22.5726, lon: 88.3639 },
-    'Ахмедабад': { lat: 23.0225, lon: 72.5714 }, 'Пуна': { lat: 18.5204, lon: 73.8567 },
-    'Сурат': { lat: 21.1702, lon: 72.8311 }, 'Джайпур': { lat: 26.9124, lon: 75.7873 },
-    'Сан-Паулу': { lat: -23.5505, lon: -46.6333 }, 'Рио-де-Жанейро': { lat: -22.9068, lon: -43.1729 },
-    'Бразилиа': { lat: -15.7939, lon: -47.8828 }, 'Салвадор': { lat: -12.9777, lon: -38.5016 },
-    'Форталеза': { lat: -3.7319, lon: -38.5267 }, 'Белу-Оризонти': { lat: -19.9167, lon: -43.9345 },
-    'Манаус': { lat: -3.1190, lon: -60.0217 }, 'Куритиба': { lat: -25.4284, lon: -49.2733 },
-    'Ресифи': { lat: -8.0476, lon: -34.8770 }, 'Порту-Алегри': { lat: -30.0346, lon: -51.2177 },
-    'Лагос': { lat: 6.5244, lon: 3.3792 }, 'Кано': { lat: 12.0022, lon: 8.5920 },
-    'Ибадан': { lat: 7.3775, lon: 3.9470 }, 'Абуджа': { lat: 9.0765, lon: 7.3986 },
-    'Кадуна': { lat: 10.5264, lon: 7.4388 }, 'Порт-Харкорт': { lat: 4.8156, lon: 7.0498 },
-    'Бенин-Сити': { lat: 6.3350, lon: 5.6037 }, 'Майдугури': { lat: 11.8311, lon: 13.1510 },
-    'Зария': { lat: 11.0855, lon: 7.7199 }, 'Абеокута': { lat: 7.1475, lon: 3.3619 },
-    'Токио': { lat: 35.6762, lon: 139.6503 }, 'Осака': { lat: 34.6937, lon: 135.5023 },
-    'Нагоя': { lat: 35.1815, lon: 136.9066 }, 'Саппоро': { lat: 43.0618, lon: 141.3545 },
-    'Фукуока': { lat: 33.5904, lon: 130.4017 }, 'Киото': { lat: 35.0116, lon: 135.7681 },
-    'Кобе': { lat: 34.6901, lon: 135.1955 }, 'Сайтама': { lat: 35.8617, lon: 139.6455 },
-    'Хиросима': { lat: 34.3853, lon: 132.4553 }, 'Сендай': { lat: 38.2682, lon: 140.8694 },
-    'Мехико': { lat: 19.4326, lon: -99.1332 }, 'Гвадалахара': { lat: 20.6597, lon: -103.3496 },
-    'Монтеррей': { lat: 25.6866, lon: -100.3161 }, 'Пуэбла': { lat: 19.0414, lon: -98.2063 },
-    'Толука': { lat: 19.2826, lon: -99.6557 }, 'Тихуана': { lat: 32.5149, lon: -117.0382 },
-    'Леон': { lat: 21.1250, lon: -101.6860 }, 'Сьюдад-Хуарес': { lat: 31.6904, lon: -106.4245 },
-    'Торреон': { lat: 25.5428, lon: -103.4068 }, 'Мерида': { lat: 20.9674, lon: -89.5926 },
-    'Лондон': { lat: 51.5074, lon: -0.1278 }, 'Бирмингем': { lat: 52.4862, lon: -1.8904 },
-    'Манчестер': { lat: 53.4808, lon: -2.2426 }, 'Ливерпуль': { lat: 53.4084, lon: -2.9916 },
-    'Бристоль': { lat: 51.4545, lon: -2.5879 }, 'Шеффилд': { lat: 53.3811, lon: -1.4701 },
-    'Лидс': { lat: 53.8008, lon: -1.5491 }, 'Ньюкасл': { lat: 54.9783, lon: -1.6178 },
-    'Ноттингем': { lat: 52.9548, lon: -1.1581 }, 'Лестер': { lat: 52.6369, lon: -1.1398 },
-    'Берлин': { lat: 52.5200, lon: 13.4050 }, 'Гамбург': { lat: 53.5511, lon: 9.9937 },
-    'Мюнхен': { lat: 48.1351, lon: 11.5820 }, 'Кёльн': { lat: 50.9375, lon: 6.9603 },
-    'Франкфурт': { lat: 50.1109, lon: 8.6821 }, 'Штутгарт': { lat: 48.7758, lon: 9.1829 },
-    'Дюссельдорф': { lat: 51.2277, lon: 6.7735 }, 'Дортмунд': { lat: 51.5136, lon: 7.4653 },
-    'Эссен': { lat: 51.4556, lon: 7.0116 }, 'Лейпциг': { lat: 51.3397, lon: 12.3731 }
-};
-
+function getEnglishCityName(city) {
+    return cityToEn[city] || city;
+}
 const themes = {
     cyberpunk: { '--accent':'#8b5cf6','--accent-secondary':'#39ff14','--border-glow':'#8b5cf6','--shadow-glow':'rgba(139,92,246,0.25)' },
     red_phantom: { '--accent':'#ff2020','--accent-secondary':'#ff6030','--border-glow':'#ff2020','--shadow-glow':'rgba(255,32,32,0.25)' },
@@ -997,6 +962,7 @@ const translations = {
     }
 };
 
+/* ================== СОСТОЯНИЕ ================== */
 let currentLanguage = localStorage.getItem('zadrothub_lang') || 'ru';
 let currentScreen = 'profile';
 let currentMainTab = 'profile';
@@ -1008,6 +974,7 @@ let currentTimezone = 'UTC+3';
 let mainTabOrder = JSON.parse(localStorage.getItem('zadrothub_main_order') || '["profile","tools","games","settings"]');
 let subTabOrder = JSON.parse(localStorage.getItem('zadrothub_sub_order') || '{"tools":["timetools","calc","randomizer","notepad","weather"],"games":["clicker","race","blast","sketch"]}');
 
+/* ================== СТРУКТУРА ================== */
 const NAV = {
     profile: { labelKey:'profile', subs:[ {id:'profile', labelKey:'profile'} ] },
     tools: { labelKey:'tools', subs:[
@@ -1033,6 +1000,7 @@ function findMainTabBySubId(subId) {
     return 'profile';
 }
 
+/* ================== УВЕДОМЛЕНИЯ ================== */
 let notificationTimeout = null;
 function showNotification(text, type='success') {
     const c = document.getElementById('notificationContainer');
@@ -1054,6 +1022,7 @@ function showNotification(text, type='success') {
 
 function pad(num) { return num.toString().padStart(2,'0'); }
 
+/* ================== НАВИГАЦИЯ ================== */
 function initNavigation() {
     const container = document.getElementById('navTabsContainer');
     container.innerHTML = '';
@@ -1118,6 +1087,7 @@ function switchScreen(screenId) {
     if (screenId === 'blast') drawBlast();
 }
 
+/* ================== ЯЗЫК ================== */
 function fillLangSelectors() {
     const t = translations[currentLanguage];
     ['langSelectProfile','langSelectSettings'].forEach(id => {
@@ -1164,6 +1134,7 @@ function applyLanguage() {
     initCarSelect();
 }
 
+/* ================== ПРОФИЛЬ ================== */
 function initCountrySelectors() {
     ['countrySelect','editCountrySelect'].forEach(id => {
         const sel = document.getElementById(id);
@@ -1258,6 +1229,7 @@ function updateWelcomeMessage() {
         : 'WELCOME TO ZADROTHUB, ' + nick + '!';
 }
 
+/* ================== КЛИК-ТЕСТ ================== */
 let clickCount = 0, clickTimer = null, clickDuration = 5, isClickTestRunning = false, clickStartTime = 0, clickTestEnded = false;
 
 function initClickTest() {
@@ -1340,6 +1312,7 @@ function updateRank() {
     document.getElementById('cpsDisplay').textContent = cps.toFixed(2);
 }
 
+/* ================== ВРЕМЯ ================== */
 let stopwatchRunning = false, stopwatchTime = 0, stopwatchInterval = null;
 let timerRunning = false, timerTime = 0, timerInterval = null;
 
@@ -1428,6 +1401,7 @@ function playAlarm() {
     } catch(e) {}
 }
 
+/* ================== КАЛЬКУЛЯТОР ================== */
 let calcExpression = '';
 
 function initCalculator() {
@@ -1504,6 +1478,7 @@ function evaluateExpression(expr) {
     return st.length === 1 ? st[0] : 'Error';
 }
 
+/* ================== РАНДОМАЙЗЕР ================== */
 function initRandomizer() {
     document.getElementById('generateNumberBtn').addEventListener('click', () => {
         const fromEl = document.getElementById('randomFrom');
@@ -1533,6 +1508,7 @@ function initRandomizer() {
     });
 }
 
+/* ================== БЛОКНОТ ================== */
 function initNotepad() {
     updateNoteList();
     document.getElementById('saveNoteBtn').addEventListener('click', () => {
@@ -1588,6 +1564,7 @@ function updateNoteList() {
     });
 }
 
+/* ================== НАСТРОЙКИ ================== */
 function initSettings() {
     const themeGrid = document.getElementById('themeGrid');
     if (themeGrid) {
@@ -1695,6 +1672,7 @@ function saveSubOrder() {
     initSubNavigation();
 }
 
+/* ================== ЧАСЫ ================== */
 function initTimezoneSelector() {
     const sel = document.getElementById('timezoneSelect');
     if (!sel) return;
@@ -1721,7 +1699,7 @@ function updateClock() {
     if (cl) cl.textContent = timeStr;
 }
 
-/* ============ ПОГОДА ============ */
+/* ================== ПОГОДА (исправленная) ================== */
 let weatherData = null;
 let weatherUpdateInterval = null;
 let lastWeatherFetchTime = 0;
@@ -1773,24 +1751,109 @@ function getWeatherEmoji(code) {
     return map[code] || '☁️';
 }
 
-async function fetchOpenMeteo(lat, lon) {
-    const url = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon +
-        '&current=temperature_2m,relative_humidity_2m,precipitation,weather_code,wind_speed_10m' +
-        '&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max' +
-        '&timezone=auto&forecast_days=7';
-    const res = await fetch(url);
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const data = await res.json();
-    if (!data || !data.current) throw new Error('No current');
-    return {
-        temp: data.current.temperature_2m,
-        humidity: data.current.relative_humidity_2m,
-        precip: data.current.precipitation,
-        wind: data.current.wind_speed_10m,
-        code: data.current.weather_code,
-        daily: data.daily
-    };
-}
+/* Фолбэк — координаты всех городов, если геокодер не ответит */
+const CITY_COORDS_FALLBACK = {
+    'Москва': { lat: 55.7558, lon: 37.6173 },
+    'Санкт-Петербург': { lat: 59.9343, lon: 30.3351 },
+    'Новосибирск': { lat: 55.0084, lon: 82.9357 },
+    'Екатеринбург': { lat: 56.8389, lon: 60.6057 },
+    'Казань': { lat: 55.8304, lon: 49.0661 },
+    'Нижний Новгород': { lat: 56.3269, lon: 44.0059 },
+    'Челябинск': { lat: 55.1644, lon: 61.4368 },
+    'Самара': { lat: 53.2001, lon: 50.15 },
+    'Рязань': { lat: 54.6269, lon: 39.6916 },
+    'Ростов-на-Дону': { lat: 47.2225, lon: 39.7188 },
+    'Нью-Йорк': { lat: 40.7128, lon: -74.0060 },
+    'Лос-Анджелес': { lat: 34.0522, lon: -118.2437 },
+    'Чикаго': { lat: 41.8781, lon: -87.6298 },
+    'Хьюстон': { lat: 29.7604, lon: -95.3698 },
+    'Филадельфия': { lat: 39.9526, lon: -75.1652 },
+    'Сан-Франциско': { lat: 37.7749, lon: -122.4194 },
+    'Майами': { lat: 25.7617, lon: -80.1918 },
+    'Вашингтон': { lat: 38.9072, lon: -77.0369 },
+    'Бостон': { lat: 42.3601, lon: -71.0589 },
+    'Даллас': { lat: 32.7767, lon: -96.7970 },
+    'Пекин': { lat: 39.9042, lon: 116.4074 },
+    'Шанхай': { lat: 31.2304, lon: 121.4737 },
+    'Гуанчжоу': { lat: 23.1291, lon: 113.2644 },
+    'Шэньчжэнь': { lat: 22.5431, lon: 114.0579 },
+    'Чэнду': { lat: 30.5728, lon: 104.0668 },
+    'Ухань': { lat: 30.5928, lon: 114.3055 },
+    'Нанкин': { lat: 32.0603, lon: 118.7969 },
+    'Ханчжоу': { lat: 30.2741, lon: 120.1551 },
+    'Сиань': { lat: 34.3416, lon: 108.9398 },
+    'Тяньцзинь': { lat: 39.3434, lon: 117.3616 },
+    'Нью-Дели': { lat: 28.6139, lon: 77.2090 },
+    'Мумбаи': { lat: 19.0760, lon: 72.8777 },
+    'Бангалор': { lat: 12.9716, lon: 77.5946 },
+    'Ченнаи': { lat: 13.0827, lon: 80.2707 },
+    'Хайдарабад': { lat: 17.3850, lon: 78.4867 },
+    'Калькутта': { lat: 22.5726, lon: 88.3639 },
+    'Ахмедабад': { lat: 23.0225, lon: 72.5714 },
+    'Пуна': { lat: 18.5204, lon: 73.8567 },
+    'Сурат': { lat: 21.1702, lon: 72.8311 },
+    'Джайпур': { lat: 26.9124, lon: 75.7873 },
+    'Сан-Паулу': { lat: -23.5505, lon: -46.6333 },
+    'Рио-де-Жанейро': { lat: -22.9068, lon: -43.1729 },
+    'Бразилиа': { lat: -15.7939, lon: -47.8828 },
+    'Салвадор': { lat: -12.9777, lon: -38.5016 },
+    'Форталеза': { lat: -3.7319, lon: -38.5267 },
+    'Белу-Оризонти': { lat: -19.9167, lon: -43.9345 },
+    'Манаус': { lat: -3.1190, lon: -60.0217 },
+    'Куритиба': { lat: -25.4284, lon: -49.2733 },
+    'Ресифи': { lat: -8.0476, lon: -34.8770 },
+    'Порту-Алегри': { lat: -30.0346, lon: -51.2177 },
+    'Лагос': { lat: 6.5244, lon: 3.3792 },
+    'Кано': { lat: 12.0022, lon: 8.5920 },
+    'Ибадан': { lat: 7.3775, lon: 3.9470 },
+    'Абуджа': { lat: 9.0765, lon: 7.3986 },
+    'Кадуна': { lat: 10.5264, lon: 7.4388 },
+    'Порт-Харкорт': { lat: 4.8156, lon: 7.0498 },
+    'Бенин-Сити': { lat: 6.3350, lon: 5.6037 },
+    'Майдугури': { lat: 11.8311, lon: 13.1510 },
+    'Зария': { lat: 11.0855, lon: 7.7199 },
+    'Абеокута': { lat: 7.1475, lon: 3.3619 },
+    'Токио': { lat: 35.6762, lon: 139.6503 },
+    'Осака': { lat: 34.6937, lon: 135.5023 },
+    'Нагоя': { lat: 35.1815, lon: 136.9066 },
+    'Саппоро': { lat: 43.0618, lon: 141.3545 },
+    'Фукуока': { lat: 33.5904, lon: 130.4017 },
+    'Киото': { lat: 35.0116, lon: 135.7681 },
+    'Кобе': { lat: 34.6901, lon: 135.1955 },
+    'Сайтама': { lat: 35.8617, lon: 139.6455 },
+    'Хиросима': { lat: 34.3853, lon: 132.4553 },
+    'Сендай': { lat: 38.2682, lon: 140.8694 },
+    'Мехико': { lat: 19.4326, lon: -99.1332 },
+    'Гвадалахара': { lat: 20.6597, lon: -103.3496 },
+    'Монтеррей': { lat: 25.6866, lon: -100.3161 },
+    'Пуэбла': { lat: 19.0414, lon: -98.2063 },
+    'Толука': { lat: 19.2826, lon: -99.6557 },
+    'Тихуана': { lat: 32.5149, lon: -117.0382 },
+    'Леон': { lat: 21.1250, lon: -101.6860 },
+    'Сьюдад-Хуарес': { lat: 31.6904, lon: -106.4245 },
+    'Торреон': { lat: 25.5428, lon: -103.4068 },
+    'Мерида': { lat: 20.9674, lon: -89.5926 },
+    'Лондон': { lat: 51.5074, lon: -0.1278 },
+    'Бирмингем': { lat: 52.4862, lon: -1.8904 },
+    'Манчестер': { lat: 53.4808, lon: -2.2426 },
+    'Ливерпуль': { lat: 53.4084, lon: -2.9916 },
+    'Бристоль': { lat: 51.4545, lon: -2.5879 },
+    'Шеффилд': { lat: 53.3811, lon: -1.4701 },
+    'Лидс': { lat: 53.8008, lon: -1.5491 },
+    'Ньюкасл': { lat: 54.9783, lon: -1.6178 },
+    'Ноттингем': { lat: 52.9548, lon: -1.1581 },
+    'Лестер': { lat: 52.6369, lon: -1.1398 },
+    'Берлин': { lat: 52.5200, lon: 13.4050 },
+    'Гамбург': { lat: 53.5511, lon: 9.9937 },
+    'Мюнхен': { lat: 48.1351, lon: 11.5820 },
+    'Кёльн': { lat: 50.9375, lon: 6.9603 },
+    'Франкфурт': { lat: 50.1109, lon: 8.6821 },
+    'Штутгарт': { lat: 48.7758, lon: 9.1829 },
+    'Дюссельдорф': { lat: 51.2277, lon: 6.7735 },
+    'Дортмунд': { lat: 51.5136, lon: 7.4653 },
+    'Эссен': { lat: 51.4556, lon: 7.0116 },
+    'Лейпциг': { lat: 51.3397, lon: 12.3731 }
+};
 
 async function geocodeCity(cityName) {
     const enName = getEnglishCityName(cityName);
@@ -1811,9 +1874,29 @@ async function geocodeCity(cityName) {
                 }) || g.results[0];
                 return { lat: preferred.latitude, lon: preferred.longitude };
             }
-        } catch(e) {}
+        } catch(e) { /* ignore, try next */ }
     }
+    if (CITY_COORDS_FALLBACK[cityName]) return CITY_COORDS_FALLBACK[cityName];
     return null;
+}
+
+async function getOpenMeteoWeather(lat, lon, signal) {
+    const url = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon +
+        '&current=temperature_2m,relative_humidity_2m,precipitation,weather_code,wind_speed_10m' +
+        '&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max' +
+        '&timezone=auto&forecast_days=7';
+    const res = await fetch(url, { signal });
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (!data || !data.current) return null;
+    return {
+        temp: data.current.temperature_2m,
+        humidity: data.current.relative_humidity_2m,
+        precip: data.current.precipitation,
+        wind: data.current.wind_speed_10m,
+        code: data.current.weather_code,
+        daily: data.daily
+    };
 }
 
 function updateWeatherDisplay() {
@@ -1894,44 +1977,37 @@ async function fetchWeatherData() {
         try { weatherAbortController.abort(); } catch(e) {}
     }
     weatherAbortController = new AbortController();
+    const signal = weatherAbortController.signal;
     weatherRequestInFlight = true;
 
     try {
-        let coords = CITY_COORDS_FALLBACK[currentCity] || null;
-        if (!coords) {
-            if (!weatherGeoCache || weatherGeoCache.city !== currentCity) {
-                const g = await geocodeCity(currentCity);
-                if (g) {
-                    coords = g;
-                    weatherGeoCache = { city: currentCity, lat: g.lat, lon: g.lon };
-                }
-            } else {
-                coords = { lat: weatherGeoCache.lat, lon: weatherGeoCache.lon };
+        if (!weatherGeoCache || weatherGeoCache.city !== currentCity) {
+            const coords = await geocodeCity(currentCity);
+            if (!coords) {
+                const wc = document.getElementById('weatherCity');
+                if (wc) wc.textContent = getLocalizedCity(currentCity);
+                return;
             }
-        }
-        if (!coords) {
-            const wc = document.getElementById('weatherCity');
-            if (wc) wc.textContent = getLocalizedCity(currentCity);
-            return;
+            weatherGeoCache = { city: currentCity, lat: coords.lat, lon: coords.lon };
         }
 
-        let result = null;
+        let openMeteo = null;
         try {
-            result = await fetchOpenMeteo(coords.lat, coords.lon);
-        } catch (e) {
-            if (e.name === 'AbortError') return;
-            result = null;
+            openMeteo = await getOpenMeteoWeather(weatherGeoCache.lat, weatherGeoCache.lon, signal);
+        } catch (err) {
+            if (err.name === 'AbortError') return;
         }
-        if (!result) {
+
+        if (!openMeteo && CITY_COORDS_FALLBACK[currentCity]) {
             try {
-                result = await fetchOpenMeteo(coords.lat, coords.lon);
-            } catch (e) {
-                if (e.name === 'AbortError') return;
-                result = null;
+                openMeteo = await getOpenMeteoWeather(CITY_COORDS_FALLBACK[currentCity].lat, CITY_COORDS_FALLBACK[currentCity].lon, signal);
+            } catch (err) {
+                if (err.name === 'AbortError') return;
             }
         }
-        if (!result) return;
-        weatherData = result;
+
+        if (!openMeteo) return;
+        weatherData = openMeteo;
         updateWeatherDisplay();
         updateForecastDisplay();
     } catch(e) {
@@ -1941,7 +2017,7 @@ async function fetchWeatherData() {
     }
 }
 
-/* ============ ГОНКИ ============ */
+/* ================== ГОНКИ ================== */
 let raceRAF = null, raceRunning = false, raceScore = 0, raceSpeed = 4, raceRoad = 0;
 let raceObstacles = [];
 let raceBest = parseInt(localStorage.getItem('zadrothub_race_best') || '0');
@@ -2109,7 +2185,7 @@ function raceEnd() {
     }
 }
 
-/* ============ БЛОЧНЫЙ ПАЗЛ ============ */
+/* ================== БЛОЧНЫЙ ПАЗЛ ================== */
 const BLAST_N = 8;
 let blastGrid = [];
 let blastPieces = [];
@@ -2367,7 +2443,7 @@ function isBlastGameOver() {
     return true;
 }
 
-/* ============ СКЕТЧПАД ============ */
+/* ================== СКЕТЧПАД ================== */
 let skCanvas, skCtx, skDrawing = false;
 let skColor = '#8b5cf6', skSize = 4, skTool = 'brush';
 let skStartX = 0, skStartY = 0, skSnap = null;
@@ -2540,7 +2616,7 @@ function endDraw() {
     skCtx.beginPath();
 }
 
-/* ============ INIT ============ */
+/* ================== INIT ================== */
 document.getElementById('createProfileBtn').addEventListener('click', () => {
     const nick = document.getElementById('nickInput').value.trim();
     if (!nick) { showNotification(translations[currentLanguage].enter_nickname, 'danger'); return; }
