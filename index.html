@@ -498,6 +498,8 @@ select.neon-input { background-image: none; padding-right: 22px; cursor: pointer
 .blast-tray { display: flex; gap: 16px; justify-content: center; margin: 16px 0; flex-wrap: wrap; min-height: 120px; align-items: center; }
 .blast-piece { display: grid; gap: 3px; padding: 8px; background: #12161f; border: 2px solid #2f354a; border-radius: 14px; cursor: grab; touch-action: none; user-select: none; }
 .blast-piece .blast-cell { width: 22px; height: 22px; }
+.blast-ghost { border-color: var(--accent-secondary); box-shadow: 0 0 25px var(--accent-secondary); }
+.blast-ghost .blast-cell { border-radius: 6px; }
 .sketch-tools { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; align-items: center; }
 .sketch-tools .tool-btn { background: #0d101a; border: 1px solid #2f354a; color: #c8d0ff; padding: 10px 14px; border-radius: 30px; cursor: pointer; font-size: 0.8rem; min-height: 40px; }
 .sketch-tools .tool-btn.active { border-color: var(--accent-secondary); background: rgba(57,255,20,0.1); color: #b0ffa0; }
@@ -2210,17 +2212,63 @@ function drawBlast() {
 
 function onBlastDown(e, i, el) {
     e.preventDefault();
-    blastDrag = { idx: i, el, sx: e.clientX, sy: e.clientY };
-    el.style.opacity = '0.6';
+    e.stopPropagation();
+    blastDrag = {
+        idx: i,
+        el,
+        sx: e.clientX,
+        sy: e.clientY,
+        ghost: null,
+        lastCell: null
+    };
+    const piece = blastPieces[i];
+    if (!piece) return;
+    const ghost = document.createElement('div');
+    ghost.className = 'blast-piece blast-ghost';
+    ghost.style.position = 'fixed';
+    ghost.style.pointerEvents = 'none';
+    ghost.style.zIndex = '9999';
+    ghost.style.opacity = '0.95';
+    ghost.style.transform = 'translate(-50%, -50%)';
+    ghost.style.gridTemplateColumns = 'repeat(' + piece.shape[0].length + ', 34px)';
+    piece.shape.forEach(row => row.forEach(cell => {
+        const c = document.createElement('div');
+        c.className = 'blast-cell';
+        c.style.width = '34px';
+        c.style.height = '34px';
+        if (cell) c.style.background = piece.color;
+        else c.style.background = 'transparent';
+        ghost.appendChild(c);
+    }));
+    document.body.appendChild(ghost);
+    blastDrag.ghost = ghost;
+    moveGhost(e.clientX, e.clientY);
+    el.style.opacity = '0.35';
     el.style.position = 'relative';
     el.style.zIndex = '100';
+    onBlastMove(e);
+}
+
+function moveGhost(x, y) {
+    if (!blastDrag || !blastDrag.ghost) return;
+    blastDrag.ghost.style.left = x + 'px';
+    blastDrag.ghost.style.top = y + 'px';
 }
 
 function clearBlastHighlights() {
     document.querySelectorAll('#blastGrid .blast-cell').forEach(c => {
         c.style.outline = '';
         c.style.boxShadow = '';
+        c.style.background = '';
     });
+    for (let y = 0; y < BLAST_N; y++) {
+        for (let x = 0; x < BLAST_N; x++) {
+            if (blastGrid[y][x]) {
+                const t = document.querySelector('#blastGrid .blast-cell[data-x="' + x + '"][data-y="' + y + '"]');
+                if (t) t.style.background = blastGrid[y][x];
+            }
+        }
+    }
 }
 
 function getBlastCellFromPoint(x, y) {
@@ -2232,25 +2280,52 @@ function getBlastCellFromPoint(x, y) {
     return null;
 }
 
+function findNearestBlastCell(x, y, shape) {
+    const cells = document.querySelectorAll('#blastGrid .blast-cell');
+    if (!cells.length) return null;
+    const gridRect = document.getElementById('blastGrid').getBoundingClientRect();
+    const cellSize = 34 + 4;
+    const offsetX = Math.round((x - gridRect.left) / cellSize);
+    const offsetY = Math.round((y - gridRect.top) / cellSize);
+    const startX = offsetX - Math.floor(shape[0].length / 2);
+    const startY = offsetY - Math.floor(shape.length / 2);
+    return { x: startX, y: startY };
+}
+
 function onBlastMove(e) {
     if (!blastDrag) return;
     e.preventDefault();
-    blastDrag.el.style.transform = 'translate(' + (e.clientX - blastDrag.sx) + 'px, ' + (e.clientY - blastDrag.sy) + 'px)';
-    blastDrag.el.style.pointerEvents = 'none';
-    clearBlastHighlights();
-    const cell = getBlastCellFromPoint(e.clientX, e.clientY);
-    blastDrag.el.style.pointerEvents = '';
-    if (!cell) return;
+    moveGhost(e.clientX, e.clientY);
     const piece = blastPieces[blastDrag.idx];
     if (!piece) return;
     const sh = piece.shape;
-    const startX = cell.x;
-    const startY = cell.y;
-    if (startX < 0 || startY < 0 || startY + sh.length > BLAST_N || startX + sh[0].length > BLAST_N) return;
-    let ok = true;
-    for (let dy = 0; dy < sh.length && ok; dy++)
-        for (let dx = 0; dx < sh[dy].length && ok; dx++)
-            if (sh[dy][dx] && blastGrid[startY+dy][startX+dx]) ok = false;
+
+    let target = null;
+    const direct = getBlastCellFromPoint(e.clientX, e.clientY);
+    if (direct) {
+        target = { x: direct.x - Math.floor(sh[0].length / 2), y: direct.y - Math.floor(sh.length / 2) };
+    } else {
+        target = findNearestBlastCell(e.clientX, e.clientY, sh);
+    }
+    if (!target) { clearBlastHighlights(); return; }
+
+    let startX = target.x;
+    let startY = target.y;
+    blastDrag.lastCell = { x: startX, y: startY };
+
+    clearBlastHighlights();
+
+    const fits = startX >= 0 && startY >= 0 &&
+                 startY + sh.length <= BLAST_N &&
+                 startX + sh[0].length <= BLAST_N;
+
+    let ok = fits;
+    if (ok) {
+        for (let dy = 0; dy < sh.length && ok; dy++)
+            for (let dx = 0; dx < sh[dy].length && ok; dx++)
+                if (sh[dy][dx] && blastGrid[startY+dy][startX+dx]) ok = false;
+    }
+
     if (ok) {
         for (let dy = 0; dy < sh.length; dy++)
             for (let dx = 0; dx < sh[dy].length; dx++)
@@ -2258,7 +2333,7 @@ function onBlastMove(e) {
                     const t = document.querySelector('#blastGrid .blast-cell[data-x="' + (startX+dx) + '"][data-y="' + (startY+dy) + '"]');
                     if (t) { t.style.outline = '2px solid ' + piece.color; t.style.boxShadow = '0 0 12px ' + piece.color; }
                 }
-    } else {
+    } else if (fits) {
         for (let dy = 0; dy < sh.length; dy++)
             for (let dx = 0; dx < sh[dy].length; dx++)
                 if (sh[dy][dx]) {
@@ -2271,21 +2346,36 @@ function onBlastMove(e) {
 function onBlastUp(e) {
     if (!blastDrag) return;
     const piece = blastPieces[blastDrag.idx];
-    blastDrag.el.style.transform = '';
-    blastDrag.el.style.opacity = '';
-    blastDrag.el.style.zIndex = '';
+    if (blastDrag.ghost) { blastDrag.ghost.remove(); blastDrag.ghost = null; }
+    if (blastDrag.el) {
+        blastDrag.el.style.opacity = '';
+        blastDrag.el.style.zIndex = '';
+    }
     clearBlastHighlights();
     if (!piece) { blastDrag = null; return; }
-    const cell = getBlastCellFromPoint(e.clientX, e.clientY);
-    if (!cell) { blastDrag = null; return; }
+
+    let startX, startY;
+    if (blastDrag.lastCell) {
+        startX = blastDrag.lastCell.x;
+        startY = blastDrag.lastCell.y;
+    } else {
+        const direct = getBlastCellFromPoint(e.clientX, e.clientY);
+        if (!direct) { blastDrag = null; return; }
+        startX = direct.x - Math.floor(piece.shape[0].length / 2);
+        startY = direct.y - Math.floor(piece.shape.length / 2);
+    }
+
     const sh = piece.shape;
-    const startX = cell.x;
-    const startY = cell.y;
-    if (startX < 0 || startY < 0 || startY + sh.length > BLAST_N || startX + sh[0].length > BLAST_N) { blastDrag = null; return; }
+    const fits = startX >= 0 && startY >= 0 &&
+                 startY + sh.length <= BLAST_N &&
+                 startX + sh[0].length <= BLAST_N;
+    if (!fits) { blastDrag = null; return; }
+
     let ok = true;
     for (let dy = 0; dy < sh.length && ok; dy++)
         for (let dx = 0; dx < sh[dy].length && ok; dx++)
             if (sh[dy][dx] && blastGrid[startY+dy][startX+dx]) ok = false;
+
     if (ok) {
         for (let dy = 0; dy < sh.length; dy++)
             for (let dx = 0; dx < sh[dy].length; dx++)
