@@ -518,11 +518,36 @@ select.neon-input { background-image: none; padding-right: 22px; cursor: pointer
     background: #12161f;
     transition: background 0.15s, box-shadow 0.1s;
 }
-.blast-tray { display: flex; gap: 16px; justify-content: center; margin: 16px 0; flex-wrap: wrap; min-height: 120px; align-items: center; }
-.blast-piece { display: grid; gap: 3px; padding: 8px; background: #12161f; border: 2px solid #2f354a; border-radius: 14px; cursor: grab; touch-action: none; user-select: none; }
-.blast-piece .blast-cell { width: 22px; height: 22px; aspect-ratio: 1/1; }
+.blast-tray {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin: 16px 0;
+    flex-wrap: wrap;
+    min-height: 120px;
+    align-items: center;
+}
+/* === ФИГУРКИ СНИЗУ: РОВНЫЕ КВАДРАТИКИ === */
+.blast-piece {
+    display: grid;
+    gap: 3px;
+    padding: 8px;
+    background: #12161f;
+    border: 2px solid #2f354a;
+    border-radius: 14px;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+    box-sizing: content-box;
+}
+.blast-piece .blast-cell {
+    width: 22px;
+    height: 22px;
+    aspect-ratio: 1 / 1;
+    border-radius: 5px;
+}
 .blast-ghost { border-color: var(--accent-secondary); box-shadow: 0 0 25px var(--accent-secondary); }
-.blast-ghost .blast-cell { border-radius: 6px; }
+.blast-ghost .blast-cell { border-radius: 5px; }
 .sketch-tools { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; align-items: center; }
 .sketch-tools .tool-btn { background: #0d101a; border: 1px solid #2f354a; color: #c8d0ff; padding: 10px 14px; border-radius: 30px; cursor: pointer; font-size: 0.8rem; min-height: 40px; }
 .sketch-tools .tool-btn.active { border-color: var(--accent-secondary); background: rgba(57,255,20,0.1); color: #b0ffa0; }
@@ -636,9 +661,22 @@ select.neon-input { background-image: none; padding-right: 22px; cursor: pointer
         aspect-ratio: 1 / 1;
         border-radius: 6px;
     }
-    .blast-piece { gap: 2px; padding: 6px; }
-    .blast-piece .blast-cell { width: 20px; height: 20px; }
-    .blast-tray { min-height: 90px; gap: 12px; }
+    /* === ФИГУРКИ СНИЗУ: РОВНЫЕ КВАДРАТИКИ === */
+    .blast-tray {
+        min-height: 100px;
+        gap: 14px;
+    }
+    .blast-piece {
+        gap: 3px;
+        padding: 8px;
+        box-sizing: content-box;
+    }
+    .blast-piece .blast-cell {
+        width: 26px;
+        height: 26px;
+        aspect-ratio: 1 / 1;
+        border-radius: 6px;
+    }
 
     /* ===== УБИРАЕМ ИНДИВИДУАЛЬНЫЕ max-width У ПОЛЕЙ ===== */
     #timerHours, #timerMinutes, #timerSeconds { max-width: 100% !important; width: 100% !important; }
@@ -657,7 +695,7 @@ select.neon-input { background-image: none; padding-right: 22px; cursor: pointer
     .forecast-grid { grid-template-columns: repeat(2, 1fr); }
     .clock-circle { width: 160px; height: 160px; font-size: 1.5rem; }
     .blast-cell { border-radius: 5px; }
-    .blast-piece .blast-cell { width: 18px; height: 18px; }
+    .blast-piece .blast-cell { width: 22px; height: 22px; }
 }
 </style>
 </head>
@@ -2254,11 +2292,12 @@ function renderBlastTray() {
     const tray = document.getElementById('blastTray');
     if (!tray) return;
     tray.innerHTML = '';
+    const cellPx = window.innerWidth <= 480 ? 22 : (window.innerWidth <= 768 ? 26 : 22);
     blastPieces.forEach((p, i) => {
         const d = document.createElement('div');
         d.className = 'blast-piece';
         d.dataset.idx = i;
-        d.style.gridTemplateColumns = 'repeat(' + p.shape[0].length + ', 22px)';
+        d.style.gridTemplateColumns = 'repeat(' + p.shape[0].length + ', ' + cellPx + 'px)';
         p.shape.forEach(row => row.forEach(cell => {
             const c = document.createElement('div');
             c.className = 'blast-cell';
@@ -2357,7 +2396,6 @@ function getBlastCellFromPoint(x, y) {
     return null;
 }
 
-/* Мягкий поиск ближайшей клетки: если палец рядом с полем — всё равно найдёт */
 function findNearestBlastCell(x, y, shape) {
     const grid = document.getElementById('blastGrid');
     if (!grid) return null;
@@ -2423,13 +2461,9 @@ function onBlastMove(e) {
     }
 }
 
-/* Установка: если есть lastCell — ставим туда. Плюс "зажим" к краю поля,
-   если фигура вылезает за пределы, но хотя бы одна клетка попадает внутрь. */
 function tryPlaceBlast(startX, startY, sh) {
-    // Зажимаем в границы поля
     let sx = Math.max(0, Math.min(BLAST_N - sh[0].length, startX));
     let sy = Math.max(0, Math.min(BLAST_N - sh.length, startY));
-    // Проверяем, что хотя бы одна клетка фигуры попадает в поле (для "крайних" случаев)
     let anyInField = false;
     for (let dy = 0; dy < sh.length; dy++) {
         for (let dx = 0; dx < sh[dy].length; dx++) {
@@ -2443,7 +2477,6 @@ function tryPlaceBlast(startX, startY, sh) {
     }
     if (!anyInField) return null;
 
-    // Проверяем, что в зажатой позиции не занято
     for (let dy = 0; dy < sh.length; dy++) {
         for (let dx = 0; dx < sh[dy].length; dx++) {
             if (sh[dy][dx]) {
