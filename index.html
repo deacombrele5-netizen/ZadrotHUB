@@ -527,7 +527,6 @@ select.neon-input { background-image: none; padding-right: 22px; cursor: pointer
     min-height: 120px;
     align-items: center;
 }
-/* === ФИГУРКИ СНИЗУ: РОВНЫЕ КВАДРАТИКИ === */
 .blast-piece {
     display: grid;
     gap: 3px;
@@ -551,6 +550,24 @@ select.neon-input { background-image: none; padding-right: 22px; cursor: pointer
 .sketch-tools { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; align-items: center; }
 .sketch-tools .tool-btn { background: #0d101a; border: 1px solid #2f354a; color: #c8d0ff; padding: 10px 14px; border-radius: 30px; cursor: pointer; font-size: 0.8rem; min-height: 40px; }
 .sketch-tools .tool-btn.active { border-color: var(--accent-secondary); background: rgba(57,255,20,0.1); color: #b0ffa0; }
+.sketch-tools .tool-btn#sketchUndo,
+.sketch-tools .tool-btn#sketchRedo {
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 8px 14px;
+    min-width: 48px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.sketch-tools .tool-btn#sketchUndo:disabled,
+.sketch-tools .tool-btn#sketchRedo:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    border-color: #2f354a;
+    color: #6a7a9a;
+}
 .color-swatches { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
 .color-swatch { width: 32px; height: 32px; border-radius: 50%; cursor: pointer; border: 2px solid #2f354a; }
 .color-swatch.active { border-color: #fff; }
@@ -604,7 +621,6 @@ select.neon-input { background-image: none; padding-right: 22px; cursor: pointer
     h2 { font-size: 1.15rem; text-align: center; }
     h3 { font-size: 1rem; text-align: center; }
 
-    /* ===== ПОЛЯ ВВОДА: ОДИНАКОВАЯ ШИРИНА И ВЫСОТА ===== */
     .neon-input,
     select.neon-input,
     input.neon-input {
@@ -646,7 +662,6 @@ select.neon-input { background-image: none; padding-right: 22px; cursor: pointer
     .tab-order-item button { min-height: 44px; padding: 10px 18px; }
     .note-item .delete-btn { width: 36px; height: 36px; }
 
-    /* ===== БЛОЧНЫЙ ПАЗЛ: РОВНАЯ СЕТКА НА ТЕЛЕФОНЕ ===== */
     .blast-grid {
         grid-template-columns: repeat(8, 1fr);
         gap: 4px;
@@ -661,7 +676,6 @@ select.neon-input { background-image: none; padding-right: 22px; cursor: pointer
         aspect-ratio: 1 / 1;
         border-radius: 6px;
     }
-    /* === ФИГУРКИ СНИЗУ: РОВНЫЕ КВАДРАТИКИ === */
     .blast-tray {
         min-height: 100px;
         gap: 14px;
@@ -678,7 +692,14 @@ select.neon-input { background-image: none; padding-right: 22px; cursor: pointer
         border-radius: 6px;
     }
 
-    /* ===== УБИРАЕМ ИНДИВИДУАЛЬНЫЕ max-width У ПОЛЕЙ ===== */
+    .sketch-tools .tool-btn#sketchUndo,
+    .sketch-tools .tool-btn#sketchRedo {
+        font-size: 1.4rem;
+        min-width: 56px;
+        min-height: 52px;
+        padding: 10px 16px;
+    }
+
     #timerHours, #timerMinutes, #timerSeconds { max-width: 100% !important; width: 100% !important; }
     #nickWordCount, #nickLangSelect, #nickMinLetters, #nickMaxLetters {
         max-width: 100% !important;
@@ -795,8 +816,8 @@ select.neon-input { background-image: none; padding-right: 22px; cursor: pointer
                 <h3 data-i18n="nickname_generator">ГЕНЕРАТОР НИКНЕЙМОВ</h3>
                 <div class="flex-row mb-12">
                     <select class="neon-input" id="nickWordCount" style="max-width:110px;">
-                        <option value="1">1 слово</option>
-                        <option value="2">2 слова</option>
+                        <option value="1" data-i18n="nick_word_1">1 слово</option>
+                        <option value="2" data-i18n="nick_word_2">2 слова</option>
                     </select>
                     <select class="neon-input" id="nickLangSelect" style="max-width:130px;">
                         <option value="en">English</option>
@@ -904,6 +925,8 @@ select.neon-input { background-image: none; padding-right: 22px; cursor: pointer
             <button class="tool-btn" data-tool="diamond">Ромб</button>
             <button class="tool-btn" data-tool="pentagon">Пятиугольник</button>
             <button class="tool-btn" data-tool="hexagon">Шестиугольник</button>
+            <button class="tool-btn" id="sketchUndo" title="Назад">↶</button>
+            <button class="tool-btn" id="sketchRedo" title="Вперёд">↷</button>
             <span style="color:#8a9abb;font-size:0.8rem;">Размер:</span>
             <input type="range" id="sketchSize" min="1" max="50" value="4" style="accent-color:var(--accent);max-width:120px;">
             <div class="color-swatches" id="sketchColors"></div>
@@ -1058,6 +1081,7 @@ const translations = {
         hours:'ч', minutes:'мин', seconds:'сек',
         swap_blocks:'Поменять блоки местами',
         number_randomizer:'РАНДОМАЙЗЕР ЧИСЕЛ', nickname_generator:'ГЕНЕРАТОР НИКНЕЙМОВ',
+        nick_word_1:'1 слово', nick_word_2:'2 слова',
         from:'от', to:'до', generate:'Сгенерировать',
         enter_note:'Введите заметку...', save_note:'Сохранить запись',
         clear_all:'Очистить всё', theme_customization:'КАСТОМИЗАЦИЯ ТЕМЫ',
@@ -1100,6 +1124,7 @@ const translations = {
         hours:'h', minutes:'min', seconds:'sec',
         swap_blocks:'Swap blocks',
         number_randomizer:'NUMBER RANDOMIZER', nickname_generator:'NICKNAME GENERATOR',
+        nick_word_1:'1 word', nick_word_2:'2 words',
         from:'from', to:'to', generate:'Generate',
         enter_note:'Enter note...', save_note:'Save Note',
         clear_all:'Clear All', theme_customization:'THEME CUSTOMIZATION',
@@ -1247,6 +1272,7 @@ function switchScreen(screenId) {
     });
     if (screenId === 'weather') fetchWeatherData();
     if (screenId === 'blast') drawBlast();
+    if (screenId === 'sketch') updateSketchButtons();
 }
 
 function fillLangSelectors() {
@@ -2619,7 +2645,52 @@ function isBlastGameOver() {
 let skCanvas, skCtx, skDrawing = false;
 let skColor = '#8b5cf6', skSize = 4, skTool = 'brush';
 let skStartX = 0, skStartY = 0, skSnap = null;
+let skHistory = [];
+let skFuture = [];
+const SK_HISTORY_LIMIT = 20;
 const SK_COLORS = ['#ffffff','#000000','#ff0000','#00ff00','#0000ff','#ffff00','#ff00ff','#00ffff','#ff8800','#8b5cf6','#39ff14','#ff69b4'];
+
+function skPushHistory() {
+    if (!skCanvas || !skCtx) return;
+    try {
+        const snap = skCtx.getImageData(0, 0, skCanvas.width, skCanvas.height);
+        skHistory.push(snap);
+        if (skHistory.length > SK_HISTORY_LIMIT) skHistory.shift();
+        skFuture = [];
+        updateSketchButtons();
+    } catch(e) {}
+}
+
+function updateSketchButtons() {
+    const u = document.getElementById('sketchUndo');
+    const r = document.getElementById('sketchRedo');
+    if (u) u.disabled = skHistory.length === 0;
+    if (r) r.disabled = skFuture.length === 0;
+}
+
+function skUndo() {
+    if (!skCanvas || !skCtx || skHistory.length === 0) return;
+    try {
+        const current = skCtx.getImageData(0, 0, skCanvas.width, skCanvas.height);
+        skFuture.push(current);
+        if (skFuture.length > SK_HISTORY_LIMIT) skFuture.shift();
+        const prev = skHistory.pop();
+        skCtx.putImageData(prev, 0, 0);
+        updateSketchButtons();
+    } catch(e) {}
+}
+
+function skRedo() {
+    if (!skCanvas || !skCtx || skFuture.length === 0) return;
+    try {
+        const current = skCtx.getImageData(0, 0, skCanvas.width, skCanvas.height);
+        skHistory.push(current);
+        if (skHistory.length > SK_HISTORY_LIMIT) skHistory.shift();
+        const next = skFuture.pop();
+        skCtx.putImageData(next, 0, 0);
+        updateSketchButtons();
+    } catch(e) {}
+}
 
 function initSketch() {
     skCanvas = document.getElementById('sketchCanvas');
@@ -2648,10 +2719,10 @@ function initSketch() {
     document.getElementById('sketchCustomColor').oninput = e => skColor = e.target.value;
     document.getElementById('sketchSize').oninput = e => skSize = +e.target.value;
 
-    document.querySelectorAll('.tool-btn').forEach(b => {
+    document.querySelectorAll('.tool-btn[data-tool]').forEach(b => {
         b.onclick = () => {
             skTool = b.dataset.tool;
-            document.querySelectorAll('.tool-btn').forEach(x => x.classList.toggle('active', x === b));
+            document.querySelectorAll('.tool-btn[data-tool]').forEach(x => x.classList.toggle('active', x === b));
         };
     });
 
@@ -2661,7 +2732,14 @@ function initSketch() {
     skCanvas.addEventListener('pointerleave', endDraw);
     skCanvas.addEventListener('pointercancel', endDraw);
 
+    const uBtn = document.getElementById('sketchUndo');
+    const rBtn = document.getElementById('sketchRedo');
+    if (uBtn) uBtn.onclick = () => skUndo();
+    if (rBtn) rBtn.onclick = () => skRedo();
+    updateSketchButtons();
+
     document.getElementById('sketchClear').onclick = () => {
+        skPushHistory();
         skCtx.fillStyle = '#05060a';
         skCtx.fillRect(0, 0, skCanvas.width, skCanvas.height);
     };
@@ -2683,6 +2761,7 @@ function getSketchPos(e) {
 
 function startDraw(e) {
     e.preventDefault();
+    skPushHistory();
     skDrawing = true;
     const p = getSketchPos(e);
     skStartX = p.x; skStartY = p.y;
