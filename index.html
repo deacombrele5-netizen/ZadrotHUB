@@ -552,24 +552,6 @@ select.neon-input { background-image: none; padding-right: 22px; cursor: pointer
 .sketch-tools { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; align-items: center; }
 .sketch-tools .tool-btn { background: #0d101a; border: 1px solid #2f354a; color: #c8d0ff; padding: 10px 14px; border-radius: 30px; cursor: pointer; font-size: 0.8rem; min-height: 40px; touch-action: manipulation; }
 .sketch-tools .tool-btn.active { border-color: var(--accent-secondary); background: rgba(57,255,20,0.1); color: #b0ffa0; }
-.sketch-tools .tool-btn#sketchUndo,
-.sketch-tools .tool-btn#sketchRedo {
-    font-size: 1.3rem;
-    font-weight: 700;
-    padding: 8px 16px;
-    min-width: 52px;
-    min-height: 44px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-.sketch-tools .tool-btn#sketchUndo:disabled,
-.sketch-tools .tool-btn#sketchRedo:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-    border-color: #2f354a;
-    color: #6a7a9a;
-}
 .color-swatches { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
 .color-swatch { width: 32px; height: 32px; border-radius: 50%; cursor: pointer; border: 2px solid #2f354a; }
 .color-swatch.active { border-color: #fff; }
@@ -668,14 +650,6 @@ select.neon-input { background-image: none; padding-right: 22px; cursor: pointer
     .blast-tray { min-height: 100px; gap: 14px; }
     .blast-piece { gap: 3px; padding: 8px; box-sizing: content-box; }
     .blast-piece .blast-cell { width: 26px; height: 26px; aspect-ratio: 1 / 1; border-radius: 6px; }
-
-    .sketch-tools .tool-btn#sketchUndo,
-    .sketch-tools .tool-btn#sketchRedo {
-        font-size: 1.5rem;
-        min-width: 58px;
-        min-height: 52px;
-        padding: 10px 18px;
-    }
 
     #timerHours, #timerMinutes, #timerSeconds { max-width: 100% !important; width: 100% !important; }
     #nickWordCount, #nickLangSelect, #nickMinLetters, #nickMaxLetters { max-width: 100% !important; width: 100% !important; }
@@ -899,8 +873,6 @@ select.neon-input { background-image: none; padding-right: 22px; cursor: pointer
             <button class="tool-btn" data-tool="diamond" data-i18n="tool_diamond">Ромб</button>
             <button class="tool-btn" data-tool="pentagon" data-i18n="tool_pentagon">Пятиугольник</button>
             <button class="tool-btn" data-tool="hexagon" data-i18n="tool_hexagon">Шестиугольник</button>
-            <button class="tool-btn" id="sketchUndo" title="Назад">↶</button>
-            <button class="tool-btn" id="sketchRedo" title="Вперёд">↷</button>
             <span style="color:#8a9abb;font-size:0.8rem;" data-i18n="size_label">Размер:</span>
             <input type="range" id="sketchSize" min="1" max="50" value="4" style="accent-color:var(--accent);max-width:120px;">
             <div class="color-swatches" id="sketchColors"></div>
@@ -1263,7 +1235,6 @@ function switchScreen(screenId) {
     });
     if (screenId === 'weather') fetchWeatherData();
     if (screenId === 'blast') drawBlast();
-    if (screenId === 'sketch') updateSketchButtons();
 }
 
 function fillLangSelectors() {
@@ -2566,63 +2537,7 @@ function isBlastGameOver() {
 let skCanvas, skCtx, skDrawing = false;
 let skColor = '#8b5cf6', skSize = 4, skTool = 'brush';
 let skStartX = 0, skStartY = 0, skSnap = null;
-let skHistory = [];
-let skFuture = [];
-const SK_HISTORY_LIMIT = 20;
 const SK_COLORS = ['#ffffff','#000000','#ff0000','#00ff00','#0000ff','#ffff00','#ff00ff','#00ffff','#ff8800','#8b5cf6','#39ff14','#ff69b4'];
-
-function skIsCanvasEmpty() {
-    if (!skCanvas || !skCtx) return true;
-    try {
-        const data = skCtx.getImageData(0, 0, skCanvas.width, skCanvas.height).data;
-        for (let i = 0; i < data.length; i += 4) {
-            if (data[i] !== 5 || data[i+1] !== 6 || data[i+2] !== 10 || data[i+3] !== 255) return false;
-        }
-        return true;
-    } catch(e) { return true; }
-}
-
-function skPushHistory() {
-    if (!skCanvas || !skCtx) return;
-    try {
-        const snap = skCtx.getImageData(0, 0, skCanvas.width, skCanvas.height);
-        skHistory.push(snap);
-        if (skHistory.length > SK_HISTORY_LIMIT) skHistory.shift();
-        skFuture = [];
-        updateSketchButtons();
-    } catch(e) {}
-}
-
-function updateSketchButtons() {
-    const u = document.getElementById('sketchUndo');
-    const r = document.getElementById('sketchRedo');
-    if (u) u.disabled = skHistory.length === 0;
-    if (r) r.disabled = skFuture.length === 0;
-}
-
-function skUndo() {
-    if (!skCanvas || !skCtx || skHistory.length === 0) return;
-    try {
-        const current = skCtx.getImageData(0, 0, skCanvas.width, skCanvas.height);
-        skFuture.push(current);
-        if (skFuture.length > SK_HISTORY_LIMIT) skFuture.shift();
-        const prev = skHistory.pop();
-        skCtx.putImageData(prev, 0, 0);
-        updateSketchButtons();
-    } catch(e) {}
-}
-
-function skRedo() {
-    if (!skCanvas || !skCtx || skFuture.length === 0) return;
-    try {
-        const current = skCtx.getImageData(0, 0, skCanvas.width, skCanvas.height);
-        skHistory.push(current);
-        if (skHistory.length > SK_HISTORY_LIMIT) skHistory.shift();
-        const next = skFuture.pop();
-        skCtx.putImageData(next, 0, 0);
-        updateSketchButtons();
-    } catch(e) {}
-}
 
 function initSketch() {
     skCanvas = document.getElementById('sketchCanvas');
@@ -2664,15 +2579,7 @@ function initSketch() {
     skCanvas.addEventListener('pointerleave', endDraw);
     skCanvas.addEventListener('pointercancel', endDraw);
 
-    const uBtn = document.getElementById('sketchUndo');
-    const rBtn = document.getElementById('sketchRedo');
-    if (uBtn) uBtn.onclick = () => skUndo();
-    if (rBtn) rBtn.onclick = () => skRedo();
-    updateSketchButtons();
-
     document.getElementById('sketchClear').onclick = () => {
-        if (skIsCanvasEmpty()) return;
-        skPushHistory();
         skCtx.fillStyle = '#05060a';
         skCtx.fillRect(0, 0, skCanvas.width, skCanvas.height);
     };
@@ -2694,7 +2601,6 @@ function getSketchPos(e) {
 
 function startDraw(e) {
     e.preventDefault();
-    skPushHistory();
     skDrawing = true;
     const p = getSketchPos(e);
     skStartX = p.x; skStartY = p.y;
