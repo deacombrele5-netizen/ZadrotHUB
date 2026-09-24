@@ -555,7 +555,36 @@ select.neon-input { background-image: none; padding-right: 22px; cursor: pointer
     .capsule-group { justify-content: center; }
     h2 { font-size: 1.15rem; text-align: center; }
     h3 { font-size: 1rem; text-align: center; }
-    .neon-input { padding: 12px 18px; font-size: 16px; max-width: 100%; min-height: 48px; }
+
+    /* ===== ПОЛЯ ВВОДА: ОДИНАКОВАЯ ШИРИНА И ВЫСОТА ===== */
+    .neon-input,
+    select.neon-input,
+    input.neon-input {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        min-height: 48px;
+        height: 48px;
+        padding: 12px 18px;
+        font-size: 16px;
+        display: block;
+        box-sizing: border-box;
+    }
+    .profile-form {
+        max-width: 100%;
+        width: 100%;
+    }
+    .profile-form .neon-input { max-width: 100% !important; width: 100% !important; }
+    .timer-inputs input { max-width: 100% !important; width: 100% !important; }
+    .col2-grid .col input,
+    .col2-grid .col select {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-height: 48px;
+        height: 48px;
+        margin-bottom: 10px;
+    }
+
     .btn-neon { padding: 13px 20px; font-size: 0.85rem; min-height: 48px; }
     .col2-grid { grid-template-columns: 1fr; gap: 14px; }
     .calc-grid { max-width: 100%; gap: 7px; }
@@ -575,6 +604,19 @@ select.neon-input { background-image: none; padding-right: 22px; cursor: pointer
     .race-btn { font-size: 2.4rem; min-height: 80px; }
     .tab-order-item button { min-height: 44px; padding: 10px 18px; }
     .note-item .delete-btn { width: 36px; height: 36px; }
+
+    /* ===== УБИРАЕМ ИНДИВИДУАЛЬНЫЕ max-width У ПОЛЕЙ ===== */
+    #timerHours, #timerMinutes, #timerSeconds { max-width: 100% !important; width: 100% !important; }
+    #nickWordCount, #nickLangSelect, #nickMinLetters, #nickMaxLetters {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+    #randomFrom, #randomTo { width: 100% !important; max-width: 100% !important; }
+    #timezoneSelect { width: 100% !important; max-width: 100% !important; }
+    .flex-row.mb-12 { flex-direction: column; align-items: stretch; }
+    .flex-row.mb-12 > * { width: 100% !important; }
+    .timer-inputs { flex-direction: column; align-items: stretch; gap: 10px; }
+    .timer-inputs > span { text-align: center; }
 }
 @media (max-width: 480px) {
     .forecast-grid { grid-template-columns: repeat(2, 1fr); }
